@@ -5,7 +5,7 @@ import Image from "next/image";
 import SelectBox from "@/commons/components/selectbox";
 import SearchBar from "@/commons/components/searchbar";
 import Button from "@/commons/components/button";
-import { Emotion, getEmotionLabel, getEmotionImage, getEmotionColor } from "@/commons/constants/enum";
+import { Emotion, getEmotionLabel, getEmotionImage } from "@/commons/constants/enum";
 import styles from "./styles.module.css";
 
 // 일기 데이터 타입 정의
@@ -119,10 +119,7 @@ const DiariesComponent: React.FC = () => {
           <div className={styles.cardRow}>
             {mockDiaries.slice(0, 4).map((diary) => (
               <div key={diary.id} className={styles.card}>
-                <div 
-                  className={styles.cardImage}
-                  style={{ backgroundColor: getEmotionColor(diary.emotion) }}
-                >
+                <div className={styles.cardImage}>
                   <Image
                     src={getEmotionImage(diary.emotion)}
                     alt={getEmotionLabel(diary.emotion)}
@@ -146,7 +143,7 @@ const DiariesComponent: React.FC = () => {
                   <div className={styles.cardHeader}>
                     <span 
                       className={styles.emotionText}
-                      style={{ color: getEmotionColor(diary.emotion) }}
+                      data-emotion={diary.emotion}
                     >
                       {getEmotionLabel(diary.emotion)}
                     </span>
@@ -166,10 +163,7 @@ const DiariesComponent: React.FC = () => {
           <div className={styles.cardRow}>
             {mockDiaries.slice(4, 8).map((diary) => (
               <div key={diary.id} className={styles.card}>
-                <div 
-                  className={styles.cardImage}
-                  style={{ backgroundColor: getEmotionColor(diary.emotion) }}
-                >
+                <div className={styles.cardImage}>
                   <Image
                     src={getEmotionImage(diary.emotion)}
                     alt={getEmotionLabel(diary.emotion)}
@@ -193,7 +187,7 @@ const DiariesComponent: React.FC = () => {
                   <div className={styles.cardHeader}>
                     <span 
                       className={styles.emotionText}
-                      style={{ color: getEmotionColor(diary.emotion) }}
+                      data-emotion={diary.emotion}
                     >
                       {getEmotionLabel(diary.emotion)}
                     </span>
@@ -213,10 +207,7 @@ const DiariesComponent: React.FC = () => {
           <div className={styles.cardRow}>
             {mockDiaries.slice(8, 12).map((diary) => (
               <div key={diary.id} className={styles.card}>
-                <div 
-                  className={styles.cardImage}
-                  style={{ backgroundColor: getEmotionColor(diary.emotion) }}
-                >
+                <div className={styles.cardImage}>
                   <Image
                     src={getEmotionImage(diary.emotion)}
                     alt={getEmotionLabel(diary.emotion)}
@@ -240,7 +231,7 @@ const DiariesComponent: React.FC = () => {
                   <div className={styles.cardHeader}>
                     <span 
                       className={styles.emotionText}
-                      style={{ color: getEmotionColor(diary.emotion) }}
+                      data-emotion={diary.emotion}
                     >
                       {getEmotionLabel(diary.emotion)}
                     </span>

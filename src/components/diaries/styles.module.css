@@ -87,7 +87,6 @@
   flex: 1;
   min-width: 152px;
   width: 274px;
-  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .cardImage {
@@ -98,6 +97,11 @@
   justify-content: center;
   border-radius: 16px;
   margin: 0;
+}
+
+.cardImage img {
+  height: 208px;
+  object-fit: cover;
 }
 
 .emotionImage {
@@ -145,6 +149,27 @@
   font: var(--typo-sub-title-01);
   font-weight: 600;
   line-height: 20px;
+}
+
+/* 감정별 색상 - 피그마 디자인과 동일 */
+.emotionText[data-emotion="HAPPY"] {
+  color: #ea5757;
+}
+
+.emotionText[data-emotion="SAD"] {
+  color: #28b4e1;
+}
+
+.emotionText[data-emotion="ANGRY"] {
+  color: #777777;
+}
+
+.emotionText[data-emotion="SURPRISE"] {
+  color: #d59029;
+}
+
+.emotionText[data-emotion="ETC"] {
+  color: #a229ed;
 }
 
 .dateText {
