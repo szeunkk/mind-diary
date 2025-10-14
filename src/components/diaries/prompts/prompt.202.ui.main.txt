@@ -52,17 +52,22 @@
 
 ==============================================
 
-핵심요구사항) styles_cardImage 하위의 img 파일의 너비와 높이는 부모 요소의 100%로 지정될 수 있도록 수정할 것.
+기존히스토리-참고만) styles_cardImage 하위의 img 파일의 너비와 높이는 부모 요소의 100%로 지정될 수 있도록 수정할 것.
 
-핵심요구사항) styles_emotionImage를 사용하는 Image 태그의 경우 아래 사항을 준수할 것.
+기존히스토리-참고만) styles_emotionImage를 사용하는 Image 태그의 경우 아래 사항을 준수할 것.
                 - Image태그의 width와 height 속성은 0으로 지정할 것.
                 - Image태그의 size는 100vw로 지정할 것.
                 - styles_emotionImage css에서 필요한 width, height를 부모 요소의 100%로 지정될 수 있도로 수정할 것.
                 - styles_emotionImage object-fit은 cover로 설정할 것.
 
-핵심요구사항) styles_deleteButton에서 box-shadow는 설정하지 않을 것.
+기존히스토리-참고만) styles_deleteButton에서 box-shadow는 설정하지 않을 것.
 
-핵심요구사항) styles_emotionText에서 다른 공통 조건과 동일하게 global.css 변수 토큰을 사용할 것.
+기존히스토리-참고만) styles_emotionText에서 다른 공통 조건과 동일하게 global.css 변수 토큰을 사용할 것.
 
+==============================================
+
+핵심요구사항) styles_emotionImage에 border-radius 16px 을 설정할 것.
+
+핵심요구사항) styles_deleteButton에서 background-color는 설정하지 않을 것.
 
 
