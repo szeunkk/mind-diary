@@ -39,6 +39,8 @@
 
 기존히스토리-참고만) header, banner, navigation, footer의 타이포그래피를 피그마와 동일하게 구현할 것.
 
+기존히스토리-참고만) styles_navigationContent의 justify-content를 flex-start로 변경할 것
+
 ==============================================
 
-핵심요구사항) styles_navigationContent의 justify-content를 flex-start로 변경할 것
+핵심요구사항) styles_navigationContent의 padding은 제거할 것.
