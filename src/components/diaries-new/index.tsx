@@ -74,7 +74,7 @@ export default function DiariesNew() {
               placeholder="제목을 입력합니다."
               value={title}
               onChange={(e) => setTitle(e.target.value)}
-              className={styles.inputField}
+              className={styles.inputWidth}
             />
           </div>
           
@@ -99,7 +99,7 @@ export default function DiariesNew() {
             size="medium"
             theme="light"
             onClick={handleClose}
-            className={styles.closeButton}
+            className={styles.buttonWidth}
           >
             닫기
           </Button>
@@ -108,7 +108,7 @@ export default function DiariesNew() {
             size="medium"
             theme="light"
             onClick={handleSubmit}
-            className={styles.submitButton}
+            className={styles.buttonWidth}
           >
             등록하기
           </Button>
