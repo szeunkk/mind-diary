@@ -1,0 +1,156 @@
+/* Toggle Base Styles */
+.toggle {
+  display: inline-flex;
+  align-items: center;
+}
+
+.input {
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  height: 1px;
+  overflow: hidden;
+  white-space: nowrap;
+  width: 1px;
+}
+
+.label {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  border-radius: 100px;
+  box-sizing: border-box;
+}
+
+.knob {
+  display: block;
+  background-color: var(--color-gray-white);
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.toggle.disabled .label {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+/* Size Variants */
+.size-small .label {
+  width: 40px;
+  height: 24px;
+  padding: 2px;
+  justify-content: flex-start;
+}
+
+.size-small .knob {
+  width: 20px;
+  height: 20px;
+}
+
+.size-small .input:checked + .label {
+  justify-content: flex-end;
+}
+
+.size-medium .label {
+  width: 48px;
+  height: 28px;
+  padding: 2px;
+  justify-content: flex-start;
+}
+
+.size-medium .knob {
+  width: 24px;
+  height: 24px;
+}
+
+.size-medium .input:checked + .label {
+  justify-content: flex-end;
+}
+
+.size-large .label {
+  width: 56px;
+  height: 32px;
+  padding: 2px;
+  justify-content: flex-start;
+}
+
+.size-large .knob {
+  width: 28px;
+  height: 28px;
+}
+
+.size-large .input:checked + .label {
+  justify-content: flex-end;
+}
+
+/* Primary Variant - Light Theme */
+.variant-primary.theme-light .label {
+  background-color: var(--color-gray-10);
+}
+
+.variant-primary.theme-light .input:checked + .label {
+  background-color: #3ad84a;
+}
+
+/* Primary Variant - Dark Theme */
+.variant-primary.theme-dark .label {
+  background-color: var(--color-gray-60);
+}
+
+.variant-primary.theme-dark .input:checked + .label {
+  background-color: #3ad84a;
+}
+
+/* Secondary Variant - Light Theme */
+.variant-secondary.theme-light .label {
+  background-color: var(--color-gray-10);
+}
+
+.variant-secondary.theme-light .input:checked + .label {
+  background-color: var(--color-blue-60);
+}
+
+/* Secondary Variant - Dark Theme */
+.variant-secondary.theme-dark .label {
+  background-color: var(--color-gray-60);
+}
+
+.variant-secondary.theme-dark .input:checked + .label {
+  background-color: var(--color-blue-60);
+}
+
+/* Tertiary Variant - Light Theme */
+.variant-tertiary.theme-light .label {
+  background-color: var(--color-gray-10);
+}
+
+.variant-tertiary.theme-light .input:checked + .label {
+  background-color: var(--color-gray-50);
+}
+
+/* Tertiary Variant - Dark Theme */
+.variant-tertiary.theme-dark .label {
+  background-color: var(--color-gray-60);
+}
+
+.variant-tertiary.theme-dark .input:checked + .label {
+  background-color: var(--color-gray-30);
+}
+
+/* Focus State */
+.input:focus-visible + .label {
+  outline: 2px solid var(--color-border-focus);
+  outline-offset: 2px;
+}
+
+/* Disabled State */
+.disabled .label {
+  background-color: var(--color-disabled);
+}
+
+.disabled .input:checked + .label {
+  background-color: var(--color-disabled);
+}
+
+.disabled .knob {
+  background-color: var(--color-gray-30);
+}

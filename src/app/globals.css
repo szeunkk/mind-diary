@@ -1,0 +1,280 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Blue (Primary) Colors */
+  --color-blue-05: #f0f7ff;
+  --color-blue-10: #dbeeff;
+  --color-blue-20: #bddbff;
+  --color-blue-30: #93beff;
+  --color-blue-40: #6da5fa;
+  --color-blue-50: #497cff;
+  --color-blue-60: #3a5cf3;
+  --color-blue-70: #274ae1;
+  --color-blue-80: #1530a6;
+  --color-blue-90: #0b2184;
+
+  /* Gray Colors */
+  --color-gray-white: #ffffff;
+  --color-gray-05: #f2f2f2;
+  --color-gray-10: #e4e4e4;
+  --color-gray-20: #d4d3d3;
+  --color-gray-30: #c7c7c7;
+  --color-gray-40: #ababab;
+  --color-gray-50: #919191;
+  --color-gray-60: #777777;
+  --color-gray-70: #5f5f5f;
+  --color-gray-80: #333333;
+  --color-gray-90: #1c1c1c;
+  --color-gray-black: #000000;
+
+  /* Red (Error) Colors */
+  --color-red-05: #fdd7dc;
+  --color-red-10: #f797a4;
+  --color-red-20: #f4677a;
+  --color-red-30: #f03851;
+  --color-red-40: #e4112e;
+  --color-red-50: #b40e24;
+  --color-red-60: #850a1b;
+
+  /* Green (Success) Colors */
+  --color-green-05: #d3f3e0;
+  --color-green-10: #92e6b9;
+  --color-green-20: #15d66f;
+  --color-green-30: #12b75f;
+  --color-green-40: #109c51;
+  --color-green-50: #0e723c;
+  --color-green-60: #084424;
+
+  /* Yellow Colors */
+  --color-yellow-05: #ffe499;
+  --color-yellow-10: #ffd666;
+  --color-yellow-20: #ffc933;
+  --color-yellow-30: #ffb300;
+  --color-yellow-40: #eba500;
+  --color-yellow-50: #d69600;
+  --color-yellow-60: #b27d00;
+
+  /* Cool Gray Colors */
+  --color-cool-gray-01: #f8f8fa;
+  --color-cool-gray-05: #f6f6f9;
+  --color-cool-gray-10: #edeef2;
+  --color-cool-gray-20: #dddfe5;
+  --color-cool-gray-30: #d2d4dd;
+  --color-cool-gray-40: #c7c9d5;
+  --color-cool-gray-50: #bbbecd;
+  --color-cool-gray-60: #b0b3c4;
+
+  /* Semantic Colors - Light Mode */
+  --color-primary: var(--color-blue-60);
+  --color-success: var(--color-green-30);
+  --color-error: var(--color-red-30);
+  --color-warning: var(--color-yellow-30);
+  --color-disabled: var(--color-gray-20);
+
+  --color-background: var(--color-gray-white);
+  --color-foreground: var(--color-gray-black);
+  --color-surface: var(--color-gray-white);
+  --color-surface-variant: var(--color-gray-05);
+  --color-border: var(--color-gray-20);
+  --color-border-focus: var(--color-blue-60);
+  --color-text-primary: var(--color-gray-black);
+  --color-text-secondary: var(--color-gray-60);
+  --color-text-disabled: var(--color-gray-40);
+  --color-text-inverse: var(--color-gray-white);
+
+  /* Typography - Font Family */
+  --typo-font-family-korean: "Pretendard Variable", "Pretendard", -apple-system,
+    BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI",
+    "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+  --typo-font-family-english: -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, "Helvetica Neue", Arial, sans-serif;
+
+  /* Typography - Web Headline (Desktop) */
+  --typo-web-headline-01-font-family: var(--typo-font-family-korean);
+  --typo-web-headline-01-font-size: 48px;
+  --typo-web-headline-01-font-weight: 600;
+  --typo-web-headline-01-line-height: 60px;
+  --typo-web-headline-01: var(--typo-web-headline-01-font-weight)
+    var(--typo-web-headline-01-font-size) /
+    var(--typo-web-headline-01-line-height)
+    var(--typo-web-headline-01-font-family);
+
+  --typo-web-headline-02-font-family: var(--typo-font-family-korean);
+  --typo-web-headline-02-font-size: 36px;
+  --typo-web-headline-02-font-weight: 600;
+  --typo-web-headline-02-line-height: 48px;
+  --typo-web-headline-02: var(--typo-web-headline-02-font-weight)
+    var(--typo-web-headline-02-font-size) /
+    var(--typo-web-headline-02-line-height)
+    var(--typo-web-headline-02-font-family);
+
+  --typo-web-headline-03-font-family: var(--typo-font-family-korean);
+  --typo-web-headline-03-font-size: 28px;
+  --typo-web-headline-03-font-weight: 600;
+  --typo-web-headline-03-line-height: 36px;
+  --typo-web-headline-03: var(--typo-web-headline-03-font-weight)
+    var(--typo-web-headline-03-font-size) /
+    var(--typo-web-headline-03-line-height)
+    var(--typo-web-headline-03-font-family);
+
+  /* Typography - Headline (Mobile & Desktop) */
+  --typo-headline-01-font-family: var(--typo-font-family-korean);
+  --typo-headline-01-font-size: 24px;
+  --typo-headline-01-font-weight: 700;
+  --typo-headline-01-line-height: 32px;
+  --typo-headline-01: var(--typo-headline-01-font-weight)
+    var(--typo-headline-01-font-size) / var(--typo-headline-01-line-height)
+    var(--typo-headline-01-font-family);
+
+  --typo-headline-02-font-family: var(--typo-font-family-korean);
+  --typo-headline-02-font-size: 22px;
+  --typo-headline-02-font-weight: 800;
+  --typo-headline-02-line-height: 30px;
+  --typo-headline-02: var(--typo-headline-02-font-weight)
+    var(--typo-headline-02-font-size) / var(--typo-headline-02-line-height)
+    var(--typo-headline-02-font-family);
+
+  --typo-headline-03-font-family: var(--typo-font-family-korean);
+  --typo-headline-03-font-size: 20px;
+  --typo-headline-03-font-weight: 700;
+  --typo-headline-03-line-height: 28px;
+  --typo-headline-03: var(--typo-headline-03-font-weight)
+    var(--typo-headline-03-font-size) / var(--typo-headline-03-line-height)
+    var(--typo-headline-03-font-family);
+
+  /* Typography - Title */
+  --typo-title-01-font-family: var(--typo-font-family-korean);
+  --typo-title-01-font-size: 18px;
+  --typo-title-01-font-weight: 700;
+  --typo-title-01-line-height: 24px;
+  --typo-title-01: var(--typo-title-01-font-weight)
+    var(--typo-title-01-font-size) / var(--typo-title-01-line-height)
+    var(--typo-title-01-font-family);
+
+  --typo-title-02-font-family: var(--typo-font-family-korean);
+  --typo-title-02-font-size: 16px;
+  --typo-title-02-font-weight: 700;
+  --typo-title-02-line-height: 22px;
+  --typo-title-02: var(--typo-title-02-font-weight)
+    var(--typo-title-02-font-size) / var(--typo-title-02-line-height)
+    var(--typo-title-02-font-family);
+
+  --typo-title-03-font-family: var(--typo-font-family-korean);
+  --typo-title-03-font-size: 14px;
+  --typo-title-03-font-weight: 700;
+  --typo-title-03-line-height: 20px;
+  --typo-title-03: var(--typo-title-03-font-weight)
+    var(--typo-title-03-font-size) / var(--typo-title-03-line-height)
+    var(--typo-title-03-font-family);
+
+  --typo-sub-title-01-font-family: var(--typo-font-family-korean);
+  --typo-sub-title-01-font-size: 14px;
+  --typo-sub-title-01-font-weight: 600;
+  --typo-sub-title-01-line-height: 22px;
+  --typo-sub-title-01: var(--typo-sub-title-01-font-weight)
+    var(--typo-sub-title-01-font-size) / var(--typo-sub-title-01-line-height)
+    var(--typo-sub-title-01-font-family);
+
+  --typo-sub-title-02-font-family: var(--typo-font-family-korean);
+  --typo-sub-title-02-font-size: 12px;
+  --typo-sub-title-02-font-weight: 600;
+  --typo-sub-title-02-line-height: 18px;
+  --typo-sub-title-02: var(--typo-sub-title-02-font-weight)
+    var(--typo-sub-title-02-font-size) / var(--typo-sub-title-02-line-height)
+    var(--typo-sub-title-02-font-family);
+
+  /* Typography - Body */
+  --typo-body-01-font-family: var(--typo-font-family-korean);
+  --typo-body-01-font-size: 16px;
+  --typo-body-01-font-weight: 500;
+  --typo-body-01-line-height: 24px;
+  --typo-body-01: var(--typo-body-01-font-weight) var(--typo-body-01-font-size) /
+    var(--typo-body-01-line-height) var(--typo-body-01-font-family);
+
+  --typo-body-02-m-font-family: var(--typo-font-family-korean);
+  --typo-body-02-m-font-size: 14px;
+  --typo-body-02-m-font-weight: 500;
+  --typo-body-02-m-line-height: 22px;
+  --typo-body-02-m: var(--typo-body-02-m-font-weight)
+    var(--typo-body-02-m-font-size) / var(--typo-body-02-m-line-height)
+    var(--typo-body-02-m-font-family);
+
+  --typo-body-02-s-font-family: var(--typo-font-family-korean);
+  --typo-body-02-s-font-size: 14px;
+  --typo-body-02-s-font-weight: 400;
+  --typo-body-02-s-line-height: 20px;
+  --typo-body-02-s: var(--typo-body-02-s-font-weight)
+    var(--typo-body-02-s-font-size) / var(--typo-body-02-s-line-height)
+    var(--typo-body-02-s-font-family);
+
+  --typo-body-03-font-family: var(--typo-font-family-korean);
+  --typo-body-03-font-size: 12px;
+  --typo-body-03-font-weight: 500;
+  --typo-body-03-line-height: 18px;
+  --typo-body-03: var(--typo-body-03-font-weight) var(--typo-body-03-font-size) /
+    var(--typo-body-03-line-height) var(--typo-body-03-font-family);
+
+  /* Typography - Caption */
+  --typo-caption-01-font-family: var(--typo-font-family-korean);
+  --typo-caption-01-font-size: 12px;
+  --typo-caption-01-font-weight: 600;
+  --typo-caption-01-line-height: 14px;
+  --typo-caption-01: var(--typo-caption-01-font-weight)
+    var(--typo-caption-01-font-size) / var(--typo-caption-01-line-height)
+    var(--typo-caption-01-font-family);
+
+  --typo-caption-02-m-font-family: var(--typo-font-family-korean);
+  --typo-caption-02-m-font-size: 10px;
+  --typo-caption-02-m-font-weight: 600;
+  --typo-caption-02-m-line-height: 12px;
+  --typo-caption-02-m: var(--typo-caption-02-m-font-weight)
+    var(--typo-caption-02-m-font-size) / var(--typo-caption-02-m-line-height)
+    var(--typo-caption-02-m-font-family);
+
+  --typo-caption-02-s-font-family: var(--typo-font-family-korean);
+  --typo-caption-02-s-font-size: 10px;
+  --typo-caption-02-s-font-weight: 500;
+  --typo-caption-02-s-line-height: 12px;
+  --typo-caption-02-s: var(--typo-caption-02-s-font-weight)
+    var(--typo-caption-02-s-font-size) / var(--typo-caption-02-s-line-height)
+    var(--typo-caption-02-s-font-family);
+
+  --typo-caption-03-font-family: var(--typo-font-family-korean);
+  --typo-caption-03-font-size: 8px;
+  --typo-caption-03-font-weight: 600;
+  --typo-caption-03-line-height: 10px;
+  --typo-caption-03: var(--typo-caption-03-font-weight)
+    var(--typo-caption-03-font-size) / var(--typo-caption-03-line-height)
+    var(--typo-caption-03-font-family);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    /* Semantic Colors - Dark Mode */
+    --color-background: var(--color-gray-black);
+    --color-foreground: var(--color-gray-white);
+    --color-surface: var(--color-gray-90);
+    --color-surface-variant: var(--color-gray-80);
+    --color-border: var(--color-gray-70);
+    --color-border-focus: var(--color-blue-50);
+    --color-text-primary: var(--color-gray-white);
+    --color-text-secondary: var(--color-gray-40);
+    --color-text-disabled: var(--color-gray-60);
+    --color-text-inverse: var(--color-gray-black);
+  }
+}
+
+body {
+  color: var(--color-foreground);
+  background: var(--color-background);
+  font-family: var(--typo-font-family-korean);
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
