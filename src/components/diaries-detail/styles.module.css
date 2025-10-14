@@ -133,6 +133,7 @@
 .copySection {
   display: flex;
   justify-content: flex-end;
+  align-items: center;
   width: 100%;
 }
 
@@ -161,7 +162,6 @@
   height: 56px;
   display: flex;
   justify-content: flex-end;
-  align-items: flex-start;
   border-bottom: 1px solid var(--color-gray-black);
 }
 
@@ -213,7 +213,6 @@
 .retrospectItem {
   display: flex;
   flex-direction: column;
-  gap: 12px;
 }
 
 .retrospectContent {
@@ -225,6 +224,7 @@
   font-size: 16px;
   line-height: 24px;
   letter-spacing: -0.16px;
+  padding: 12px 0;
 }
 
 .retrospectText {
@@ -241,5 +241,4 @@
   width: 100%;
   height: 1px;
   background-color: var(--color-gray-10);
-  margin: 12px 0;
 }
