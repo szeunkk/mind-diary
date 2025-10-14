@@ -187,7 +187,6 @@ const DiariesDetailComponent: React.FC = () => {
             size="medium"
             theme="light"
             onClick={handleRetrospectSubmit}
-            className={styles.retrospectSubmitButton}
           >
             입력
           </Button>

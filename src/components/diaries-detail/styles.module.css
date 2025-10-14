@@ -201,11 +201,6 @@
   min-width: 0;
 }
 
-.retrospectSubmitButton {
-  flex-shrink: 0;
-  width: auto;
-}
-
 /* Retrospect List - 1168 * 72 */
 .retrospectList {
   width: 1168px;

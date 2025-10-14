@@ -10,7 +10,7 @@
 
 ==============================================
 
-조건-피그마) 활용할MCP: CursorTalkToFigmaMCP(채널명: mfugdigm)
+조건-피그마) 활용할MCP: CursorTalkToFigmaMCP(채널명: 7poyltzz)
 조건-피그마) 참고할 공통컴포넌트 노드ID: 3:1461
 
 조건-파일경로) 구현될 TSX 파일경로: src/commons/components/button/index.tsx
@@ -29,6 +29,9 @@
 
 기존히스토리-참고만) 현재 light_theme과 dark_theme의 모드 button 배경 색상이 서로 변경되어있어, light_theme의 색상과 dark_theme의 색상을 각각 반대로 변경할 것.
 
+기존히스토리-참고만) 현재 button의 default 색상은 button light_theme과 동일하도록 변경할 것
+
 ==============================================
 
-핵심요구사항) 현재 button의 default 색상은 button light_theme과 동일하도록 변경할 것
+핵심요구사항) variant-size에서 너비와 높이가 지정되어있지 않아, height를 기준으로 size가 결정될 수 있도록 수정할 것.
+            - width는 별도 지정하지 않도록 수정할 것.
