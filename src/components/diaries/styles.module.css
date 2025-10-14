@@ -109,6 +109,7 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+  border-radius: 16px;
 }
 
 .deleteButton {
@@ -117,7 +118,6 @@
   right: 12px;
   width: 24px;
   height: 24px;
-  background-color: var(--color-surface);
   border: none;
   border-radius: 50%;
   display: flex;
@@ -127,7 +127,7 @@
 }
 
 .deleteButton:hover {
-  background-color: var(--color-gray-05);
+  opacity: 0.8;
 }
 
 .cardContent {
@@ -151,25 +151,25 @@
   line-height: 20px;
 }
 
-/* 감정별 색상 - global.css 변수 토큰 사용 */
+/* 감정별 색상 - 피그마 디자인과 일치하도록 수정 */
 .emotionText[data-emotion="HAPPY"] {
-  color: var(--color-red-30);
+  color: #ea5757;
 }
 
 .emotionText[data-emotion="SAD"] {
-  color: var(--color-blue-50);
+  color: #28b4e1;
 }
 
 .emotionText[data-emotion="ANGRY"] {
-  color: var(--color-gray-60);
+  color: #777777;
 }
 
 .emotionText[data-emotion="SURPRISE"] {
-  color: var(--color-yellow-40);
+  color: #d59029;
 }
 
 .emotionText[data-emotion="ETC"] {
-  color: var(--color-blue-60);
+  color: #a229ed;
 }
 
 .dateText {
