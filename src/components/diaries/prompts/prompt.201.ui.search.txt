@@ -43,7 +43,9 @@
 
 기존히스토리-참고만) styles_search의 align-items는 flex-start로 할 것.
 
+기존히스토리-참고만) styles_searchLeft의 align-items는 지정하지 않을 것.
 
 ==============================================
 
-핵심요구사항) styles_searchLeft의 align-items는 지정하지 않을 것.
+핵심요구사항) styles_dropdown의 position을 relative로 변경할 것.
+
