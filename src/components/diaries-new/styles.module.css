@@ -1,0 +1,113 @@
+/* Wrapper - 640 * 560 */
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 640px;
+  height: 560px;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+}
+
+/* Header - full * 24 */
+.header {
+  display: flex;
+  width: 100%;
+  height: 24px;
+  background-color: var(--color-surface-variant);
+}
+
+.headerContent {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  font: var(--typo-caption-01);
+  color: var(--color-text-secondary);
+}
+
+/* Gap - full * 40 */
+.gap {
+  display: flex;
+  width: 100%;
+  height: 40px;
+}
+
+/* Gap Small - full * 24 */
+.gapSmall {
+  display: flex;
+  width: 100%;
+  height: 24px;
+}
+
+/* Emotion Box - full * 64 */
+.emotionBox {
+  display: flex;
+  width: 100%;
+  height: 64px;
+  background-color: var(--color-surface-variant);
+}
+
+.emotionContent {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  font: var(--typo-body-02-m);
+  color: var(--color-text-secondary);
+}
+
+/* Input Title - full * 76 */
+.inputTitle {
+  display: flex;
+  width: 100%;
+  height: 76px;
+  background-color: var(--color-surface-variant);
+}
+
+.inputTitleContent {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  font: var(--typo-body-01);
+  color: var(--color-text-secondary);
+}
+
+/* Input Content - full * 156 */
+.inputContent {
+  display: flex;
+  width: 100%;
+  height: 156px;
+  background-color: var(--color-surface-variant);
+}
+
+.inputContentArea {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  font: var(--typo-body-01);
+  color: var(--color-text-secondary);
+}
+
+/* Footer - full * 48 */
+.footer {
+  display: flex;
+  width: 100%;
+  height: 48px;
+  background-color: var(--color-surface-variant);
+}
+
+.footerContent {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  font: var(--typo-body-02-m);
+  color: var(--color-text-secondary);
+}
