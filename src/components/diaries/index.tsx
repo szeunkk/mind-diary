@@ -145,16 +145,18 @@ const DiariesComponent: React.FC = () => {
       <div className={styles.gap32}></div>
       <div className={styles.search}>
         <div className={styles.searchLeft}>
-          <SelectBox
-            variant="primary"
-            size="medium"
-            theme="light"
-            options={filterOptions}
-            value={selectedFilter}
-            onChange={handleFilterChange}
-            placeholder="전체"
-            className={styles.filterSelect}
-          />
+          <div className={styles.dropdown}>
+            <SelectBox
+              variant="primary"
+              size="medium"
+              theme="light"
+              options={filterOptions}
+              value={selectedFilter}
+              onChange={handleFilterChange}
+              placeholder="전체"
+              className={styles.filterSelect}
+            />
+          </div>
           <SearchBar
             variant="primary"
             size="medium"

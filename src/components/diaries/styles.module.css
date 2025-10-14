@@ -38,6 +38,11 @@
   align-items: center;
 }
 
+.dropdown {
+  position: relative;
+  z-index: 1;
+}
+
 .filterSelect {
   width: 120px;
 }
