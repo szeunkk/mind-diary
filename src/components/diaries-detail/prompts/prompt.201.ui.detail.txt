@@ -10,7 +10,7 @@
 
 ==============================================
 
-조건-피그마) 활용할MCP: CursorTalkToFigmaMCP(채널명: qqu94wcv)
+조건-피그마) 활용할MCP: CursorTalkToFigmaMCP(채널명: 7poyltzz)
 조건-피그마) 구현될 컴포넌트 노드ID(라이트모드: detail-title 영역): 3:1073
 조건-피그마) 구현될 컴포넌트 노드ID(라이트모드: detail-content 영역): 3:1083
 조건-피그마) 구현될 컴포넌트 노드ID(라이트모드: detail-footer 영역): 3:1092
@@ -64,8 +64,10 @@
 기존히스토리-참고만) styles_button이 피그마와 상이하여, 피그마와 동일하게 변경할 것.
                 - detailFooter button 노드ID : 3:1093
 
+기존히스토리-참고만) styles_button의 높이가 피그마와 상이하여, 피그마와 동일하게 변경할 것.
+
+기존히스토리-참고만) styles_detailFooter의 높이는 56px로 설정하고, 피그마와 동일하게 border-bottom 설정할 것.
+ 
 ==============================================
 
-핵심요구사항) styles_button의 높이가 피그마와 상이하여, 피그마와 동일하게 변경할 것.
-
-핵심요구사항) styles_detailFooter의 높이는 54px로 설정하고, 피그마와 동일하게 border-bottom 설정할 것.
+핵심요구사항) styles_button의 높이가 피그마와 상이하여, 피그마와 동일할 수 있도록 공통 컴포넌트를 활용하여 높이를 조정할 것.

@@ -54,7 +54,8 @@ const mockRetrospectData: RetrospectData[] = [
 
 const DiariesDetailComponent: React.FC = () => {
   const [retrospectInput, setRetrospectInput] = useState("");
-  const [retrospectList, setRetrospectList] = useState<RetrospectData[]>(mockRetrospectData);
+  const [retrospectList, setRetrospectList] =
+    useState<RetrospectData[]>(mockRetrospectData);
 
   const handleCopyContent = () => {
     navigator.clipboard.writeText(mockDiaryData.content);
@@ -74,11 +75,14 @@ const DiariesDetailComponent: React.FC = () => {
       const newRetrospect: RetrospectData = {
         id: Date.now().toString(),
         content: retrospectInput.trim(),
-        createdAt: new Date().toLocaleDateString("ko-KR", {
-          year: "numeric",
-          month: "2-digit",
-          day: "2-digit",
-        }).replace(/\./g, ". ").replace(/\s+$/, ""),
+        createdAt: new Date()
+          .toLocaleDateString("ko-KR", {
+            year: "numeric",
+            month: "2-digit",
+            day: "2-digit",
+          })
+          .replace(/\./g, ". ")
+          .replace(/\s+$/, ""),
       };
       setRetrospectList([newRetrospect, ...retrospectList]);
       setRetrospectInput("");
@@ -149,7 +153,7 @@ const DiariesDetailComponent: React.FC = () => {
         <div className={styles.buttonGroup}>
           <Button
             variant="outline"
-            size="medium"
+            size="small"
             theme="light"
             onClick={handleEdit}
           >
@@ -157,7 +161,7 @@ const DiariesDetailComponent: React.FC = () => {
           </Button>
           <Button
             variant="outline"
-            size="medium"
+            size="small"
             theme="light"
             onClick={handleDelete}
           >
@@ -201,8 +205,12 @@ const DiariesDetailComponent: React.FC = () => {
         {retrospectList.map((retrospect, index) => (
           <div key={retrospect.id} className={styles.retrospectItem}>
             <div className={styles.retrospectContent}>
-              <span className={styles.retrospectText}>{retrospect.content}</span>
-              <span className={styles.retrospectDate}>[{retrospect.createdAt}]</span>
+              <span className={styles.retrospectText}>
+                {retrospect.content}
+              </span>
+              <span className={styles.retrospectDate}>
+                [{retrospect.createdAt}]
+              </span>
             </div>
             {index < retrospectList.length - 1 && (
               <div className={styles.retrospectDivider}></div>
