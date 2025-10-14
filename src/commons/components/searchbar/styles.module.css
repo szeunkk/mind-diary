@@ -40,7 +40,7 @@
 }
 
 .container:focus-within {
-  border-color: var(--color-blue-50);
+  /* border-color 제거 - focus 시 border 색상 변경하지 않음 */
 }
 
 .container.disabled {
@@ -101,7 +101,7 @@
 }
 
 .theme-light.variant-primary:focus-within {
-  border-color: var(--color-blue-50);
+  /* border-color 제거 - focus 시 border 색상 변경하지 않음 */
   background-color: var(--color-gray-white);
 }
 
@@ -112,7 +112,7 @@
 }
 
 .theme-light.variant-secondary:focus-within {
-  border-color: var(--color-blue-50);
+  /* border-color 제거 - focus 시 border 색상 변경하지 않음 */
   background-color: var(--color-gray-white);
 }
 
@@ -123,7 +123,7 @@
 }
 
 .theme-light.variant-tertiary:focus-within {
-  border-color: var(--color-blue-50);
+  /* border-color 제거 - focus 시 border 색상 변경하지 않음 */
   background-color: var(--color-gray-05);
 }
 
@@ -135,7 +135,7 @@
 }
 
 .theme-dark.variant-primary:focus-within {
-  border-color: var(--color-blue-40);
+  /* border-color 제거 - focus 시 border 색상 변경하지 않음 */
   background-color: var(--color-gray-90);
 }
 
@@ -150,7 +150,7 @@
 }
 
 .theme-dark.variant-secondary:focus-within {
-  border-color: var(--color-blue-40);
+  /* border-color 제거 - focus 시 border 색상 변경하지 않음 */
   background-color: var(--color-gray-90);
 }
 
@@ -165,7 +165,7 @@
 }
 
 .theme-dark.variant-tertiary:focus-within {
-  border-color: var(--color-blue-40);
+  /* border-color 제거 - focus 시 border 색상 변경하지 않음 */
   background-color: var(--color-gray-80);
 }
 
