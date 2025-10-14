@@ -39,15 +39,30 @@
                 - 사진: emotion enum 타입에 지정된 이미지경로(/images) 사용할 것.
                 - 감정텍스트: emotion enum 타입에 지정된 감정텍스트. "행복해요", "슬퍼요" 등 사용할 것.
 
-==============================================
+기존히스토리-참고만) styles_card의 box-shadow는 피그마와 동일하게 없앨 것.
 
-핵심요구사항) styles_card의 box-shadow는 피그마와 동일하게 없앨 것.
-
-핵심요구사항) styles_cardImage는 피그마와 동일하게 수정할 것.
+기존히스토리-참고만) styles_cardImage는 피그마와 동일하게 수정할 것.
                 - background-color는 없앨 것.
                 - styles_cardImage 하위의 img 파일의 높이는 styles_cardImage의 높이와 동일하게 하며, object-fit은 cover로 설정할 것.
 
-핵심요구사항) styles_emotionText의 font color의 경우만, global.css 명시된 변수 토큰과 동일한 값이 없을 경우, 비슷한 토큰이 아닌 피그마와 동일하게 설정할 것.
+기존히스토리-참고만) styles_emotionText의 font color의 경우만, global.css 명시된 변수 토큰과 동일한 값이 없을 경우, 비슷한 토큰이 아닌 피그마와 동일하게 설정할 것.
 
-핵심요구사항) styles_deleteButton은 아래 nodeID를 참고하여 피그마와 동일하게 구현할 것.
+기존히스토리-참고만) styles_deleteButton은 아래 nodeID를 참고하여 피그마와 동일하게 구현할 것.
                 - 다이어리카드 삭제 버튼 nodeID: 13:1486
+
+==============================================
+
+핵심요구사항) styles_cardImage 하위의 img 파일의 너비와 높이는 부모 요소의 100%로 지정될 수 있도록 수정할 것.
+
+핵심요구사항) styles_emotionImage를 사용하는 Image 태그의 경우 아래 사항을 준수할 것.
+                - Image태그의 width와 height 속성은 0으로 지정할 것.
+                - Image태그의 size는 100vw로 지정할 것.
+                - styles_emotionImage css에서 필요한 width, height를 부모 요소의 100%로 지정될 수 있도로 수정할 것.
+                - styles_emotionImage object-fit은 cover로 설정할 것.
+
+핵심요구사항) styles_deleteButton에서 box-shadow는 설정하지 않을 것.
+
+핵심요구사항) styles_emotionText에서 다른 공통 조건과 동일하게 global.css 변수 토큰을 사용할 것.
+
+
+

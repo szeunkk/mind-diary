@@ -123,8 +123,9 @@ const DiariesComponent: React.FC = () => {
                   <Image
                     src={getEmotionImage(diary.emotion)}
                     alt={getEmotionLabel(diary.emotion)}
-                    width={80}
-                    height={80}
+                    width={0}
+                    height={0}
+                    sizes="100vw"
                     className={styles.emotionImage}
                   />
                   <button 
@@ -167,8 +168,9 @@ const DiariesComponent: React.FC = () => {
                   <Image
                     src={getEmotionImage(diary.emotion)}
                     alt={getEmotionLabel(diary.emotion)}
-                    width={80}
-                    height={80}
+                    width={0}
+                    height={0}
+                    sizes="100vw"
                     className={styles.emotionImage}
                   />
                   <button 
@@ -211,8 +213,9 @@ const DiariesComponent: React.FC = () => {
                   <Image
                     src={getEmotionImage(diary.emotion)}
                     alt={getEmotionLabel(diary.emotion)}
-                    width={80}
-                    height={80}
+                    width={0}
+                    height={0}
+                    sizes="100vw"
                     className={styles.emotionImage}
                   />
                   <button 
