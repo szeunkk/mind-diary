@@ -107,7 +107,7 @@ const DiariesDetailComponent: React.FC = () => {
       <div className={styles.detailFooter}>
         <div className={styles.buttonGroup}>
           <Button
-            variant="primary"
+            variant="outline"
             size="medium"
             theme="light"
             onClick={handleEdit}
@@ -115,7 +115,7 @@ const DiariesDetailComponent: React.FC = () => {
             수정
           </Button>
           <Button
-            variant="primary"
+            variant="outline"
             size="medium"
             theme="light"
             onClick={handleDelete}

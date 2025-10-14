@@ -157,3 +157,32 @@
 .variant-tertiary.theme-dark:active:not(:disabled) {
   background-color: rgba(0, 0, 0, 0.05);
 }
+
+/* Outline Variant - 피그마 디자인에 맞는 스타일 */
+.variant-outline.theme-light {
+  background-color: var(--color-gray-white);
+  color: var(--color-gray-90);
+  box-shadow: 0 0 0 1px var(--color-gray-20) inset;
+}
+
+.variant-outline.theme-light:hover:not(:disabled) {
+  background-color: var(--color-gray-05);
+}
+
+.variant-outline.theme-light:active:not(:disabled) {
+  background-color: var(--color-gray-10);
+}
+
+.variant-outline.theme-dark {
+  background-color: var(--color-gray-90);
+  color: var(--color-gray-white);
+  box-shadow: 0 0 0 1px var(--color-gray-70) inset;
+}
+
+.variant-outline.theme-dark:hover:not(:disabled) {
+  background-color: var(--color-gray-80);
+}
+
+.variant-outline.theme-dark:active:not(:disabled) {
+  background-color: var(--color-gray-70);
+}
