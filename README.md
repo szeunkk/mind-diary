@@ -1,4 +1,4 @@
-# Vibe Coding
+# MIND DIARY
 
 Next.js와 Storybook을 활용한 컴포넌트 기반 프론트엔드 프로젝트입니다.
 
@@ -18,7 +18,7 @@ Storybook을 통해 독립적으로 컴포넌트를 개발하고 테스트할 �
 ## 📦 프로젝트 구조
 
 ```
-vibe-coding/
+mind-diary/
 ├── src/
 │   ├── app/              # Next.js App Router 페이지
 │   └── commons/          # 공통 컴포넌트 및 유틸리티
