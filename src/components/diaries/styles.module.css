@@ -57,13 +57,13 @@
   width: 100%;
   min-height: 936px;
   justify-content: center;
-  align-items: flex-start;
 }
 
 .cardGrid {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
+  gap: 24px;
   width: 100%;
   max-width: 1168px;
   min-width: 320px;
@@ -75,7 +75,6 @@
   justify-content: space-between;
   align-items: flex-start;
   flex: 0 0 calc(50% - 12px);
-  margin-bottom: 24px;
 }
 
 .card {
@@ -87,7 +86,7 @@
   position: relative;
   flex: 1;
   min-width: 152px;
-  max-width: 274px;
+  width: 274px;
 }
 
 .cardImage {
