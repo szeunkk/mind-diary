@@ -3,94 +3,160 @@
   display: flex;
   flex-direction: column;
   width: 640px;
-  height: 560px;
   background-color: var(--color-surface);
-  border: 1px solid var(--color-border);
+  border-radius: 24px;
+  padding: 24px;
+  gap: 40px;
+  box-sizing: border-box;
 }
 
 /* Header - full * 24 */
 .header {
   display: flex;
   width: 100%;
-  height: 24px;
-  background-color: var(--color-surface-variant);
+  height: auto;
 }
 
 .headerContent {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   width: 100%;
   height: 100%;
-  font: var(--typo-caption-01);
-  color: var(--color-text-secondary);
+  font: var(--typo-headline-01);
+  color: var(--color-text-primary);
 }
 
-/* Gap - full * 40 */
-.gap {
+/* Main Content */
+.mainContent {
   display: flex;
+  flex-direction: column;
+  gap: 40px;
   width: 100%;
-  height: 40px;
 }
 
-/* Gap Small - full * 24 */
-.gapSmall {
+/* Text Input Area */
+.textInputArea {
   display: flex;
+  flex-direction: column;
+  gap: 24px;
   width: 100%;
-  height: 24px;
 }
 
 /* Emotion Box - full * 64 */
 .emotionBox {
   display: flex;
   width: 100%;
-  height: 64px;
-  background-color: var(--color-surface-variant);
+  flex-direction: column;
+  gap: 16px;
 }
 
 .emotionContent {
   display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+}
+
+.emotionTitle {
+  font: var(--typo-headline-03);
+  color: var(--color-text-primary);
+}
+
+.emotionRadioGroup {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
   align-items: center;
-  justify-content: center;
+  max-width: 592px;
+}
+
+.emotionRadioItem {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  border-radius: 8px;
+}
+
+.emotionRadioInput {
+  display: none;
+}
+
+.emotionRadioIcon {
+  display: flex;
+  width: 24px;
+  height: 24px;
+}
+
+.emotionRadioIcon img {
   width: 100%;
   height: 100%;
-  font: var(--typo-body-02-m);
-  color: var(--color-text-secondary);
+}
+
+.emotionRadioLabel {
+  font: var(--typo-title-01);
+  color: var(--color-text-primary);
+  white-space: nowrap;
 }
 
 /* Input Title - full * 76 */
 .inputTitle {
   display: flex;
   width: 100%;
-  height: 76px;
-  background-color: var(--color-surface-variant);
+  flex-direction: column;
+  gap: 8px;
 }
 
 .inputTitleContent {
   display: flex;
-  align-items: center;
-  justify-content: center;
+  flex-direction: column;
+  gap: 8px;
   width: 100%;
-  height: 100%;
-  font: var(--typo-body-01);
-  color: var(--color-text-secondary);
+}
+
+.inputLabel {
+  font: var(--typo-body-02-m);
+  color: var(--color-text-primary);
+}
+
+.inputField {
+  width: 100%;
 }
 
 /* Input Content - full * 156 */
 .inputContent {
   display: flex;
   width: 100%;
-  height: 156px;
-  background-color: var(--color-surface-variant);
+  flex-direction: column;
+  gap: 8px;
 }
 
 .inputContentArea {
   display: flex;
-  align-items: center;
-  justify-content: center;
+  flex-direction: column;
+  gap: 8px;
   width: 100%;
-  height: 100%;
+}
+
+.textareaField {
+  width: 100%;
+  height: 128px;
+  padding: 12px 16px;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  background-color: var(--color-surface);
   font: var(--typo-body-01);
+  color: var(--color-text-primary);
+  resize: none;
+  outline: none;
+}
+
+.textareaField:focus {
+  border-color: var(--color-border-focus);
+}
+
+.textareaField::placeholder {
   color: var(--color-text-secondary);
 }
 
@@ -98,16 +164,21 @@
 .footer {
   display: flex;
   width: 100%;
-  height: 48px;
-  background-color: var(--color-surface-variant);
+  justify-content: center;
 }
 
 .footerContent {
   display: flex;
   align-items: center;
-  justify-content: center;
-  width: 100%;
-  height: 100%;
-  font: var(--typo-body-02-m);
-  color: var(--color-text-secondary);
+  gap: 16px;
+}
+
+.closeButton {
+  width: 104px;
+  height: 48px;
+}
+
+.submitButton {
+  width: 104px;
+  height: 48px;
 }

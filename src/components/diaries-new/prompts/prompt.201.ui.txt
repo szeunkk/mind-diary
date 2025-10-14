@@ -10,7 +10,7 @@
 
 ==============================================
 
-조건-피그마) 활용할MCP: CursorTalkToFigmaMCP(채널명: oq3a7d0f)
+조건-피그마) 활용할MCP: CursorTalkToFigmaMCP(채널명: v7kqs0h9)
 조건-피그마) 구현될 컴포넌트 노드ID(wrapper(+ header 제목 포함) 영역): 3:837
 조건-피그마) 구현될 컴포넌트 노드ID(emotion-box 영역): 3:840
 조건-피그마) 구현될 컴포넌트 노드ID(input-title 영역): 3:849
@@ -34,7 +34,7 @@
 ==============================================
 
 핵심요구사항) MCP를 연동하여 피그마의 디자인을 이미 만들어져있는 와이어프레임의 
-            wrapper, emotion-box, input-title, input-content, footer 영역에 그대로 구현할 것.
+            wrapper, emotionBox, inputTitle, inputContent, footer 영역에 그대로 구현할 것.
 
 핵심요구사항) 일기등록은 아래의 조건으로 Enum 데이터를 만들어 적용할 것.
             1. 일기카드는 감정과 관련된 내용으로 enum 타입을 활용할 것.
@@ -42,7 +42,7 @@
                 - 조건: enum.ts의 원본은 수정하지 말 것.
             
             2. 아래의 지시를 반영하여 구현할 것.
-                1) emotion-box
+                1) emotionBox
                     - "오늘 기분은 어땠나요?" 텍스트: 피그마와 동일하게 구현할 것.
                     - 라디오버튼(행복해요, 슬퍼요, 놀랐어요, 화나요, 기타): emotion enum 타입에 지정된 감정텍스트. "행복해요", "슬퍼요" 등 사용할 것.
 
@@ -59,10 +59,10 @@
                 2) header
                     - 일기쓰기텍스트: 공통컴포넌트없음
 
-                3) input-title
+                3) inputTitle
                     - 제목입력: <Input />
 
-                4) input-content
+                4) inputContent
                     - 내용입력: 공통컴포넌트없음
 
                 5) footer
