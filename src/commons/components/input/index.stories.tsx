@@ -131,7 +131,7 @@ export const Disabled: Story = {
 
 export const DisabledWithValue: Story = {
   args: {
-    value: "비활성화된 입력 필드",
+    value: "수정중일땐 회고를 작성할 수 없어요.",
     disabled: true,
   },
 };
@@ -162,6 +162,26 @@ export const SearchInput: Story = {
   args: {
     type: "search",
     placeholder: "검색어를 입력하세요",
+  },
+};
+
+// Figma Design Examples
+export const FigmaDefault: Story = {
+  args: {
+    placeholder: "회고를 남겨보세요.",
+    variant: "primary",
+    size: "medium",
+    theme: "light",
+  },
+};
+
+export const FigmaDisabled: Story = {
+  args: {
+    value: "수정중일땐 회고를 작성할 수 없어요.",
+    disabled: true,
+    variant: "primary",
+    size: "medium",
+    theme: "light",
   },
 };
 
@@ -295,7 +315,7 @@ export const ComplexExample: Story = {
         <Input variant="primary" disabled placeholder="Primary Disabled" />
         <Input variant="secondary" disabled placeholder="Secondary Disabled" />
         <Input variant="tertiary" disabled placeholder="Tertiary Disabled" />
-        <Input disabled value="비활성화된 입력 필드" />
+        <Input disabled value="수정중일땐 회고를 작성할 수 없어요." />
       </div>
 
       <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>

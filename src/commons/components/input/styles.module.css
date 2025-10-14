@@ -90,22 +90,22 @@
 
 /* Disabled State */
 .disabled {
-  background-color: #f2f2f2;
-  border: none;
-  color: #ababab;
+  background-color: #f2f2f2 !important;
+  border: none !important;
+  color: #ababab !important;
   cursor: not-allowed;
 }
 
 .disabled::placeholder {
-  color: #ababab;
+  color: #ababab !important;
 }
 
 .theme-dark.disabled {
-  background-color: #f2f2f2;
-  border: none;
-  color: #ababab;
+  background-color: #f2f2f2 !important;
+  border: none !important;
+  color: #ababab !important;
 }
 
 .theme-dark.disabled::placeholder {
-  color: #ababab;
+  color: #ababab !important;
 }
