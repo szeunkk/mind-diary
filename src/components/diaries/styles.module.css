@@ -150,25 +150,25 @@
   line-height: 20px;
 }
 
-/* 감정별 색상 - 피그마 디자인과 일치하도록 수정 */
+/* 감정별 색상 - global.css 변수 토큰 사용 */
 .emotionText[data-emotion="HAPPY"] {
-  color: #ea5757;
+  color: var(--color-red-30);
 }
 
 .emotionText[data-emotion="SAD"] {
-  color: #28b4e1;
+  color: var(--color-blue-50);
 }
 
 .emotionText[data-emotion="ANGRY"] {
-  color: #777777;
+  color: var(--color-gray-60);
 }
 
 .emotionText[data-emotion="SURPRISE"] {
-  color: #d59029;
+  color: var(--color-yellow-50);
 }
 
 .emotionText[data-emotion="ETC"] {
-  color: #a229ed;
+  color: var(--color-green-30);
 }
 
 .dateText {
