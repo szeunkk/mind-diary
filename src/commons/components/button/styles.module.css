@@ -10,6 +10,9 @@
   font-family: "Pretendard Variable", sans-serif;
   font-weight: 600;
   white-space: nowrap;
+  /* Default to light theme primary styles */
+  background-color: #000000;
+  color: #ffffff;
 }
 
 .button:disabled {
@@ -37,25 +40,26 @@
   white-space: pre;
 }
 
-/* Size Variants - 피그마에서 사용되는 실제 크기에 맞춤 (40px, 48px) */
+/* Size Variants - 피그마 디자인 기준으로 조정 */
 .size-small {
   height: 40px;
   padding: 8px 10px;
-  font-size: 16px;
+  font-size: 18px;
+  font-weight: 600;
   line-height: 24px;
-  letter-spacing: -0.16px;
+  letter-spacing: -0.18px;
 }
 
 .size-small .icon {
-  width: 20px;
-  height: 20px;
+  width: 24px;
+  height: 24px;
 }
 
 .size-medium {
   height: 48px;
-  padding: 12px 10px;
+  padding: 8px 10px;
   font-size: 18px;
-  font-weight: 500;
+  font-weight: 600;
   line-height: 24px;
   letter-spacing: -0.18px;
 }
@@ -67,126 +71,102 @@
 
 .size-large {
   height: 48px;
-  padding: 12px 16px;
-  font-size: 20px;
-  line-height: 28px;
-  letter-spacing: -0.2px;
+  padding: 8px 10px;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 24px;
+  letter-spacing: -0.18px;
 }
 
 .size-large .icon {
-  width: 28px;
-  height: 28px;
+  width: 24px;
+  height: 24px;
 }
 
-/* Primary Variant */
+/* Primary Variant - 피그마 디자인 기준 */
 .variant-primary.theme-light {
-  background-color: var(--color-gray-black);
-  color: var(--color-gray-white);
+  background-color: #000000; /* Gray/B */
+  color: #ffffff; /* Gray/W */
 }
 
 .variant-primary.theme-light:hover:not(:disabled) {
-  background-color: var(--color-gray-90);
+  background-color: rgba(0, 0, 0, 0.8);
 }
 
 .variant-primary.theme-light:active:not(:disabled) {
-  background-color: var(--color-gray-90);
+  background-color: rgba(0, 0, 0, 0.9);
 }
 
 .variant-primary.theme-dark {
-  background-color: var(--color-gray-white);
-  color: var(--color-gray-black);
-  box-shadow: 0 0 0 1px var(--color-gray-10) inset;
+  background-color: #f2f2f2; /* Gray/Gray 50 */
+  color: #000000; /* Gray/B */
 }
 
 .variant-primary.theme-dark:hover:not(:disabled) {
-  background-color: var(--color-gray-05);
+  background-color: #e8e8e8;
 }
 
 .variant-primary.theme-dark:active:not(:disabled) {
-  background-color: var(--color-gray-05);
+  background-color: #d4d4d4;
 }
 
-/* Secondary Variant */
+/* Secondary Variant - 피그마 디자인 기준 */
 .variant-secondary.theme-light {
-  background-color: var(--color-gray-80);
-  color: var(--color-gray-white);
+  background-color: #ffffff; /* Gray/W */
+  color: #1c1c1c; /* Gray/Gray 900 */
+  border: 1px solid #000000; /* Gray/B */
 }
 
 .variant-secondary.theme-light:hover:not(:disabled) {
-  background-color: var(--color-gray-70);
+  background-color: #f8f8f8;
 }
 
 .variant-secondary.theme-light:active:not(:disabled) {
-  background-color: var(--color-gray-70);
+  background-color: #f0f0f0;
 }
 
 .variant-secondary.theme-dark {
-  background-color: var(--color-gray-05);
-  color: var(--color-gray-black);
+  background-color: #1c1c1c; /* Gray/Gray 900 */
+  color: #ffffff; /* Gray/W */
+  border: 1px solid #5f5f5f; /* Gray/Gray 700 */
 }
 
 .variant-secondary.theme-dark:hover:not(:disabled) {
-  background-color: var(--color-gray-10);
+  background-color: #2a2a2a;
 }
 
 .variant-secondary.theme-dark:active:not(:disabled) {
-  background-color: var(--color-gray-20);
+  background-color: #333333;
 }
 
-/* Tertiary Variant */
+/* Tertiary Variant - 피그마 디자인 기준 */
 .variant-tertiary.theme-light {
-  background-color: transparent;
-  color: var(--color-gray-white);
-  box-shadow: 0 0 0 1px var(--color-gray-60) inset;
+  background-color: #ffffff; /* Gray/W */
+  color: #1c1c1c; /* Gray/Gray 900 */
+  border: 1px solid #d4d3d3; /* Gray/Gray 200 */
+  font-weight: 500; /* Medium */
 }
 
 .variant-tertiary.theme-light:hover:not(:disabled) {
-  background-color: rgba(255, 255, 255, 0.05);
+  background-color: #f8f8f8;
 }
 
 .variant-tertiary.theme-light:active:not(:disabled) {
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: #f0f0f0;
 }
 
 .variant-tertiary.theme-dark {
-  background-color: transparent;
-  color: var(--color-gray-black);
-  box-shadow: 0 0 0 1px var(--color-gray-30) inset;
+  background-color: #1c1c1c; /* Gray/Gray 900 */
+  color: #e4e4e4; /* Gray/Gray 100 */
+  border: 1px solid #333333; /* Gray/Gray 800 */
+  font-weight: 500; /* Medium */
 }
 
 .variant-tertiary.theme-dark:hover:not(:disabled) {
-  background-color: rgba(0, 0, 0, 0.02);
+  background-color: #2a2a2a;
 }
 
 .variant-tertiary.theme-dark:active:not(:disabled) {
-  background-color: rgba(0, 0, 0, 0.05);
+  background-color: #404040;
 }
 
-/* Outline Variant - 피그마 디자인에 맞는 스타일 */
-.variant-outline.theme-light {
-  background-color: var(--color-gray-white);
-  color: var(--color-gray-90);
-  border: 1px solid var(--color-gray-20);
-}
-
-.variant-outline.theme-light:hover:not(:disabled) {
-  background-color: var(--color-gray-05);
-}
-
-.variant-outline.theme-light:active:not(:disabled) {
-  background-color: var(--color-gray-10);
-}
-
-.variant-outline.theme-dark {
-  background-color: var(--color-gray-90);
-  color: var(--color-gray-white);
-  box-shadow: 0 0 0 1px var(--color-gray-70) inset;
-}
-
-.variant-outline.theme-dark:hover:not(:disabled) {
-  background-color: var(--color-gray-80);
-}
-
-.variant-outline.theme-dark:active:not(:disabled) {
-  background-color: var(--color-gray-70);
-}
