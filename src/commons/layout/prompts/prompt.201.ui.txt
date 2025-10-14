@@ -33,10 +33,12 @@
 
 기존히스토리-참고만) MCP를 연동하여 피그마의 디자인을 그대로 소스코드로 구현할 것.
 
+기존히스토리-참고만) 각 레이아웃의 컴포넌트들이 피그마와 상이하여, 피그마와 동일하게 구현할 것.
+
+기존히스토리-참고만) 배너이미지의 position이 absolute로 설정되어있어 @02-wireframe.mdc 룰에 일치하도록 flex-box로 구성할 것
+
+기존히스토리-참고만) header, banner, navigation, footer의 타이포그래피를 피그마와 동일하게 구현할 것.
+
 ==============================================
 
-핵심요구사항) 각 레이아웃의 컴포넌트들이 피그마와 상이하여, 피그마와 동일하게 구현할 것.
-
-핵심요구사항) 배너이미지의 position이 absolute로 설정되어있어 @02-wireframe.mdc 룰에 일치하도록 flex-box로 구성할 것
-
-핵심요구사항) header, banner, navigation, footer의 타이포그래피를 피그마와 동일하게 구현할 것.
+핵심요구사항) styles_navigationContent의 justify-content를 flex-start로 변경할 것
