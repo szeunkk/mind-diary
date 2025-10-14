@@ -34,7 +34,7 @@
 
 .logoText {
   font: var(--typo-title-01);
-  color: black;
+  color: var(--color-gray-black);
   margin: 0;
   white-space: nowrap;
   letter-spacing: -0.18px;
@@ -121,25 +121,20 @@
 }
 
 .tabActive {
-  border-bottom: 2px solid black;
+  border-bottom: 2px solid var(--color-gray-black);
 }
 
 .tabTextActive {
-  font-family: var(--typo-font-family-korean);
-  font-size: 24px;
-  font-weight: 700;
-  line-height: 24px;
-  color: black;
+  font: var(--typo-headline-01);
+  color: var(--color-gray-black);
   margin: 0;
   white-space: nowrap;
   letter-spacing: -0.24px;
 }
 
 .tabTextInactive {
-  font-family: var(--typo-font-family-korean);
-  font-size: 24px;
+  font: var(--typo-headline-01);
   font-weight: 500;
-  line-height: 24px;
   color: var(--color-gray-60);
   margin: 0;
   white-space: nowrap;
@@ -173,11 +168,8 @@
 }
 
 .footerLogo {
-  font-family: var(--typo-font-family-korean);
-  font-size: 20px;
-  font-weight: 700;
-  line-height: 16px;
-  color: black;
+  font: var(--typo-headline-03);
+  color: var(--color-gray-black);
   margin: 0;
   white-space: nowrap;
   letter-spacing: -0.2px;
@@ -191,20 +183,15 @@
 }
 
 .footerText {
-  font-family: var(--typo-font-family-korean);
-  font-size: 14px;
-  font-weight: 400;
-  line-height: 16px;
+  font: var(--typo-body-02-s);
   color: var(--color-gray-70);
   margin: 0;
   letter-spacing: -0.14px;
 }
 
 .footerCopyright {
-  font-family: var(--typo-font-family-korean);
-  font-size: 14px;
+  font: var(--typo-body-02-s);
   font-weight: 300;
-  line-height: 16px;
   color: var(--color-gray-50);
   margin: 0;
   letter-spacing: -0.14px;
