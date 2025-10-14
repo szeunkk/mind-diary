@@ -51,8 +51,9 @@
 }
 
 .size-medium {
-  padding: 12px 10px;
+  padding: 8px 10px;
   font-size: 18px;
+  font-weight: 500;
   line-height: 24px;
   letter-spacing: -0.18px;
 }
