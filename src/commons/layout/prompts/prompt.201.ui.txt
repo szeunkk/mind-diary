@@ -41,6 +41,8 @@
 
 기존히스토리-참고만) styles_navigationContent의 justify-content를 flex-start로 변경할 것
 
+기존히스토리-참고만) styles_navigationContent의 padding은 제거할 것.
+
 ==============================================
 
-핵심요구사항) styles_navigationContent의 padding은 제거할 것.
+핵심요구사항) styles_headerContent의 padding은 제거할 것.
