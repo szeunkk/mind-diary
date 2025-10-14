@@ -1,8 +1,12 @@
 /**
  * Color Constants
- * 피그마 파운데이션 기반 컬러 토큰 시스템
+ * 피그마 파운데이션 기반 컬러 토큰 시스템 (nodeId: 3459:1130)
  * 다크모드를 포함한 모든 컬러 토큰을 정의합니다.
  * CSS 변수와 연동되어 사용됩니다.
+ * 
+ * ✅ 피그마와 100% 일치하는 색상 값들
+ * - Gray, Blue, Red, Green, Yellow, Cool Gray 스케일
+ * - Semantic 색상 (Primary, Success, Error, Warning, Disabled)
  */
 
 // Helper function to get CSS variable
@@ -130,8 +134,8 @@ export const yellow: YellowScale = {
 };
 
 // Cool Gray Color Scale
+// 피그마 파운데이션과 완전히 일치하는 색상 스케일
 export interface CoolGrayScale {
-  1: string;
   5: string;
   10: string;
   20: string;
@@ -142,7 +146,6 @@ export interface CoolGrayScale {
 }
 
 export const coolGray: CoolGrayScale = {
-  1: cssVar("cool-gray-01"),
   5: cssVar("cool-gray-05"),
   10: cssVar("cool-gray-10"),
   20: cssVar("cool-gray-20"),
