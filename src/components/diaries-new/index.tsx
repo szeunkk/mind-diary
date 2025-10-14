@@ -95,7 +95,7 @@ export default function DiariesNew() {
       <div className={styles.footer}>
         <div className={styles.footerContent}>
           <Button
-            variant="tertiary"
+            variant="secondary"
             size="medium"
             theme="light"
             onClick={handleClose}
