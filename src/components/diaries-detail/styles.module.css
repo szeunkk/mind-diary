@@ -175,31 +175,76 @@
   width: 1168px;
   height: 85px;
   display: flex;
-  align-items: center;
-  background-color: var(--color-surface);
-  border: 1px solid var(--color-border);
+  flex-direction: column;
+  gap: 13px;
 }
 
-.inputArea {
+.retrospectTitle {
+  font-family: var(--typo-font-family-korean);
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 24px;
+  letter-spacing: -0.18px;
+  color: var(--color-gray-black);
+  margin: 0;
+}
+
+.retrospectInputRow {
+  display: flex;
+  gap: 16px;
+  align-items: center;
   width: 100%;
-  padding: 20px;
-  font: var(--typo-body-01);
-  color: var(--color-text-secondary);
+}
+
+.retrospectInputField {
+  flex: 1;
+  min-width: 0;
+}
+
+.retrospectSubmitButton {
+  flex-shrink: 0;
+  width: auto;
 }
 
 /* Retrospect List - 1168 * 72 */
 .retrospectList {
   width: 1168px;
-  height: 72px;
+  min-height: 72px;
   display: flex;
-  align-items: center;
-  background-color: var(--color-surface-variant);
-  border: 1px solid var(--color-border);
+  flex-direction: column;
+  border-radius: 16px;
 }
 
-.listArea {
+.retrospectItem {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.retrospectContent {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  font-family: var(--typo-font-family-korean);
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: -0.16px;
+}
+
+.retrospectText {
+  font-weight: 500;
+  color: var(--color-gray-black);
+}
+
+.retrospectDate {
+  font-weight: 400;
+  color: var(--color-gray-60);
+}
+
+.retrospectDivider {
   width: 100%;
-  padding: 0 20px;
-  font: var(--typo-body-02-m);
-  color: var(--color-text-secondary);
+  height: 1px;
+  background-color: var(--color-gray-10);
+  margin: 12px 0;
 }
