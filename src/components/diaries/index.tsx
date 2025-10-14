@@ -5,7 +5,12 @@ import Image from "next/image";
 import SelectBox from "@/commons/components/selectbox";
 import SearchBar from "@/commons/components/searchbar";
 import Button from "@/commons/components/button";
-import { Emotion, getEmotionLabel, getEmotionImage } from "@/commons/constants/enum";
+import Pagination from "@/commons/components/pagination";
+import {
+  Emotion,
+  getEmotionLabel,
+  getEmotionImage,
+} from "@/commons/constants/enum";
 import styles from "./styles.module.css";
 
 // 일기 데이터 타입 정의
@@ -18,26 +23,88 @@ interface DiaryData {
 
 const DiariesComponent: React.FC = () => {
   const [selectedFilter, setSelectedFilter] = useState("all");
+  const [currentPage, setCurrentPage] = useState(1);
+  const totalPages = 5; // 총 페이지 수
 
   // Mock 데이터 생성 - 피그마 디자인과 정확히 일치
   const mockDiaries: DiaryData[] = [
     // 첫 번째 행 (왼쪽부터 오른쪽)
-    { id: 1, emotion: Emotion.Sad, date: "2024. 03. 12", title: "타이틀 영역 입니다. 한줄까지만 노출 됩니다." },
-    { id: 2, emotion: Emotion.Surprise, date: "2024. 03. 12", title: "타이틀 영역 입니다." },
-    { id: 3, emotion: Emotion.Angry, date: "2024. 03. 12", title: "타이틀 영역 입니다." },
-    { id: 4, emotion: Emotion.Happy, date: "2024. 03. 12", title: "타이틀 영역 입니다." },
-    
+    {
+      id: 1,
+      emotion: Emotion.Sad,
+      date: "2024. 03. 12",
+      title: "타이틀 영역 입니다. 한줄까지만 노출 됩니다.",
+    },
+    {
+      id: 2,
+      emotion: Emotion.Surprise,
+      date: "2024. 03. 12",
+      title: "타이틀 영역 입니다.",
+    },
+    {
+      id: 3,
+      emotion: Emotion.Angry,
+      date: "2024. 03. 12",
+      title: "타이틀 영역 입니다.",
+    },
+    {
+      id: 4,
+      emotion: Emotion.Happy,
+      date: "2024. 03. 12",
+      title: "타이틀 영역 입니다.",
+    },
+
     // 두 번째 행 (왼쪽부터 오른쪽)
-    { id: 5, emotion: Emotion.Etc, date: "2024. 03. 12", title: "타이틀 영역 입니다. 한줄까지만 노출 됩니다." },
-    { id: 6, emotion: Emotion.Surprise, date: "2024. 03. 12", title: "타이틀 영역 입니다." },
-    { id: 7, emotion: Emotion.Angry, date: "2024. 03. 12", title: "타이틀 영역 입니다." },
-    { id: 8, emotion: Emotion.Happy, date: "2024. 03. 12", title: "타이틀 영역 입니다." },
-    
+    {
+      id: 5,
+      emotion: Emotion.Etc,
+      date: "2024. 03. 12",
+      title: "타이틀 영역 입니다. 한줄까지만 노출 됩니다.",
+    },
+    {
+      id: 6,
+      emotion: Emotion.Surprise,
+      date: "2024. 03. 12",
+      title: "타이틀 영역 입니다.",
+    },
+    {
+      id: 7,
+      emotion: Emotion.Angry,
+      date: "2024. 03. 12",
+      title: "타이틀 영역 입니다.",
+    },
+    {
+      id: 8,
+      emotion: Emotion.Happy,
+      date: "2024. 03. 12",
+      title: "타이틀 영역 입니다.",
+    },
+
     // 세 번째 행 (왼쪽부터 오른쪽)
-    { id: 9, emotion: Emotion.Sad, date: "2024. 03. 12", title: "타이틀 영역 입니다. 한줄까지만 노출 됩니다." },
-    { id: 10, emotion: Emotion.Surprise, date: "2024. 03. 12", title: "타이틀 영역 입니다." },
-    { id: 11, emotion: Emotion.Angry, date: "2024. 03. 12", title: "타이틀 영역 입니다." },
-    { id: 12, emotion: Emotion.Happy, date: "2024. 03. 12", title: "타이틀 영역 입니다." },
+    {
+      id: 9,
+      emotion: Emotion.Sad,
+      date: "2024. 03. 12",
+      title: "타이틀 영역 입니다. 한줄까지만 노출 됩니다.",
+    },
+    {
+      id: 10,
+      emotion: Emotion.Surprise,
+      date: "2024. 03. 12",
+      title: "타이틀 영역 입니다.",
+    },
+    {
+      id: 11,
+      emotion: Emotion.Angry,
+      date: "2024. 03. 12",
+      title: "타이틀 영역 입니다.",
+    },
+    {
+      id: 12,
+      emotion: Emotion.Happy,
+      date: "2024. 03. 12",
+      title: "타이틀 영역 입니다.",
+    },
   ];
 
   const filterOptions = [
@@ -66,6 +133,11 @@ const DiariesComponent: React.FC = () => {
   const handleDeleteDiary = (diaryId: number) => {
     // 일기 삭제 로직
     console.log("일기 삭제:", diaryId);
+  };
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+    console.log("페이지 변경:", page);
   };
 
   return (
@@ -128,7 +200,7 @@ const DiariesComponent: React.FC = () => {
                     sizes="100vw"
                     className={styles.emotionImage}
                   />
-                  <button 
+                  <button
                     className={styles.deleteButton}
                     onClick={() => handleDeleteDiary(diary.id)}
                   >
@@ -142,24 +214,20 @@ const DiariesComponent: React.FC = () => {
                 </div>
                 <div className={styles.cardContent}>
                   <div className={styles.cardHeader}>
-                    <span 
+                    <span
                       className={styles.emotionText}
                       data-emotion={diary.emotion}
                     >
                       {getEmotionLabel(diary.emotion)}
                     </span>
-                    <span className={styles.dateText}>
-                      {diary.date}
-                    </span>
+                    <span className={styles.dateText}>{diary.date}</span>
                   </div>
-                  <div className={styles.titleText}>
-                    {diary.title}
-                  </div>
+                  <div className={styles.titleText}>{diary.title}</div>
                 </div>
               </div>
             ))}
           </div>
-          
+
           {/* 두 번째 행 */}
           <div className={styles.cardRow}>
             {mockDiaries.slice(4, 8).map((diary) => (
@@ -173,7 +241,7 @@ const DiariesComponent: React.FC = () => {
                     sizes="100vw"
                     className={styles.emotionImage}
                   />
-                  <button 
+                  <button
                     className={styles.deleteButton}
                     onClick={() => handleDeleteDiary(diary.id)}
                   >
@@ -187,24 +255,20 @@ const DiariesComponent: React.FC = () => {
                 </div>
                 <div className={styles.cardContent}>
                   <div className={styles.cardHeader}>
-                    <span 
+                    <span
                       className={styles.emotionText}
                       data-emotion={diary.emotion}
                     >
                       {getEmotionLabel(diary.emotion)}
                     </span>
-                    <span className={styles.dateText}>
-                      {diary.date}
-                    </span>
+                    <span className={styles.dateText}>{diary.date}</span>
                   </div>
-                  <div className={styles.titleText}>
-                    {diary.title}
-                  </div>
+                  <div className={styles.titleText}>{diary.title}</div>
                 </div>
               </div>
             ))}
           </div>
-          
+
           {/* 세 번째 행 */}
           <div className={styles.cardRow}>
             {mockDiaries.slice(8, 12).map((diary) => (
@@ -218,7 +282,7 @@ const DiariesComponent: React.FC = () => {
                     sizes="100vw"
                     className={styles.emotionImage}
                   />
-                  <button 
+                  <button
                     className={styles.deleteButton}
                     onClick={() => handleDeleteDiary(diary.id)}
                   >
@@ -232,19 +296,15 @@ const DiariesComponent: React.FC = () => {
                 </div>
                 <div className={styles.cardContent}>
                   <div className={styles.cardHeader}>
-                    <span 
+                    <span
                       className={styles.emotionText}
                       data-emotion={diary.emotion}
                     >
                       {getEmotionLabel(diary.emotion)}
                     </span>
-                    <span className={styles.dateText}>
-                      {diary.date}
-                    </span>
+                    <span className={styles.dateText}>{diary.date}</span>
                   </div>
-                  <div className={styles.titleText}>
-                    {diary.title}
-                  </div>
+                  <div className={styles.titleText}>{diary.title}</div>
                 </div>
               </div>
             ))}
@@ -252,7 +312,16 @@ const DiariesComponent: React.FC = () => {
         </div>
       </div>
       <div className={styles.gap40}></div>
-      <div className={styles.pagination}></div>
+      <div className={styles.pagination}>
+        <Pagination
+          variant="primary"
+          size="medium"
+          theme="light"
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageChange={handlePageChange}
+        />
+      </div>
       <div className={styles.gap40}></div>
     </div>
   );
