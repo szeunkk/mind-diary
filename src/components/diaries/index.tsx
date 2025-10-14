@@ -19,16 +19,21 @@ interface DiaryData {
 const DiariesComponent: React.FC = () => {
   const [selectedFilter, setSelectedFilter] = useState("all");
 
-  // Mock 데이터 생성
+  // Mock 데이터 생성 - 피그마 디자인과 정확히 일치
   const mockDiaries: DiaryData[] = [
+    // 첫 번째 행 (왼쪽부터 오른쪽)
     { id: 1, emotion: Emotion.Sad, date: "2024. 03. 12", title: "타이틀 영역 입니다. 한줄까지만 노출 됩니다." },
     { id: 2, emotion: Emotion.Surprise, date: "2024. 03. 12", title: "타이틀 영역 입니다." },
     { id: 3, emotion: Emotion.Angry, date: "2024. 03. 12", title: "타이틀 영역 입니다." },
     { id: 4, emotion: Emotion.Happy, date: "2024. 03. 12", title: "타이틀 영역 입니다." },
+    
+    // 두 번째 행 (왼쪽부터 오른쪽)
     { id: 5, emotion: Emotion.Etc, date: "2024. 03. 12", title: "타이틀 영역 입니다. 한줄까지만 노출 됩니다." },
     { id: 6, emotion: Emotion.Surprise, date: "2024. 03. 12", title: "타이틀 영역 입니다." },
     { id: 7, emotion: Emotion.Angry, date: "2024. 03. 12", title: "타이틀 영역 입니다." },
     { id: 8, emotion: Emotion.Happy, date: "2024. 03. 12", title: "타이틀 영역 입니다." },
+    
+    // 세 번째 행 (왼쪽부터 오른쪽)
     { id: 9, emotion: Emotion.Sad, date: "2024. 03. 12", title: "타이틀 영역 입니다. 한줄까지만 노출 됩니다." },
     { id: 10, emotion: Emotion.Surprise, date: "2024. 03. 12", title: "타이틀 영역 입니다." },
     { id: 11, emotion: Emotion.Angry, date: "2024. 03. 12", title: "타이틀 영역 입니다." },
