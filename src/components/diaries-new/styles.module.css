@@ -59,7 +59,10 @@
 }
 
 .emotionTitle {
-  font: var(--typo-headline-03);
+  font-family: var(--typo-font-family-korean);
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 24px;
   color: var(--color-text-primary);
 }
 
@@ -95,7 +98,10 @@
 }
 
 .emotionRadioLabel {
-  font: var(--typo-title-01);
+  font-family: var(--typo-font-family-korean);
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 20px;
   color: var(--color-text-primary);
   white-space: nowrap;
 }
@@ -117,7 +123,7 @@
 
 .inputLabel {
   font: var(--typo-body-02-m);
-  color: var(--color-text-primary);
+  color: var(--color-gray-80);
 }
 
 .inputWidth {
@@ -153,11 +159,11 @@
 }
 
 .textareaField:focus {
-  border-color: var(--color-border-focus);
+  border-color: var(--color-border);
 }
 
 .textareaField::placeholder {
-  color: var(--color-text-secondary);
+  color: var(--color-gray-40);
 }
 
 /* Footer - full * 48 */
