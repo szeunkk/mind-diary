@@ -55,9 +55,111 @@
 .main {
   display: flex;
   width: 100%;
-  height: 936px;
+  min-height: 936px;
+  padding: 20px;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.cardGrid {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  width: 100%;
+  max-width: 1168px;
+  min-width: 320px;
+}
+
+.cardRow {
+  display: flex;
+  gap: 24px;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
   background-color: var(--color-surface);
-  border: 1px solid var(--color-gray-30);
+  border-radius: 16px;
+  overflow: hidden;
+  position: relative;
+  flex: 1;
+  min-width: 152px;
+  width: 274px;
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.cardImage {
+  position: relative;
+  height: 208px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 16px;
+  margin: 0;
+}
+
+.emotionImage {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+}
+
+.deleteButton {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 24px;
+  height: 24px;
+  background-color: var(--color-surface);
+  border: none;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.1);
+}
+
+.deleteButton:hover {
+  background-color: var(--color-gray-05);
+}
+
+.cardContent {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 8px;
+  padding-bottom: 16px;
+}
+
+.cardHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.emotionText {
+  font: var(--typo-sub-title-01);
+  font-weight: 600;
+  line-height: 20px;
+}
+
+.dateText {
+  font: var(--typo-body-02-s);
+  color: var(--color-gray-50);
+  line-height: 24px;
+}
+
+.titleText {
+  font: var(--typo-title-01);
+  color: var(--color-text-primary);
+  line-height: 24px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .pagination {
