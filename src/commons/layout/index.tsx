@@ -28,7 +28,8 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
             <Image 
               src="/images/banner.png" 
               alt="배너 이미지" 
-              fill
+              width={1168}
+              height={240}
               className={styles.bannerImg}
             />
           </div>
