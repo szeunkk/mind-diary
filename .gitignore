@@ -37,3 +37,26 @@ next-env.d.ts
 
 # storybook
 storybook-static
+
+# cursor / IDE config
+.cursor/
+.vscode/
+.idea/
+
+# storybook cache (가끔 충돌 방지용)
+node_modules/.cache/
+node_modules/.cache/storybook/
+
+# local test / temp files
+*.local
+*.log
+*.tmp
+*.swp
+*.swo
+
+# Mac / OS metadata
+._*
+Thumbs.db
+
+# optional: coverage reports
+coverage/
