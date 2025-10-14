@@ -96,8 +96,16 @@
   cursor: not-allowed;
 }
 
+.disabled::placeholder {
+  color: #ababab;
+}
+
 .theme-dark.disabled {
   background-color: #f2f2f2;
   border: none;
+  color: #ababab;
+}
+
+.theme-dark.disabled::placeholder {
   color: #ababab;
 }
