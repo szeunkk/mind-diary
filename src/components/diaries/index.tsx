@@ -212,8 +212,8 @@ const DiariesComponent: React.FC = () => {
                     <Image
                       src="/icons/close_outline_light_s.svg"
                       alt="삭제"
-                      width={12}
-                      height={12}
+                      width={24}
+                      height={24}
                     />
                   </button>
                 </div>
@@ -253,8 +253,8 @@ const DiariesComponent: React.FC = () => {
                     <Image
                       src="/icons/close_outline_light_s.svg"
                       alt="삭제"
-                      width={12}
-                      height={12}
+                      width={24}
+                      height={24}
                     />
                   </button>
                 </div>
@@ -294,8 +294,8 @@ const DiariesComponent: React.FC = () => {
                     <Image
                       src="/icons/close_outline_light_s.svg"
                       alt="삭제"
-                      width={12}
-                      height={12}
+                      width={24}
+                      height={24}
                     />
                   </button>
                 </div>

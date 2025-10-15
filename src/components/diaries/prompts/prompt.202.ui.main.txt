@@ -10,7 +10,7 @@
 
 ==============================================
 
-조건-피그마) 활용할MCP: CursorTalkToFigmaMCP(채널명: esj6z4md)
+조건-피그마) 활용할MCP: CursorTalkToFigmaMCP(채널명: qjzv4wfz)
 조건-피그마) 구현될 컴포넌트 노드ID(main 영역): 3:1575
 
 조건-파일경로) 구현될 TSX 파일경로: src/components/diaries/index.tsx
@@ -45,11 +45,6 @@
                 - background-color는 없앨 것.
                 - styles_cardImage 하위의 img 파일의 높이는 styles_cardImage의 높이와 동일하게 하며, object-fit은 cover로 설정할 것.
 
-기존히스토리-참고만) styles_deleteButton은 아래 nodeID를 참고하여 피그마와 동일하게 구현할 것.
-                - 다이어리카드 삭제 버튼 nodeID: 13:1486
-
-==============================================
-
 기존히스토리-참고만) styles_cardImage 하위의 img 파일의 너비와 높이는 부모 요소의 100%로 지정될 수 있도록 수정할 것.
 
 기존히스토리-참고만) styles_emotionImage를 사용하는 Image 태그의 경우 아래 사항을 준수할 것.
@@ -58,14 +53,17 @@
                 - styles_emotionImage css에서 필요한 width, height를 부모 요소의 100%로 지정될 수 있도로 수정할 것.
                 - styles_emotionImage object-fit은 cover로 설정할 것.
 
-기존히스토리-참고만) styles_deleteButton에서 box-shadow는 설정하지 않을 것.
-
 기존히스토리-참고만) styles_emotionImage에 border-radius 16px 을 설정할 것.
 
 기존히스토리-참고만) styles_deleteButton에서 background-color는 설정하지 않을 것.
 
 기존히스토리-참고만) styles_emotionText에서 다른 공통 조건과 동일하게 global.css 변수 토큰을 사용할 것.
 
+기존히스토리-참고만) styles_cardGrid의 justify-content는 space-between으로 설정하고, gap은 삭제할 것.
+
 ==============================================
 
-핵심요구사항) styles_cardGrid의 justify-content는 space-between으로 설정하고, gap은 삭제할 것.
+핵심요구사항) styles_deleteButton가 피그마와 상이한 점이 있어 다음 CSS 사항을 피그마 노드ID를 참고하여 동일하게 구현할 것.
+                - 다이어리카드 삭제 버튼 nodeID: 3:1314
+                - styles_deleteButton 하위의 img는 너비와 높이는 각각 24px로 설정할 것.
+                - styles_deleteButton 하위의 img에 노드ID에 설정된 Box-shadow를 동일하게 설정할 것.
