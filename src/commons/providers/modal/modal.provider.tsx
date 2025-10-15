@@ -63,9 +63,7 @@ export default function ModalProvider({ children }: ModalProviderProps) {
               onClick={closeModal}
             />
             {/* 모달 컨텐츠 (max-w-md, w-full 제거됨) */}
-            <div className="relative z-10 bg-white rounded-lg shadow-lg">
-              {content}
-            </div>
+            <div className="relative z-10 shadow-lg">{content}</div>
           </div>,
           document.body
         )}
