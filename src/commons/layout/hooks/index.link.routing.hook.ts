@@ -47,6 +47,13 @@ export const useLinkRouting = () => {
    */
   const isPicturesActive = pathname === PICTURES;
 
+  // 디버깅용 로그 (개발 환경에서만)
+  if (process.env.NODE_ENV === "development") {
+    console.log("[Layout Navigation] pathname:", pathname);
+    console.log("[Layout Navigation] isDiariesActive:", isDiariesActive);
+    console.log("[Layout Navigation] isPicturesActive:", isPicturesActive);
+  }
+
   return {
     handleLogoClick,
     handleDiariesClick,

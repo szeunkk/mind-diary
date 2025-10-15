@@ -114,4 +114,68 @@ test.describe("Layout Link Routing", () => {
     const diariesText = diariesTab.locator("p");
     await expect(diariesText).toHaveClass(/tabTextInactive/);
   });
+
+  test("사진보관함 탭 클릭 후 새로고침 시에도 활성 상태가 유지되어야 함", async ({
+    page,
+  }) => {
+    // 사진보관함 탭 클릭
+    await page.locator('[data-testid="nav-pictures"]').click();
+    await page.waitForURL("/pictures");
+
+    // 사진보관함 탭이 활성화되었는지 확인
+    let picturesTab = page.locator('[data-testid="nav-pictures"]');
+    await expect(picturesTab).toHaveClass(/tabActive/);
+
+    // 페이지 새로고침
+    await page.reload();
+    await page.waitForSelector('[data-testid="layout-header"]');
+
+    // 새로고침 후에도 사진보관함 탭이 활성화되어 있어야 함
+    picturesTab = page.locator('[data-testid="nav-pictures"]');
+    await expect(picturesTab).toHaveClass(/tabActive/);
+
+    const picturesText = picturesTab.locator("p");
+    await expect(picturesText).toHaveClass(/tabTextActive/);
+
+    // 일기보관함 탭은 비활성화되어 있어야 함
+    const diariesTab = page.locator('[data-testid="nav-diaries"]');
+    await expect(diariesTab).not.toHaveClass(/tabActive/);
+
+    const diariesText = diariesTab.locator("p");
+    await expect(diariesText).toHaveClass(/tabTextInactive/);
+  });
+
+  test("일기보관함 탭 클릭 후 새로고침 시에도 활성 상태가 유지되어야 함", async ({
+    page,
+  }) => {
+    // 먼저 사진보관함으로 이동
+    await page.locator('[data-testid="nav-pictures"]').click();
+    await page.waitForURL("/pictures");
+
+    // 일기보관함 탭 클릭
+    await page.locator('[data-testid="nav-diaries"]').click();
+    await page.waitForURL("/diaries");
+
+    // 일기보관함 탭이 활성화되었는지 확인
+    let diariesTab = page.locator('[data-testid="nav-diaries"]');
+    await expect(diariesTab).toHaveClass(/tabActive/);
+
+    // 페이지 새로고침
+    await page.reload();
+    await page.waitForSelector('[data-testid="layout-header"]');
+
+    // 새로고침 후에도 일기보관함 탭이 활성화되어 있어야 함
+    diariesTab = page.locator('[data-testid="nav-diaries"]');
+    await expect(diariesTab).toHaveClass(/tabActive/);
+
+    const diariesText = diariesTab.locator("p");
+    await expect(diariesText).toHaveClass(/tabTextActive/);
+
+    // 사진보관함 탭은 비활성화되어 있어야 함
+    const picturesTab = page.locator('[data-testid="nav-pictures"]');
+    await expect(picturesTab).not.toHaveClass(/tabActive/);
+
+    const picturesText = picturesTab.locator("p");
+    await expect(picturesText).toHaveClass(/tabTextInactive/);
+  });
 });
