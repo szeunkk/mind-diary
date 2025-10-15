@@ -197,8 +197,8 @@ const DiariesDetailComponent: React.FC = () => {
         </div>
       </div>
 
-      {/* Gap 4px */}
-      <div className={styles.gap4}></div>
+      {/* Gap 16px */}
+      <div className={styles.gap16}></div>
 
       {/* Retrospect List - 1168 * 72 */}
       <div className={styles.retrospectList}>
