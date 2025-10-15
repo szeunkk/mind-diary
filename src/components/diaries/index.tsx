@@ -11,6 +11,7 @@ import {
   getEmotionLabel,
   getEmotionImage,
 } from "@/commons/constants/enum";
+import { useDiaryWriteModal } from "./hooks/index.link.modal.hook";
 import styles from "./styles.module.css";
 
 // 일기 데이터 타입 정의
@@ -25,6 +26,7 @@ const DiariesComponent: React.FC = () => {
   const [selectedFilter, setSelectedFilter] = useState("all");
   const [currentPage, setCurrentPage] = useState(1);
   const totalPages = 5; // 총 페이지 수
+  const { openDiaryWriteModal } = useDiaryWriteModal();
 
   // Mock 데이터 생성 - 피그마 디자인과 정확히 일치
   const mockDiaries: DiaryData[] = [
@@ -126,8 +128,8 @@ const DiariesComponent: React.FC = () => {
   };
 
   const handleWriteDiary = () => {
-    // 일기쓰기 페이지로 이동
-    console.log("일기쓰기 클릭");
+    // 일기쓰기 모달 열기
+    openDiaryWriteModal();
   };
 
   const handleDeleteDiary = (diaryId: number) => {
@@ -173,6 +175,7 @@ const DiariesComponent: React.FC = () => {
             theme="light"
             onClick={handleWriteDiary}
             className={styles.writeButton}
+            data-testid="write-diary-button"
             icon={
               <Image
                 src="/icons/plus_outline_light_m.svg"

@@ -1,37 +1,47 @@
 "use client";
 
 import React, { useState } from "react";
+import Image from "next/image";
 import styles from "./styles.module.css";
 import Button from "@/commons/components/button";
 import Input from "@/commons/components/input";
-import { Emotion, emotionMetadata, allEmotions } from "@/commons/constants/enum";
+import {
+  Emotion,
+  emotionMetadata,
+  allEmotions,
+} from "@/commons/constants/enum";
+import { useModal } from "@/commons/providers/modal/modal.provider";
 
 export default function DiariesNew() {
   const [selectedEmotion, setSelectedEmotion] = useState<Emotion | null>(null);
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
+  const { closeModal } = useModal();
 
   const handleEmotionChange = (emotion: Emotion) => {
     setSelectedEmotion(emotion);
   };
 
   const handleClose = () => {
-    // 닫기 로직
-    console.log("닫기");
+    // 모달 닫기
+    closeModal();
   };
 
   const handleSubmit = () => {
     // 등록 로직
     console.log("등록하기", { selectedEmotion, title, content });
+    // TODO: API 호출 후 성공시 모달 닫기
   };
 
   return (
-    <div className={styles.wrapper}>
+    <div className={styles.wrapper} data-testid="diary-new-modal">
       {/* Header */}
       <div className={styles.header}>
-        <div className={styles.headerContent}>일기 쓰기</div>
+        <div className={styles.headerContent} data-testid="diary-new-title">
+          일기 쓰기
+        </div>
       </div>
-      
+
       {/* Main Content */}
       <div className={styles.mainContent}>
         {/* Emotion Box */}
@@ -49,9 +59,15 @@ export default function DiariesNew() {
                   className={styles.emotionRadioInput}
                 />
                 <div className={styles.emotionRadioIcon}>
-                  <img 
-                    src={selectedEmotion === emotion ? "/icons/radio_fill_light_m.svg" : "/icons/radio_outline_light_m.svg"}
+                  <Image
+                    src={
+                      selectedEmotion === emotion
+                        ? "/icons/radio_fill_light_m.svg"
+                        : "/icons/radio_outline_light_m.svg"
+                    }
                     alt=""
+                    width={24}
+                    height={24}
                   />
                 </div>
                 <span className={styles.emotionRadioLabel}>
@@ -61,7 +77,7 @@ export default function DiariesNew() {
             ))}
           </div>
         </div>
-        
+
         {/* Text Input Area */}
         <div className={styles.textInputArea}>
           {/* Input Title */}
@@ -77,7 +93,7 @@ export default function DiariesNew() {
               className={styles.inputWidth}
             />
           </div>
-          
+
           {/* Input Content */}
           <div className={styles.inputContent}>
             <label className={styles.inputLabel}>내용</label>
@@ -90,7 +106,7 @@ export default function DiariesNew() {
           </div>
         </div>
       </div>
-      
+
       {/* Footer */}
       <div className={styles.footer}>
         <div className={styles.footerContent}>
@@ -100,6 +116,7 @@ export default function DiariesNew() {
             theme="light"
             onClick={handleClose}
             className={styles.buttonWidth}
+            data-testid="diary-new-close-button"
           >
             닫기
           </Button>
@@ -109,6 +126,7 @@ export default function DiariesNew() {
             theme="light"
             onClick={handleSubmit}
             className={styles.buttonWidth}
+            data-testid="diary-new-submit-button"
           >
             등록하기
           </Button>
