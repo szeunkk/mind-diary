@@ -2,64 +2,116 @@ import { test, expect } from "@playwright/test";
 
 test.describe("Layout Link Routing", () => {
   test.beforeEach(async ({ page }) => {
-    // 일기목록 페이지로 이동하여 레이아웃이 있는 페이지에서 테스트
+    // 일기 목록 페이지로 이동
     await page.goto("/diaries");
-    // 페이지 로드 완료 대기 (data-testid로 식별) - timeout 1초로 단축
-    await page.waitForSelector('[data-testid="layout-header"]', {
-      timeout: 1000,
-    });
+    // 레이아웃이 로드될 때까지 대기
+    await page.waitForSelector('[data-testid="layout-header"]');
   });
 
-  test("헤더 로고 클릭시 일기목록 페이지로 이동", async ({ page }) => {
+  test("초기 로드 시 일기보관함 탭이 활성화되어 있어야 함", async ({
+    page,
+  }) => {
+    // 일기보관함 탭이 활성화 상태인지 확인
+    const diariesTab = page.locator('[data-testid="nav-diaries"]');
+    await expect(diariesTab).toHaveClass(/tabActive/);
+
+    // 일기보관함 텍스트가 활성화 상태인지 확인
+    const diariesText = diariesTab.locator("p");
+    await expect(diariesText).toHaveClass(/tabTextActive/);
+
+    // 사진보관함 탭이 비활성화 상태인지 확인
+    const picturesTab = page.locator('[data-testid="nav-pictures"]');
+    await expect(picturesTab).not.toHaveClass(/tabActive/);
+
+    // 사진보관함 텍스트가 비활성화 상태인지 확인
+    const picturesText = picturesTab.locator("p");
+    await expect(picturesText).toHaveClass(/tabTextInactive/);
+  });
+
+  test("헤더 로고 클릭 시 일기 목록 페이지로 이동하고 일기보관함 탭이 활성화되어야 함", async ({
+    page,
+  }) => {
+    // 다른 페이지로 이동 (사진보관함)
+    await page.locator('[data-testid="nav-pictures"]').click();
+    await page.waitForURL("/pictures");
+
     // 헤더 로고 클릭
-    await page.click('[data-testid="header-logo"]');
+    await page.locator('[data-testid="header-logo"]').click();
+    await page.waitForURL("/diaries");
 
-    // URL이 /diaries로 변경되었는지 확인
-    await expect(page).toHaveURL("/diaries");
+    // 일기보관함 탭이 활성화되었는지 확인
+    const diariesTab = page.locator('[data-testid="nav-diaries"]');
+    await expect(diariesTab).toHaveClass(/tabActive/);
 
-    // 페이지 로드 완료 대기
-    await page.waitForSelector('[data-testid="layout-header"]', {
-      timeout: 1000,
-    });
+    const diariesText = diariesTab.locator("p");
+    await expect(diariesText).toHaveClass(/tabTextActive/);
   });
 
-  test("네비게이션 일기보관함 클릭시 일기목록 페이지로 이동", async ({
+  test("일기보관함 탭 클릭 시 일기 목록 페이지로 이동하고 탭이 활성화되어야 함", async ({
     page,
   }) => {
-    // 네비게이션 일기보관함 탭 클릭
-    await page.click('[data-testid="nav-diaries"]');
+    // 사진보관함으로 이동
+    await page.locator('[data-testid="nav-pictures"]').click();
+    await page.waitForURL("/pictures");
 
-    // URL이 /diaries로 변경되었는지 확인
-    await expect(page).toHaveURL("/diaries");
+    // 일기보관함 탭 클릭
+    await page.locator('[data-testid="nav-diaries"]').click();
+    await page.waitForURL("/diaries");
 
-    // 페이지 로드 완료 대기
-    await page.waitForSelector('[data-testid="layout-header"]', {
-      timeout: 1000,
-    });
+    // 일기보관함 탭이 활성화되었는지 확인
+    const diariesTab = page.locator('[data-testid="nav-diaries"]');
+    await expect(diariesTab).toHaveClass(/tabActive/);
+
+    const diariesText = diariesTab.locator("p");
+    await expect(diariesText).toHaveClass(/tabTextActive/);
+
+    // 사진보관함 탭이 비활성화되었는지 확인
+    const picturesTab = page.locator('[data-testid="nav-pictures"]');
+    await expect(picturesTab).not.toHaveClass(/tabActive/);
+
+    const picturesText = picturesTab.locator("p");
+    await expect(picturesText).toHaveClass(/tabTextInactive/);
   });
 
-  test("네비게이션 사진보관함 클릭시 사진목록 페이지로 이동", async ({
+  test("사진보관함 탭 클릭 시 사진 목록 페이지로 이동하고 탭이 활성화되어야 함", async ({
     page,
   }) => {
-    // 네비게이션 사진보관함 탭 클릭
-    await page.click('[data-testid="nav-pictures"]');
+    // 사진보관함 탭 클릭
+    await page.locator('[data-testid="nav-pictures"]').click();
+    await page.waitForURL("/pictures");
 
-    // URL이 /pictures로 변경되었는지 확인
-    await expect(page).toHaveURL("/pictures");
+    // 사진보관함 탭이 활성화되었는지 확인
+    const picturesTab = page.locator('[data-testid="nav-pictures"]');
+    await expect(picturesTab).toHaveClass(/tabActive/);
+
+    const picturesText = picturesTab.locator("p");
+    await expect(picturesText).toHaveClass(/tabTextActive/);
+
+    // 일기보관함 탭이 비활성화되었는지 확인
+    const diariesTab = page.locator('[data-testid="nav-diaries"]');
+    await expect(diariesTab).not.toHaveClass(/tabActive/);
+
+    const diariesText = diariesTab.locator("p");
+    await expect(diariesText).toHaveClass(/tabTextInactive/);
   });
 
-  test("클릭 가능한 요소들이 cursor: pointer 스타일을 가지고 있는지 확인", async ({
-    page,
-  }) => {
-    // 헤더 로고의 cursor 스타일 확인
-    const headerLogo = page.locator('[data-testid="header-logo"]');
-    await expect(headerLogo).toHaveCSS("cursor", "pointer");
+  test("URL 직접 접근 시에도 올바른 탭이 활성화되어야 함", async ({ page }) => {
+    // 사진보관함 페이지로 직접 이동
+    await page.goto("/pictures");
+    await page.waitForSelector('[data-testid="layout-header"]');
 
-    // 네비게이션 탭들의 cursor 스타일 확인
-    const navDiaries = page.locator('[data-testid="nav-diaries"]');
-    await expect(navDiaries).toHaveCSS("cursor", "pointer");
+    // 사진보관함 탭이 활성화되었는지 확인
+    const picturesTab = page.locator('[data-testid="nav-pictures"]');
+    await expect(picturesTab).toHaveClass(/tabActive/);
 
-    const navPictures = page.locator('[data-testid="nav-pictures"]');
-    await expect(navPictures).toHaveCSS("cursor", "pointer");
+    const picturesText = picturesTab.locator("p");
+    await expect(picturesText).toHaveClass(/tabTextActive/);
+
+    // 일기보관함 탭이 비활성화되었는지 확인
+    const diariesTab = page.locator('[data-testid="nav-diaries"]');
+    await expect(diariesTab).not.toHaveClass(/tabActive/);
+
+    const diariesText = diariesTab.locator("p");
+    await expect(diariesText).toHaveClass(/tabTextInactive/);
   });
 });

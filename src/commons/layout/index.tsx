@@ -1,42 +1,46 @@
-'use client';
+"use client";
 
-import React from 'react';
-import Image from 'next/image';
-import styles from './styles.module.css';
-import { useLinkRouting } from './hooks/index.link.routing.hook';
+import React from "react";
+import Image from "next/image";
+import styles from "./styles.module.css";
+import { useLinkRouting } from "./hooks/index.link.routing.hook";
 
 interface LayoutProps {
   children: React.ReactNode;
 }
 
 const Layout: React.FC<LayoutProps> = ({ children }) => {
-  const { handleLogoClick, handleDiariesClick, handlePicturesClick } = useLinkRouting();
+  const {
+    handleLogoClick,
+    handleDiariesClick,
+    handlePicturesClick,
+    isDiariesActive,
+    isPicturesActive,
+  } = useLinkRouting();
 
   return (
     <div className={styles.layout}>
       <header className={styles.header} data-testid="layout-header">
         <div className={styles.headerContent}>
-          <div 
-            className={styles.logo} 
+          <div
+            className={styles.logo}
             onClick={handleLogoClick}
             data-testid="header-logo"
           >
-            <p className={styles.logoText}>
-              민지의 다이어리
-            </p>
+            <p className={styles.logoText}>민지의 다이어리</p>
           </div>
           <div className={styles.headerActions}></div>
         </div>
       </header>
-      
+
       <div className={styles.gap}></div>
-      
+
       <section className={styles.banner}>
         <div className={styles.bannerContent}>
           <div className={styles.bannerImage}>
-            <Image 
-              src="/images/banner.png" 
-              alt="배너 이미지" 
+            <Image
+              src="/images/banner.png"
+              alt="배너 이미지"
               width={1168}
               height={240}
               className={styles.bannerImg}
@@ -44,50 +48,60 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
           </div>
         </div>
       </section>
-      
+
       <div className={styles.gap}></div>
-      
+
       <nav className={styles.navigation}>
         <div className={styles.navigationContent}>
           <div className={styles.tabContainer}>
-            <div 
-              className={`${styles.tab} ${styles.tabActive}`}
+            <div
+              className={`${styles.tab} ${
+                isDiariesActive ? styles.tabActive : ""
+              }`}
               onClick={handleDiariesClick}
               data-testid="nav-diaries"
             >
-              <p className={styles.tabTextActive}>
+              <p
+                className={
+                  isDiariesActive
+                    ? styles.tabTextActive
+                    : styles.tabTextInactive
+                }
+              >
                 일기보관함
               </p>
             </div>
-            <div 
-              className={styles.tab}
+            <div
+              className={`${styles.tab} ${
+                isPicturesActive ? styles.tabActive : ""
+              }`}
               onClick={handlePicturesClick}
               data-testid="nav-pictures"
             >
-              <p className={styles.tabTextInactive}>
+              <p
+                className={
+                  isPicturesActive
+                    ? styles.tabTextActive
+                    : styles.tabTextInactive
+                }
+              >
                 사진보관함
               </p>
             </div>
           </div>
         </div>
       </nav>
-      
-      <main className={styles.children}>
-        {children}
-      </main>
-      
+
+      <main className={styles.children}>{children}</main>
+
       <footer className={styles.footer}>
         <div className={styles.footerContent}>
-          <p className={styles.footerLogo}>
-            민지의 다이어리
-          </p>
+          <p className={styles.footerLogo}>민지의 다이어리</p>
           <div className={styles.footerInfo}>
-            <p className={styles.footerText}>
-              대표 : {'{name}'}
-            </p>
+            <p className={styles.footerText}>대표 : {"{name}"}</p>
           </div>
           <p className={styles.footerCopyright}>
-            Copyright © 2024. {'{name}'} Co., Ltd.
+            Copyright © 2024. {"{name}"} Co., Ltd.
           </p>
         </div>
       </footer>
