@@ -17,9 +17,14 @@
   height: 24px;
 }
 
-.gap16 {
+.gap4 {
   width: 1168px;
-  height: 16px;
+  height: 4px;
+}
+
+.gap40 {
+  width: 1168px;
+  height: 40px;
 }
 
 /* Detail Title */
