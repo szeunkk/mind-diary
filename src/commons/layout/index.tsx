@@ -1,17 +1,26 @@
+'use client';
+
 import React from 'react';
 import Image from 'next/image';
 import styles from './styles.module.css';
+import { useLinkRouting } from './hooks/index.link.routing.hook';
 
 interface LayoutProps {
   children: React.ReactNode;
 }
 
 const Layout: React.FC<LayoutProps> = ({ children }) => {
+  const { handleLogoClick, handleDiariesClick, handlePicturesClick } = useLinkRouting();
+
   return (
     <div className={styles.layout}>
-      <header className={styles.header}>
+      <header className={styles.header} data-testid="layout-header">
         <div className={styles.headerContent}>
-          <div className={styles.logo}>
+          <div 
+            className={styles.logo} 
+            onClick={handleLogoClick}
+            data-testid="header-logo"
+          >
             <p className={styles.logoText}>
               민지의 다이어리
             </p>
@@ -41,12 +50,20 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
       <nav className={styles.navigation}>
         <div className={styles.navigationContent}>
           <div className={styles.tabContainer}>
-            <div className={`${styles.tab} ${styles.tabActive}`}>
+            <div 
+              className={`${styles.tab} ${styles.tabActive}`}
+              onClick={handleDiariesClick}
+              data-testid="nav-diaries"
+            >
               <p className={styles.tabTextActive}>
                 일기보관함
               </p>
             </div>
-            <div className={styles.tab}>
+            <div 
+              className={styles.tab}
+              onClick={handlePicturesClick}
+              data-testid="nav-pictures"
+            >
               <p className={styles.tabTextInactive}>
                 사진보관함
               </p>

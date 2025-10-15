@@ -29,6 +29,7 @@
   gap: 10px;
   height: 40px;
   width: 120px;
+  cursor: pointer;
 }
 
 .logoText {
@@ -116,6 +117,7 @@
   justify-content: center;
   gap: 10px;
   padding: 12px 8px;
+  cursor: pointer;
 }
 
 .tabActive {
