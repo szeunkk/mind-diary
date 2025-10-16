@@ -10,7 +10,7 @@
 
 ==============================================
 
-조건-피그마) 활용할MCP: CursorTalkToFigmaMCP(채널명: 9r2gw86c)
+조건-피그마) 활용할MCP: CursorTalkToFigmaMCP(채널명: rjjg1t5x)
 조건-피그마) 참고할 공통컴포넌트 노드ID(variant: 'info', actions: 'single'): 3:1046
 조건-피그마) 참고할 공통컴포넌트 노드ID(variant: 'info', actions: 'dual'): 3:670
 
@@ -45,7 +45,10 @@
 기존히스토리-참고만) 모달 actions: 'dual' 일 때, 모달에 공통컴포넌트로 등록된 <Button /> 2개 width가 화면 전체로 길어지는데, 피그마와 동일하게 104px로 고정할 것.
                     - 단,  actions: 'single'인 경우는 현재 늘리기 상태 유지.
 
+기존히스토리-참고만) styles_title과 styles_description를 아래 노드ID를 참고하여 피그마와 동일하게 수정할 것.
+                    - 활용할MCP: CursorTalkToFigmaMCP(채널명: rjjg1t5x)
+                    - 노드ID: 3:1047
+
 ==============================================
 
-핵심요구사항) styles_title과 styles_description를 global.css에 명시된 변수 토큰 활용하여 아래 노드ID를 참고하여 피그마와 동일하게 수정할 것.
-                    - 노드ID: 3:1047
+핵심요구사항) modal의 padding이 피그마와 상이하여 조건에 제시된 피그마 확인 후 피그마와 동일하게 변경할 것.
