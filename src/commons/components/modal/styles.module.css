@@ -14,14 +14,14 @@
 .content {
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 40px;
 }
 
 /* Text Area */
 .textArea {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 16px;
   text-align: center;
 }
 
@@ -65,7 +65,7 @@
 .actionsDual {
   display: flex;
   flex-direction: row;
-  gap: 8px;
+  gap: 21px;
   justify-content: center;
 }
 

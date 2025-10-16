@@ -10,21 +10,16 @@ import {
   emotionMetadata,
   allEmotions,
 } from "@/commons/constants/enum";
-import { useModal } from "@/commons/providers/modal/modal.provider";
+import { useModalClose } from "./hooks/index.link.modal.close.hook";
 
 export default function DiariesNew() {
   const [selectedEmotion, setSelectedEmotion] = useState<Emotion | null>(null);
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
-  const { closeTopModal } = useModal();
+  const { handleClose } = useModalClose();
 
   const handleEmotionChange = (emotion: Emotion) => {
     setSelectedEmotion(emotion);
-  };
-
-  const handleClose = () => {
-    // 모달 닫기
-    closeTopModal();
   };
 
   const handleSubmit = () => {

@@ -143,7 +143,7 @@ const DiariesComponent: React.FC = () => {
   };
 
   return (
-    <div className={styles.container}>
+    <div className={styles.container} data-testid="diaries-page">
       <div className={styles.gap32}></div>
       <div className={styles.search}>
         <div className={styles.searchLeft}>
@@ -175,7 +175,7 @@ const DiariesComponent: React.FC = () => {
             theme="light"
             onClick={handleWriteDiary}
             className={styles.writeButton}
-            data-testid="write-diary-button"
+            data-testid="diary-new-open-button"
             icon={
               <Image
                 src="/icons/plus_outline_light_m.svg"
