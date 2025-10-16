@@ -1,0 +1,106 @@
+/* Modal Container */
+.modal {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-gray-white);
+  border-radius: 16px;
+  padding: 32px;
+  width: 400px;
+  gap: 24px;
+}
+
+/* Content Area */
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* Text Area */
+.textArea {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* Title */
+.title {
+  margin: 0;
+  padding: 0;
+  font-family: var(--typo-font-family-korean);
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 28px;
+  letter-spacing: -0.2px;
+  color: var(--color-gray-90);
+}
+
+/* Description */
+.description {
+  margin: 0;
+  padding: 0;
+  font-family: var(--typo-font-family-korean);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 22px;
+  letter-spacing: -0.14px;
+  color: var(--color-gray-60);
+}
+
+/* Actions Area */
+.actions {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+}
+
+/* Button Width Control */
+.button {
+  flex: 1;
+  width: 100%;
+}
+
+/* Variant - Info (Light Theme) */
+.variant-info.theme-light .title {
+  color: var(--color-gray-90);
+}
+
+.variant-info.theme-light .description {
+  color: var(--color-gray-60);
+}
+
+/* Variant - Info (Dark Theme) */
+.variant-info.theme-dark {
+  background-color: var(--color-gray-90);
+}
+
+.variant-info.theme-dark .title {
+  color: var(--color-gray-white);
+}
+
+.variant-info.theme-dark .description {
+  color: var(--color-gray-40);
+}
+
+/* Variant - Danger (Light Theme) */
+.variant-danger.theme-light .title {
+  color: var(--color-red-30);
+}
+
+.variant-danger.theme-light .description {
+  color: var(--color-gray-60);
+}
+
+/* Variant - Danger (Dark Theme) */
+.variant-danger.theme-dark {
+  background-color: var(--color-gray-90);
+}
+
+.variant-danger.theme-dark .title {
+  color: var(--color-red-20);
+}
+
+.variant-danger.theme-dark .description {
+  color: var(--color-gray-40);
+}
