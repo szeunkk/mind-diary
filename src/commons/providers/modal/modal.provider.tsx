@@ -25,6 +25,7 @@ export interface ModalContextType {
   openModal: (content: ReactNode) => string;
   closeModal: (id: string) => void;
   closeTopModal: () => void;
+  closeAllModals: () => void;
 }
 
 export interface ModalProviderProps {
@@ -75,10 +76,15 @@ export default function ModalProvider({ children }: ModalProviderProps) {
     setModalStack((prev) => prev.slice(0, -1));
   };
 
+  const closeAllModals = () => {
+    setModalStack([]);
+  };
+
   const value = {
     openModal,
     closeModal,
     closeTopModal,
+    closeAllModals,
   };
 
   return (

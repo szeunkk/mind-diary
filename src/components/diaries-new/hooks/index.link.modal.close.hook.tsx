@@ -18,7 +18,7 @@ export interface UseModalCloseReturn {
 }
 
 export const useModalClose = (): UseModalCloseReturn => {
-  const { openModal, closeTopModal, closeModal } = useModal();
+  const { openModal, closeAllModals, closeModal } = useModal();
   const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
 
   /**
@@ -65,8 +65,7 @@ export const useModalClose = (): UseModalCloseReturn => {
         cancelText="계속 작성"
         onConfirm={() => {
           // 등록취소: 모든 모달 닫기
-          closeModal(modalId);
-          closeTopModal(); // 일기쓰기 폼 모달도 닫기
+          closeAllModals();
           setIsConfirmModalOpen(false);
         }}
         onCancel={() => {

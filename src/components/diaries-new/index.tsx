@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import Image from "next/image";
 import styles from "./styles.module.css";
 import Button from "@/commons/components/button";
@@ -11,25 +11,31 @@ import {
   allEmotions,
 } from "@/commons/constants/enum";
 import { useModalClose } from "./hooks/index.link.modal.close.hook";
+import { useDiaryForm } from "./hooks/index.form.hook";
 
 export default function DiariesNew() {
-  const [selectedEmotion, setSelectedEmotion] = useState<Emotion | null>(null);
-  const [title, setTitle] = useState("");
-  const [content, setContent] = useState("");
   const { handleClose } = useModalClose();
+  const { form, onSubmit, isFormValid } = useDiaryForm();
+
+  const {
+    register,
+    watch,
+    setValue,
+    formState: { errors },
+  } = form;
+
+  const watchedEmotion = watch("emotion");
 
   const handleEmotionChange = (emotion: Emotion) => {
-    setSelectedEmotion(emotion);
-  };
-
-  const handleSubmit = () => {
-    // 등록 로직
-    console.log("등록하기", { selectedEmotion, title, content });
-    // TODO: API 호출 후 성공시 모달 닫기
+    setValue("emotion", emotion);
   };
 
   return (
-    <div className={styles.wrapper} data-testid="diary-new-modal">
+    <form
+      onSubmit={onSubmit}
+      className={styles.wrapper}
+      data-testid="diary-new-modal"
+    >
       {/* Header */}
       <div className={styles.header}>
         <div className={styles.headerContent} data-testid="diary-new-title">
@@ -47,16 +53,16 @@ export default function DiariesNew() {
               <label key={emotion} className={styles.emotionRadioItem}>
                 <input
                   type="radio"
-                  name="emotion"
+                  {...register("emotion")}
                   value={emotion}
-                  checked={selectedEmotion === emotion}
+                  checked={watchedEmotion === emotion}
                   onChange={() => handleEmotionChange(emotion)}
                   className={styles.emotionRadioInput}
                 />
                 <div className={styles.emotionRadioIcon}>
                   <Image
                     src={
-                      selectedEmotion === emotion
+                      watchedEmotion === emotion
                         ? "/icons/radio_fill_light_m.svg"
                         : "/icons/radio_outline_light_m.svg"
                     }
@@ -71,6 +77,9 @@ export default function DiariesNew() {
               </label>
             ))}
           </div>
+          {errors.emotion && (
+            <div className={styles.errorMessage}>{errors.emotion.message}</div>
+          )}
         </div>
 
         {/* Text Input Area */}
@@ -83,10 +92,12 @@ export default function DiariesNew() {
               size="medium"
               theme="light"
               placeholder="제목을 입력합니다."
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
+              {...register("title")}
               className={styles.inputWidth}
             />
+            {errors.title && (
+              <div className={styles.errorMessage}>{errors.title.message}</div>
+            )}
           </div>
 
           {/* Input Content */}
@@ -94,10 +105,14 @@ export default function DiariesNew() {
             <label className={styles.inputLabel}>내용</label>
             <textarea
               placeholder="내용을 입력합니다."
-              value={content}
-              onChange={(e) => setContent(e.target.value)}
+              {...register("content")}
               className={styles.textareaField}
             />
+            {errors.content && (
+              <div className={styles.errorMessage}>
+                {errors.content.message}
+              </div>
+            )}
           </div>
         </div>
       </div>
@@ -106,6 +121,7 @@ export default function DiariesNew() {
       <div className={styles.footer}>
         <div className={styles.footerContent}>
           <Button
+            type="button"
             variant="secondary"
             size="medium"
             theme="light"
@@ -116,10 +132,11 @@ export default function DiariesNew() {
             닫기
           </Button>
           <Button
+            type="submit"
             variant="primary"
             size="medium"
             theme="light"
-            onClick={handleSubmit}
+            disabled={!isFormValid}
             className={styles.buttonWidth}
             data-testid="diary-new-submit-button"
           >
@@ -127,6 +144,6 @@ export default function DiariesNew() {
           </Button>
         </div>
       </div>
-    </div>
+    </form>
   );
 }

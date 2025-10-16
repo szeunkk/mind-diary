@@ -15,24 +15,41 @@ export interface InputProps
   theme?: "light" | "dark";
 }
 
-export default function Input({
-  variant = "primary",
-  size = "medium",
-  theme = "light",
-  className,
-  disabled,
-  ...props
-}: InputProps) {
-  const inputClasses = [
-    styles.input,
-    styles[`variant-${variant}`],
-    styles[`size-${size}`],
-    styles[`theme-${theme}`],
-    disabled && styles.disabled,
-    className,
-  ]
-    .filter(Boolean)
-    .join(" ");
+const Input = React.forwardRef<HTMLInputElement, InputProps>(
+  (
+    {
+      variant = "primary",
+      size = "medium",
+      theme = "light",
+      className,
+      disabled,
+      ...props
+    },
+    ref
+  ) => {
+    const inputClasses = [
+      styles.input,
+      styles[`variant-${variant}`],
+      styles[`size-${size}`],
+      styles[`theme-${theme}`],
+      disabled && styles.disabled,
+      className,
+    ]
+      .filter(Boolean)
+      .join(" ");
 
-  return <input className={inputClasses} disabled={disabled} {...props} />;
-}
+    return (
+      <input
+        ref={ref}
+        type="text"
+        className={inputClasses}
+        disabled={disabled}
+        {...props}
+      />
+    );
+  }
+);
+
+Input.displayName = "Input";
+
+export default Input;
