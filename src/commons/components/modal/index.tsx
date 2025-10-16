@@ -48,14 +48,16 @@ export default function Modal({
           {description && <p className={styles.description}>{description}</p>}
         </div>
 
-        <div className={styles.actions}>
+        <div
+          className={actions === "dual" ? styles.actionsDual : styles.actions}
+        >
           {actions === "dual" && (
             <Button
               variant="secondary"
               size="medium"
               theme="light"
               onClick={onCancel}
-              className={styles.button}
+              className={styles.buttonDual}
             >
               {cancelText}
             </Button>
@@ -65,7 +67,7 @@ export default function Modal({
             size="medium"
             theme="light"
             onClick={onConfirm}
-            className={styles.button}
+            className={actions === "dual" ? styles.buttonDual : styles.button}
           >
             {confirmText}
           </Button>
