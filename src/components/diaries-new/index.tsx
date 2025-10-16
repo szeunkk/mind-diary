@@ -16,7 +16,7 @@ export default function DiariesNew() {
   const [selectedEmotion, setSelectedEmotion] = useState<Emotion | null>(null);
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
-  const { closeModal } = useModal();
+  const { closeTopModal } = useModal();
 
   const handleEmotionChange = (emotion: Emotion) => {
     setSelectedEmotion(emotion);
@@ -24,7 +24,7 @@ export default function DiariesNew() {
 
   const handleClose = () => {
     // 모달 닫기
-    closeModal();
+    closeTopModal();
   };
 
   const handleSubmit = () => {

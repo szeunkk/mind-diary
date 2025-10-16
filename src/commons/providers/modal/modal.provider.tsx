@@ -1,13 +1,34 @@
+/**
+ * Modal Provider Stack Component
+ * 중첩 모달 지원, 스택 기반 모달 관리
+ * 각 모달마다 독립적인 backdrop과 zIndex 관리
+ */
+
 "use client";
 
-import React, { createContext, useContext, useState, ReactNode } from "react";
+import React, {
+  createContext,
+  useContext,
+  useState,
+  ReactNode,
+  useEffect,
+} from "react";
 import { createPortal } from "react-dom";
+import styles from "./styles.module.css";
 
-interface ModalContextType {
-  isOpen: boolean;
-  content: ReactNode | null;
-  openModal: (content: ReactNode) => void;
-  closeModal: () => void;
+interface ModalItem {
+  id: string;
+  content: ReactNode;
+}
+
+export interface ModalContextType {
+  openModal: (content: ReactNode) => string;
+  closeModal: (id: string) => void;
+  closeTopModal: () => void;
+}
+
+export interface ModalProviderProps {
+  children: ReactNode;
 }
 
 const ModalContext = createContext<ModalContextType | undefined>(undefined);
@@ -20,50 +41,68 @@ export const useModal = () => {
   return context;
 };
 
-interface ModalProviderProps {
-  children: ReactNode;
-}
-
 export default function ModalProvider({ children }: ModalProviderProps) {
-  const [isOpen, setIsOpen] = useState(false);
-  const [content, setContent] = useState<ReactNode | null>(null);
+  const [modalStack, setModalStack] = useState<ModalItem[]>([]);
   const [isMounted, setIsMounted] = useState(false);
 
-  React.useEffect(() => {
+  useEffect(() => {
     setIsMounted(true);
   }, []);
 
-  const openModal = (modalContent: ReactNode) => {
-    setContent(modalContent);
-    setIsOpen(true);
+  useEffect(() => {
+    if (modalStack.length > 0) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [modalStack.length]);
+
+  const openModal = (content: ReactNode): string => {
+    const id = `modal-${Date.now()}-${Math.random()}`;
+    setModalStack((prev) => [...prev, { id, content }]);
+    return id;
   };
 
-  const closeModal = () => {
-    setIsOpen(false);
-    setContent(null);
+  const closeModal = (id: string) => {
+    setModalStack((prev) => prev.filter((modal) => modal.id !== id));
+  };
+
+  const closeTopModal = () => {
+    setModalStack((prev) => prev.slice(0, -1));
   };
 
   const value = {
-    isOpen,
-    content,
     openModal,
     closeModal,
+    closeTopModal,
   };
 
   return (
     <ModalContext.Provider value={value}>
       {children}
       {isMounted &&
-        isOpen &&
+        modalStack.length > 0 &&
         createPortal(
-          <div className="fixed inset-0 z-50 flex items-center justify-center">
-            {/* 배경 오버레이 */}
-            <div
-              className="fixed inset-0 bg-black bg-opacity-50"
-              onClick={closeModal}
-            />
-            {/* 모달 컨텐츠 (max-w-md, w-full 제거됨) */}
-            <div className="relative z-10 shadow-lg">{content}</div>
+          <div className={styles.portalContainer}>
+            {modalStack.map((modal, index) => (
+              <React.Fragment key={modal.id}>
+                <div
+                  className={styles.backdrop}
+                  style={{ zIndex: 1000 + index * 2 }}
+                  onClick={() => closeModal(modal.id)}
+                />
+                <div
+                  className={styles.modalWrapper}
+                  style={{ zIndex: 1000 + index * 2 + 1 }}
+                >
+                  {modal.content}
+                </div>
+              </React.Fragment>
+            ))}
           </div>,
           document.body
         )}
