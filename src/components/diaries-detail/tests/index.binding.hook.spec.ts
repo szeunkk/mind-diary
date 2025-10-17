@@ -1,14 +1,6 @@
 import { test, expect } from "@playwright/test";
 import { Emotion } from "@/commons/constants/enum";
 
-/**
- * DiariesDetail Binding Hook 테스트
- * - TDD 기반으로 작성
- * - 로컬스토리지의 실제 데이터를 사용
- * - Mock 데이터 사용 금지
- * - 로컬스토리지 모킹 금지
- */
-
 test.describe("DiariesDetail Binding Hook", () => {
   // 테스트용 실제 데이터
   const testDiaries = [
@@ -55,9 +47,11 @@ test.describe("DiariesDetail Binding Hook", () => {
     await page.waitForFunction(
       () => {
         const titleEl = document.querySelector('[data-testid="diary-title"]');
-        return titleEl && titleEl.textContent && titleEl.textContent.trim() !== "";
+        return (
+          titleEl && titleEl.textContent && titleEl.textContent.trim() !== ""
+        );
       },
-      { timeout: 1000 }
+      { timeout: 500 }
     );
 
     // 제목 확인
@@ -91,9 +85,11 @@ test.describe("DiariesDetail Binding Hook", () => {
     await page.waitForFunction(
       () => {
         const titleEl = document.querySelector('[data-testid="diary-title"]');
-        return titleEl && titleEl.textContent && titleEl.textContent.trim() !== "";
+        return (
+          titleEl && titleEl.textContent && titleEl.textContent.trim() !== ""
+        );
       },
-      { timeout: 1000 }
+      { timeout: 500 }
     );
 
     const title = await page.textContent('[data-testid="diary-title"]');
@@ -123,9 +119,11 @@ test.describe("DiariesDetail Binding Hook", () => {
     await page.waitForFunction(
       () => {
         const titleEl = document.querySelector('[data-testid="diary-title"]');
-        return titleEl && titleEl.textContent && titleEl.textContent.trim() !== "";
+        return (
+          titleEl && titleEl.textContent && titleEl.textContent.trim() !== ""
+        );
       },
-      { timeout: 1000 }
+      { timeout: 500 }
     );
 
     const title = await page.textContent('[data-testid="diary-title"]');
