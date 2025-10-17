@@ -16,6 +16,17 @@ export interface DiaryDetailData {
 }
 
 /**
+ * ISO 날짜 문자열을 YYYY. MM. DD 형식으로 변환하는 함수
+ */
+const formatDate = (isoString: string): string => {
+  const date = new Date(isoString);
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
+  return `${year}. ${month}. ${day}`;
+};
+
+/**
  * 로컬스토리지에서 일기 데이터를 가져오는 함수
  */
 const getDiaryFromLocalStorage = (
@@ -34,7 +45,15 @@ const getDiaryFromLocalStorage = (
     const diaries: DiaryDetailData[] = JSON.parse(diariesJson);
     const foundDiary = diaries.find((diary) => diary.id === Number(id));
 
-    return foundDiary || null;
+    if (!foundDiary) {
+      return null;
+    }
+
+    // createdAt을 YYYY. MM. DD 형식으로 변환
+    return {
+      ...foundDiary,
+      createdAt: formatDate(foundDiary.createdAt),
+    };
   } catch (error) {
     console.error("로컬스토리지에서 diaries 데이터를 파싱하는 중 오류:", error);
     return null;

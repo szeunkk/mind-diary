@@ -51,8 +51,6 @@
                     - 회고텍스트: 공통컴포넌트없음
                     - 회고작성일텍스트: 공통컴포넌트없음
 
-==============================================
+기존히스토리-참고만) styles_retrospectContent의 padding을 제거할 것.
 
-핵심요구사항) styles_retrospectContent의 padding을 제거할 것.
-
-핵심요구사항) styles_retrospectDivider의 상하 margin을 12px로 설정할 것.
+기존히스토리-참고만) styles_retrospectDivider의 상하 margin을 12px로 설정할 것.

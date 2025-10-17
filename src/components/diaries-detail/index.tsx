@@ -8,6 +8,7 @@ import {
   EmotionImageSize,
   getEmotionImage,
   getEmotionLabel,
+  getEmotionColor,
 } from "@/commons/constants/enum";
 import { useDiaryBinding } from "./hooks/index.binding.hook";
 import styles from "./styles.module.css";
@@ -83,7 +84,11 @@ const DiariesDetailComponent: React.FC = () => {
       {/* Detail Title */}
       <div className={styles.detailTitle}>
         <div className={styles.titleSection}>
-          <h1 className={styles.title} data-testid="diary-title" suppressHydrationWarning>
+          <h1
+            className={styles.title}
+            data-testid="diary-title"
+            suppressHydrationWarning
+          >
             {diaryData?.title || ""}
           </h1>
         </div>
@@ -107,12 +112,21 @@ const DiariesDetailComponent: React.FC = () => {
               className={styles.emotionText}
               data-testid="diary-emotion-text"
               suppressHydrationWarning
+              style={{
+                color: diaryData
+                  ? getEmotionColor(diaryData.emotion)
+                  : undefined,
+              }}
             >
               {diaryData ? getEmotionLabel(diaryData.emotion) : ""}
             </span>
           </div>
           <div className={styles.dateSection}>
-            <span className={styles.dateText} data-testid="diary-created-at" suppressHydrationWarning>
+            <span
+              className={styles.dateText}
+              data-testid="diary-created-at"
+              suppressHydrationWarning
+            >
               {diaryData?.createdAt || ""}
             </span>
             <span className={styles.dateLabel}>작성</span>
@@ -127,7 +141,11 @@ const DiariesDetailComponent: React.FC = () => {
       <div className={styles.detailContent}>
         <div className={styles.contentSection}>
           <h2 className={styles.contentTitle}>내용</h2>
-          <p className={styles.contentText} data-testid="diary-content" suppressHydrationWarning>
+          <p
+            className={styles.contentText}
+            data-testid="diary-content"
+            suppressHydrationWarning
+          >
             {diaryData?.content || ""}
           </p>
         </div>
