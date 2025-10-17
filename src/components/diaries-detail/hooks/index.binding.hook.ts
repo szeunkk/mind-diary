@@ -47,25 +47,16 @@ const getDiaryFromLocalStorage = (
  * 다이나믹 라우팅된 일기 상세 페이지의 [id]를 추출하여
  * 로컬스토리지에서 실제 데이터를 바인딩합니다.
  *
- * suppressHydrationWarning과 함께 사용하여 SSR 문제 해결
+ * 클라이언트에서만 데이터를 로드하여 SSR Hydration 문제 해결
  *
  * @returns 일기 상세 데이터 또는 null
  */
 export const useDiaryBinding = (): DiaryDetailData | null => {
   const params = useParams();
-  
-  // useState lazy initialization을 사용하여 초기 렌더링 시 데이터 로드
-  const [diaryData, setDiaryData] = useState<DiaryDetailData | null>(() => {
-    // 서버 사이드에서는 항상 null 반환 (SSR 안전)
-    if (typeof window === "undefined") {
-      return null;
-    }
-    // 클라이언트에서는 즉시 데이터 로드
-    return getDiaryFromLocalStorage(params?.id);
-  });
+  const [diaryData, setDiaryData] = useState<DiaryDetailData | null>(null);
 
   useEffect(() => {
-    // params가 변경될 때 데이터 업데이트
+    // 클라이언트에서만 데이터 로드 (마운트 즉시 실행)
     const newData = getDiaryFromLocalStorage(params?.id);
     setDiaryData(newData);
   }, [params?.id]);

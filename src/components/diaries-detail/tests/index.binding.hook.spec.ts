@@ -51,6 +51,15 @@ test.describe("DiariesDetail Binding Hook", () => {
     // data-testid를 사용하여 페이지 로드 대기
     await page.waitForSelector('[data-testid="diary-detail-container"]');
 
+    // 데이터가 로드될 때까지 대기 (제목이 빈 문자열이 아닐 때까지)
+    await page.waitForFunction(
+      () => {
+        const titleEl = document.querySelector('[data-testid="diary-title"]');
+        return titleEl && titleEl.textContent && titleEl.textContent.trim() !== "";
+      },
+      { timeout: 1000 }
+    );
+
     // 제목 확인
     const title = await page.textContent('[data-testid="diary-title"]');
     expect(title).toBe("행복한 하루");
@@ -78,6 +87,15 @@ test.describe("DiariesDetail Binding Hook", () => {
     await page.goto("/diaries/2");
     await page.waitForSelector('[data-testid="diary-detail-container"]');
 
+    // 데이터가 로드될 때까지 대기
+    await page.waitForFunction(
+      () => {
+        const titleEl = document.querySelector('[data-testid="diary-title"]');
+        return titleEl && titleEl.textContent && titleEl.textContent.trim() !== "";
+      },
+      { timeout: 1000 }
+    );
+
     const title = await page.textContent('[data-testid="diary-title"]');
     expect(title).toBe("슬픈 하루");
 
@@ -100,6 +118,15 @@ test.describe("DiariesDetail Binding Hook", () => {
   }) => {
     await page.goto("/diaries/3");
     await page.waitForSelector('[data-testid="diary-detail-container"]');
+
+    // 데이터가 로드될 때까지 대기
+    await page.waitForFunction(
+      () => {
+        const titleEl = document.querySelector('[data-testid="diary-title"]');
+        return titleEl && titleEl.textContent && titleEl.textContent.trim() !== "";
+      },
+      { timeout: 1000 }
+    );
 
     const title = await page.textContent('[data-testid="diary-title"]');
     expect(title).toBe("화난 하루");
