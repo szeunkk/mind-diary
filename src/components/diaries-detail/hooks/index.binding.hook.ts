@@ -17,9 +17,23 @@ export interface DiaryDetailData {
 
 /**
  * ISO 날짜 문자열을 YYYY. MM. DD 형식으로 변환하는 함수
+ * 이미 YYYY. MM. DD 형식인 경우 그대로 반환
  */
-const formatDate = (isoString: string): string => {
-  const date = new Date(isoString);
+const formatDate = (dateString: string): string => {
+  // 이미 "YYYY. MM. DD" 형식인지 확인 (정규표현식)
+  const formattedPattern = /^\d{4}\.\s\d{2}\.\s\d{2}$/;
+  if (formattedPattern.test(dateString)) {
+    return dateString;
+  }
+
+  // ISO 형식을 YYYY. MM. DD로 변환
+  const date = new Date(dateString);
+  
+  // Invalid Date 체크
+  if (isNaN(date.getTime())) {
+    return dateString; // 파싱 실패 시 원본 반환
+  }
+
   const year = date.getFullYear();
   const month = String(date.getMonth() + 1).padStart(2, "0");
   const day = String(date.getDate()).padStart(2, "0");
