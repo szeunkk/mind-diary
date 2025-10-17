@@ -28,7 +28,7 @@ const formatDate = (dateString: string): string => {
 
   // ISO 형식을 YYYY. MM. DD로 변환
   const date = new Date(dateString);
-  
+
   // Invalid Date 체크
   if (isNaN(date.getTime())) {
     return dateString; // 파싱 실패 시 원본 반환
