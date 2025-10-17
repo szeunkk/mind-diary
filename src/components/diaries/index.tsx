@@ -6,108 +6,19 @@ import SelectBox from "@/commons/components/selectbox";
 import SearchBar from "@/commons/components/searchbar";
 import Button from "@/commons/components/button";
 import Pagination from "@/commons/components/pagination";
-import {
-  Emotion,
-  getEmotionLabel,
-  getEmotionImage,
-} from "@/commons/constants/enum";
+import { getEmotionLabel, getEmotionImage } from "@/commons/constants/enum";
 import { useDiaryWriteModal } from "./hooks/index.link.modal.hook";
+import { useDiaryBinding } from "./hooks/index.binding.hook";
+import { useDiaryRouting } from "./hooks/index.link.routing.hook";
 import styles from "./styles.module.css";
-
-// 일기 데이터 타입 정의
-interface DiaryData {
-  id: number;
-  emotion: Emotion;
-  date: string;
-  title: string;
-}
 
 const DiariesComponent: React.FC = () => {
   const [selectedFilter, setSelectedFilter] = useState("all");
   const [currentPage, setCurrentPage] = useState(1);
   const totalPages = 5; // 총 페이지 수
   const { openDiaryWriteModal } = useDiaryWriteModal();
-
-  // Mock 데이터 생성 - 피그마 디자인과 정확히 일치
-  const mockDiaries: DiaryData[] = [
-    // 첫 번째 행 (왼쪽부터 오른쪽)
-    {
-      id: 1,
-      emotion: Emotion.Sad,
-      date: "2024. 03. 12",
-      title: "타이틀 영역 입니다. 한줄까지만 노출 됩니다.",
-    },
-    {
-      id: 2,
-      emotion: Emotion.Surprise,
-      date: "2024. 03. 12",
-      title: "타이틀 영역 입니다.",
-    },
-    {
-      id: 3,
-      emotion: Emotion.Angry,
-      date: "2024. 03. 12",
-      title: "타이틀 영역 입니다.",
-    },
-    {
-      id: 4,
-      emotion: Emotion.Happy,
-      date: "2024. 03. 12",
-      title: "타이틀 영역 입니다.",
-    },
-
-    // 두 번째 행 (왼쪽부터 오른쪽)
-    {
-      id: 5,
-      emotion: Emotion.Etc,
-      date: "2024. 03. 12",
-      title: "타이틀 영역 입니다. 한줄까지만 노출 됩니다.",
-    },
-    {
-      id: 6,
-      emotion: Emotion.Surprise,
-      date: "2024. 03. 12",
-      title: "타이틀 영역 입니다.",
-    },
-    {
-      id: 7,
-      emotion: Emotion.Angry,
-      date: "2024. 03. 12",
-      title: "타이틀 영역 입니다.",
-    },
-    {
-      id: 8,
-      emotion: Emotion.Happy,
-      date: "2024. 03. 12",
-      title: "타이틀 영역 입니다.",
-    },
-
-    // 세 번째 행 (왼쪽부터 오른쪽)
-    {
-      id: 9,
-      emotion: Emotion.Sad,
-      date: "2024. 03. 12",
-      title: "타이틀 영역 입니다. 한줄까지만 노출 됩니다.",
-    },
-    {
-      id: 10,
-      emotion: Emotion.Surprise,
-      date: "2024. 03. 12",
-      title: "타이틀 영역 입니다.",
-    },
-    {
-      id: 11,
-      emotion: Emotion.Angry,
-      date: "2024. 03. 12",
-      title: "타이틀 영역 입니다.",
-    },
-    {
-      id: 12,
-      emotion: Emotion.Happy,
-      date: "2024. 03. 12",
-      title: "타이틀 영역 입니다.",
-    },
-  ];
+  const diaries = useDiaryBinding();
+  const { navigateToDiaryDetail } = useDiaryRouting();
 
   const filterOptions = [
     { value: "all", label: "전체" },
@@ -132,9 +43,16 @@ const DiariesComponent: React.FC = () => {
     openDiaryWriteModal();
   };
 
-  const handleDeleteDiary = (diaryId: number) => {
+  const handleDeleteDiary = (event: React.MouseEvent, diaryId: number) => {
+    // 이벤트 전파 중지 (카드 클릭 이벤트가 발생하지 않도록)
+    event.stopPropagation();
     // 일기 삭제 로직
     console.log("일기 삭제:", diaryId);
+  };
+
+  const handleCardClick = (diaryId: number) => {
+    // 일기 상세 페이지로 이동
+    navigateToDiaryDetail(diaryId);
   };
 
   const handlePageChange = (page: number) => {
@@ -192,128 +110,54 @@ const DiariesComponent: React.FC = () => {
       <div className={styles.gap42}></div>
       <div className={styles.main}>
         <div className={styles.cardGrid}>
-          {/* 첫 번째 행 */}
-          <div className={styles.cardRow}>
-            {mockDiaries.slice(0, 4).map((diary) => (
-              <div key={diary.id} className={styles.card}>
-                <div className={styles.cardImage}>
+          {diaries.map((diary) => (
+            <div
+              key={diary.id}
+              className={styles.card}
+              onClick={() => handleCardClick(diary.id)}
+              data-testid={`diary-card-${diary.id}`}
+            >
+              <div className={styles.cardImage}>
+                <Image
+                  src={getEmotionImage(diary.emotion)}
+                  alt={getEmotionLabel(diary.emotion)}
+                  width={0}
+                  height={0}
+                  sizes="100vw"
+                  className={styles.emotionImage}
+                />
+                <button
+                  className={styles.deleteButton}
+                  onClick={(e) => handleDeleteDiary(e, diary.id)}
+                  data-testid="delete-button"
+                >
                   <Image
-                    src={getEmotionImage(diary.emotion)}
-                    alt={getEmotionLabel(diary.emotion)}
-                    width={0}
-                    height={0}
-                    sizes="100vw"
-                    className={styles.emotionImage}
+                    src="/icons/close_outline_light_s.svg"
+                    alt="삭제"
+                    width={24}
+                    height={24}
                   />
-                  <button
-                    className={styles.deleteButton}
-                    onClick={() => handleDeleteDiary(diary.id)}
+                </button>
+              </div>
+              <div className={styles.cardContent}>
+                <div className={styles.cardHeader}>
+                  <span
+                    className={styles.emotionText}
+                    data-emotion={diary.emotion}
+                    data-testid="emotion-label"
                   >
-                    <Image
-                      src="/icons/close_outline_light_s.svg"
-                      alt="삭제"
-                      width={24}
-                      height={24}
-                    />
-                  </button>
+                    {getEmotionLabel(diary.emotion)}
+                  </span>
+                  <span className={styles.dateText} data-testid="diary-date">
+                    {diary.date}
+                  </span>
                 </div>
-                <div className={styles.cardContent}>
-                  <div className={styles.cardHeader}>
-                    <span
-                      className={styles.emotionText}
-                      data-emotion={diary.emotion}
-                    >
-                      {getEmotionLabel(diary.emotion)}
-                    </span>
-                    <span className={styles.dateText}>{diary.date}</span>
-                  </div>
-                  <div className={styles.titleText}>{diary.title}</div>
+                <div className={styles.titleText} data-testid="diary-title">
+                  {diary.title}
                 </div>
               </div>
-            ))}
-          </div>
-
-          {/* 두 번째 행 */}
-          <div className={styles.cardRow}>
-            {mockDiaries.slice(4, 8).map((diary) => (
-              <div key={diary.id} className={styles.card}>
-                <div className={styles.cardImage}>
-                  <Image
-                    src={getEmotionImage(diary.emotion)}
-                    alt={getEmotionLabel(diary.emotion)}
-                    width={0}
-                    height={0}
-                    sizes="100vw"
-                    className={styles.emotionImage}
-                  />
-                  <button
-                    className={styles.deleteButton}
-                    onClick={() => handleDeleteDiary(diary.id)}
-                  >
-                    <Image
-                      src="/icons/close_outline_light_s.svg"
-                      alt="삭제"
-                      width={24}
-                      height={24}
-                    />
-                  </button>
-                </div>
-                <div className={styles.cardContent}>
-                  <div className={styles.cardHeader}>
-                    <span
-                      className={styles.emotionText}
-                      data-emotion={diary.emotion}
-                    >
-                      {getEmotionLabel(diary.emotion)}
-                    </span>
-                    <span className={styles.dateText}>{diary.date}</span>
-                  </div>
-                  <div className={styles.titleText}>{diary.title}</div>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          {/* 세 번째 행 */}
-          <div className={styles.cardRow}>
-            {mockDiaries.slice(8, 12).map((diary) => (
-              <div key={diary.id} className={styles.card}>
-                <div className={styles.cardImage}>
-                  <Image
-                    src={getEmotionImage(diary.emotion)}
-                    alt={getEmotionLabel(diary.emotion)}
-                    width={0}
-                    height={0}
-                    sizes="100vw"
-                    className={styles.emotionImage}
-                  />
-                  <button
-                    className={styles.deleteButton}
-                    onClick={() => handleDeleteDiary(diary.id)}
-                  >
-                    <Image
-                      src="/icons/close_outline_light_s.svg"
-                      alt="삭제"
-                      width={24}
-                      height={24}
-                    />
-                  </button>
-                </div>
-                <div className={styles.cardContent}>
-                  <div className={styles.cardHeader}>
-                    <span
-                      className={styles.emotionText}
-                      data-emotion={diary.emotion}
-                    >
-                      {getEmotionLabel(diary.emotion)}
-                    </span>
-                    <span className={styles.dateText}>{diary.date}</span>
-                  </div>
-                  <div className={styles.titleText}>{diary.title}</div>
-                </div>
-              </div>
-            ))}
-          </div>
+            </div>
+          ))}
         </div>
       </div>
       <div className={styles.gap40}></div>

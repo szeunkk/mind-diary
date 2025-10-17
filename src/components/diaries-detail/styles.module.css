@@ -132,6 +132,7 @@
   letter-spacing: -0.16px;
   color: var(--color-gray-80);
   margin: 0;
+  white-space: pre-wrap;
 }
 
 .copySection {
