@@ -83,7 +83,7 @@ const DiariesDetailComponent: React.FC = () => {
       {/* Detail Title */}
       <div className={styles.detailTitle}>
         <div className={styles.titleSection}>
-          <h1 className={styles.title} data-testid="diary-title">
+          <h1 className={styles.title} data-testid="diary-title" suppressHydrationWarning>
             {diaryData?.title || ""}
           </h1>
         </div>
@@ -106,12 +106,13 @@ const DiariesDetailComponent: React.FC = () => {
             <span
               className={styles.emotionText}
               data-testid="diary-emotion-text"
+              suppressHydrationWarning
             >
               {diaryData ? getEmotionLabel(diaryData.emotion) : ""}
             </span>
           </div>
           <div className={styles.dateSection}>
-            <span className={styles.dateText} data-testid="diary-created-at">
+            <span className={styles.dateText} data-testid="diary-created-at" suppressHydrationWarning>
               {diaryData?.createdAt || ""}
             </span>
             <span className={styles.dateLabel}>작성</span>
@@ -126,7 +127,7 @@ const DiariesDetailComponent: React.FC = () => {
       <div className={styles.detailContent}>
         <div className={styles.contentSection}>
           <h2 className={styles.contentTitle}>내용</h2>
-          <p className={styles.contentText} data-testid="diary-content">
+          <p className={styles.contentText} data-testid="diary-content" suppressHydrationWarning>
             {diaryData?.content || ""}
           </p>
         </div>
