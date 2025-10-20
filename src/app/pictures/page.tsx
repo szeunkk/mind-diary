@@ -1,5 +1,5 @@
-import Pictures from "@/components/pictures";
+import PicturesComponent from "@/components/pictures";
 
 export default function PicturesPage() {
-  return <Pictures />;
+  return <PicturesComponent />;
 }

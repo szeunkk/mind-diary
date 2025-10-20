@@ -1,3 +1,4 @@
+/* Pictures Component Styles */
 .container {
   display: flex;
   flex-direction: column;
@@ -5,32 +6,54 @@
   margin: 0 auto;
 }
 
-.gap1 {
+/* Gap Spacing - 피그마 디자인 기준 */
+.gap32 {
   width: 1168px;
   height: 32px;
 }
 
-.filter {
-  width: 1168px;
-  height: 48px;
-  background-color: var(--color-surface-variant);
-  border: 1px solid var(--color-border);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.gap2 {
+.gap42 {
   width: 1168px;
   height: 42px;
 }
 
-.main {
+/* Filter Area */
+.filter {
   width: 1168px;
-  min-height: 200px;
-  background-color: var(--color-surface);
-  border: 1px solid var(--color-border);
+  height: 48px;
   display: flex;
   align-items: center;
+  justify-content: flex-start;
+}
+
+.filterSelectBox {
+  width: 120px;
+}
+
+/* Main Content Area */
+.main {
+  width: 1168px;
+}
+
+/* Picture Grid Layout - 피그마 디자인 기준 세로 1열 배치 */
+.pictureGrid {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  padding: 0;
+  align-items: center;
+}
+
+.pictureItem {
+  display: flex;
   justify-content: center;
+  align-items: center;
+}
+
+/* Picture Image Styles - 640x640px with 24px border-radius */
+.pictureImage {
+  width: 640px;
+  height: 640px;
+  object-fit: cover;
+  border-radius: 24px;
 }
