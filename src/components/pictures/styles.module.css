@@ -1,0 +1,36 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  width: 1168px;
+  margin: 0 auto;
+}
+
+.gap1 {
+  width: 1168px;
+  height: 32px;
+}
+
+.filter {
+  width: 1168px;
+  height: 48px;
+  background-color: var(--color-surface-variant);
+  border: 1px solid var(--color-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.gap2 {
+  width: 1168px;
+  height: 42px;
+}
+
+.main {
+  width: 1168px;
+  min-height: 200px;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
