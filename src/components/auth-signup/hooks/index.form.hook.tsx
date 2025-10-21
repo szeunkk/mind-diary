@@ -104,7 +104,7 @@ export const useSignupForm = () => {
             actions="single"
             theme="light"
             title="회원가입 완료"
-            description="회원가입이 완료되었습니다.\n로그인 페이지로 이동합니다."
+            description="로그인 페이지로 이동합니다."
             confirmText="확인"
             onConfirm={() => {
               closeAllModals();

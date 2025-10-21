@@ -69,7 +69,7 @@
 
 .errorMessage {
   font: var(--typo-body-03-m);
-  color: var(--color-danger);
+  color: var(--color-error);
   margin-top: 0.25rem;
 }
 
