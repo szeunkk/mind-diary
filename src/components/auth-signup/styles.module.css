@@ -65,7 +65,7 @@
 .errorMessage {
   margin-top: 0.25rem;
   font: var(--typo-body-03-s);
-  color: var(--color-danger);
+  color: var(--color-error);
 }
 
 /* Form Controls */

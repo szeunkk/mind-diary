@@ -186,7 +186,7 @@
 /* Error Message */
 .errorMessage {
   font: var(--typo-body-02);
-  color: var(--color-semantic-error);
+  color: var(--color-error);
   margin-top: 4px;
   padding-left: 4px;
 }
