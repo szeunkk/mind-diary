@@ -4,8 +4,12 @@ import React from "react";
 import Input from "@/commons/components/input";
 import Button from "@/commons/components/button";
 import styles from "./styles.module.css";
+import { useSignupForm } from "./hooks/index.form.hook";
 
 const AuthSignupComponent: React.FC = () => {
+  const { register, handleSubmit, errors, isValid, isSubmitting } =
+    useSignupForm();
+
   return (
     <div className={styles.container}>
       <div className={styles.formCard}>
@@ -16,65 +20,108 @@ const AuthSignupComponent: React.FC = () => {
           </p>
         </div>
 
-        <form className={styles.form}>
+        <form
+          className={styles.form}
+          onSubmit={handleSubmit}
+          data-testid="signup-form"
+        >
           <div className={styles.inputGroup}>
             <label className={styles.label} htmlFor="email">
               이메일
             </label>
-            <Input
-              id="email"
-              type="email"
-              variant="primary"
-              size="medium"
-              theme="light"
-              placeholder="이메일을 입력하세요"
-              className={styles.inputWrapper}
-            />
+            <div>
+              <Input
+                id="email"
+                type="email"
+                variant="primary"
+                size="medium"
+                theme="light"
+                placeholder="이메일을 입력하세요"
+                className={styles.inputWrapper}
+                data-testid="email-input"
+                {...register("email")}
+              />
+              {errors.email && (
+                <p className={styles.errorMessage} data-testid="email-error">
+                  {errors.email.message}
+                </p>
+              )}
+            </div>
           </div>
 
           <div className={styles.inputGroup}>
             <label className={styles.label} htmlFor="password">
               비밀번호
             </label>
-            <Input
-              id="password"
-              type="password"
-              variant="primary"
-              size="medium"
-              theme="light"
-              placeholder="비밀번호를 입력하세요"
-              className={styles.inputWrapper}
-            />
+            <div>
+              <Input
+                id="password"
+                type="password"
+                variant="primary"
+                size="medium"
+                theme="light"
+                placeholder="비밀번호를 입력하세요"
+                className={styles.inputWrapper}
+                data-testid="password-input"
+                {...register("password")}
+              />
+              {errors.password && (
+                <p className={styles.errorMessage} data-testid="password-error">
+                  {errors.password.message}
+                </p>
+              )}
+            </div>
           </div>
 
           <div className={styles.inputGroup}>
             <label className={styles.label} htmlFor="confirmPassword">
               비밀번호 재입력
             </label>
-            <Input
-              id="confirmPassword"
-              type="password"
-              variant="primary"
-              size="medium"
-              theme="light"
-              placeholder="비밀번호를 다시 입력하세요"
-              className={styles.inputWrapper}
-            />
+            <div>
+              <Input
+                id="confirmPassword"
+                type="password"
+                variant="primary"
+                size="medium"
+                theme="light"
+                placeholder="비밀번호를 다시 입력하세요"
+                className={styles.inputWrapper}
+                data-testid="password-confirm-input"
+                {...register("passwordConfirm")}
+              />
+              {errors.passwordConfirm && (
+                <p
+                  className={styles.errorMessage}
+                  data-testid="password-confirm-error"
+                >
+                  {errors.passwordConfirm.message}
+                </p>
+              )}
+            </div>
           </div>
 
           <div className={styles.inputGroup}>
             <label className={styles.label} htmlFor="name">
               이름
             </label>
-            <Input
-              id="name"
-              type="text"
-              variant="primary"
-              size="medium"
-              theme="light"
-              placeholder="이름을 입력하세요"
-              className={styles.inputWrapper}
-            />
+            <div>
+              <Input
+                id="name"
+                type="text"
+                variant="primary"
+                size="medium"
+                theme="light"
+                placeholder="이름을 입력하세요"
+                className={styles.inputWrapper}
+                data-testid="name-input"
+                {...register("name")}
+              />
+              {errors.name && (
+                <p className={styles.errorMessage} data-testid="name-error">
+                  {errors.name.message}
+                </p>
+              )}
+            </div>
           </div>
 
           <Button
@@ -83,8 +130,10 @@ const AuthSignupComponent: React.FC = () => {
             theme="light"
             className={styles.submitButton}
             type="submit"
+            disabled={!isValid || isSubmitting}
+            data-testid="submit-button"
           >
-            회원가입
+            {isSubmitting ? "처리중..." : "회원가입"}
           </Button>
         </form>
 
