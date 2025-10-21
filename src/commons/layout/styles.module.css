@@ -43,7 +43,19 @@
 .headerActions {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 16px;
+}
+
+.userName {
+  font: var(--typo-body-02-m);
+  color: var(--color-text-primary);
+  margin: 0;
+  white-space: nowrap;
+  letter-spacing: -0.14px;
+}
+
+.logoutButton {
+  width: auto;
 }
 
 /* Gap */

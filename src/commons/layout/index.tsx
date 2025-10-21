@@ -2,6 +2,7 @@
 
 import React from "react";
 import Image from "next/image";
+import Button from "@/commons/components/button";
 import styles from "./styles.module.css";
 import { useLinkRouting } from "./hooks/index.link.routing.hook";
 import { useArea } from "./hooks/index.area.hook";
@@ -36,7 +37,17 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                 <p className={styles.logoText}>민지의 다이어리</p>
               </div>
             )}
-            <div className={styles.headerActions}></div>
+            <div className={styles.headerActions}>
+              <p className={styles.userName}>민지님</p>
+              <Button
+                variant="secondary"
+                size="small"
+                theme="light"
+                className={styles.logoutButton}
+              >
+                로그아웃
+              </Button>
+            </div>
           </div>
         </header>
       )}
