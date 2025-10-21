@@ -58,6 +58,7 @@ export default function Modal({
               theme="light"
               onClick={onCancel}
               className={styles.buttonDual}
+              data-testid="modal-cancel-button"
             >
               {cancelText}
             </Button>
@@ -68,6 +69,7 @@ export default function Modal({
             theme="light"
             onClick={onConfirm}
             className={actions === "dual" ? styles.buttonDual : styles.button}
+            data-testid="modal-confirm-button"
           >
             {confirmText}
           </Button>

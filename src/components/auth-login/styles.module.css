@@ -67,6 +67,12 @@
   width: 100%;
 }
 
+.errorMessage {
+  font: var(--typo-body-03-m);
+  color: var(--color-danger);
+  margin-top: 0.25rem;
+}
+
 .submitButton {
   width: 100%;
 }
