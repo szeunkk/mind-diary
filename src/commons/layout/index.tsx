@@ -6,6 +6,7 @@ import Button from "@/commons/components/button";
 import styles from "./styles.module.css";
 import { useLinkRouting } from "./hooks/index.link.routing.hook";
 import { useArea } from "./hooks/index.area.hook";
+import { useAuthLayout } from "./hooks/index.auth.hook";
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -23,6 +24,8 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
   const { showHeader, showHeaderLogo, showBanner, showNavigation, showFooter } =
     useArea();
 
+  const { isLoggedIn, user, handleLogin, handleLogout } = useAuthLayout();
+
   return (
     <div className={styles.layout}>
       {showHeader && (
@@ -38,15 +41,33 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
               </div>
             )}
             <div className={styles.headerActions}>
-              <p className={styles.userName}>민지님</p>
-              <Button
-                variant="secondary"
-                size="small"
-                theme="light"
-                className={styles.logoutButton}
-              >
-                로그아웃
-              </Button>
+              {isLoggedIn ? (
+                <>
+                  <p className={styles.userName} data-testid="user-name">
+                    {user?.name || user?.email}님
+                  </p>
+                  <Button
+                    variant="secondary"
+                    size="small"
+                    theme="light"
+                    className={styles.logoutButton}
+                    onClick={handleLogout}
+                    data-testid="logout-button"
+                  >
+                    로그아웃
+                  </Button>
+                </>
+              ) : (
+                <Button
+                  variant="secondary"
+                  size="small"
+                  theme="light"
+                  onClick={handleLogin}
+                  data-testid="login-button"
+                >
+                  로그인
+                </Button>
+              )}
             </div>
           </div>
         </header>
