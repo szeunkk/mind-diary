@@ -2,6 +2,19 @@ import { test, expect } from "@playwright/test";
 
 test.describe("Diary Form Hook Tests", () => {
   test.beforeEach(async ({ page }) => {
+    // 로그인 상태 설정 (모든 페이지 로드 시 적용)
+    await page.addInitScript(() => {
+      localStorage.setItem("accessToken", "test-token");
+      localStorage.setItem(
+        "user",
+        JSON.stringify({
+          id: "test-user",
+          email: "test@example.com",
+          name: "Test User",
+        })
+      );
+    });
+
     // /diaries 페이지로 이동
     await page.goto("/diaries");
 

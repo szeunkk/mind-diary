@@ -78,12 +78,7 @@ test.describe("Pictures API Integration Tests", () => {
   test("성공 시나리오: dog.ceo API에서 온 실제 이미지 주소 확인", async ({
     page,
   }) => {
-    // API 로딩이 완료될 때까지 대기
-    await page.waitForSelector('[data-testid="picture-item"]', {
-      timeout: 1800,
-    });
-
-    // 네트워크 요청 모니터링
+    // 네트워크 요청 모니터링 먼저 설정
     const dogApiRequests: string[] = [];
     page.on("request", (request) => {
       if (request.url().includes("dog.ceo")) {
@@ -91,8 +86,10 @@ test.describe("Pictures API Integration Tests", () => {
       }
     });
 
-    // 페이지 새로고침하여 네트워크 요청 캡처
-    await page.reload();
+    // 캐시 무효화를 위해 새로운 페이지 컨텍스트로 재방문
+    await page.goto(PICTURES + "?cache_bust=" + Date.now());
+
+    // API 로딩이 완료될 때까지 대기
     await page.waitForSelector('[data-testid="picture-item"]', {
       timeout: 1800,
     });

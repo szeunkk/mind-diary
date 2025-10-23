@@ -2,6 +2,21 @@ import { test, expect } from "@playwright/test";
 import { Emotion } from "@/commons/constants/enum";
 
 test.describe("DiariesDetail Binding Hook", () => {
+  test.beforeEach(async ({ page }) => {
+    // 로그인 상태 설정 (모든 페이지 로드 시 적용)
+    await page.addInitScript(() => {
+      localStorage.setItem("accessToken", "test-token");
+      localStorage.setItem(
+        "user",
+        JSON.stringify({
+          id: "test-user",
+          email: "test@example.com",
+          name: "Test User",
+        })
+      );
+    });
+  });
+
   // 테스트용 실제 데이터
   const testDiaries = [
     {

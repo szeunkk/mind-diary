@@ -1,54 +1,130 @@
+/**
+ * 일기쓰기 모달 권한 분기 기능 테스트
+ *
+ * TDD 기반으로 일기쓰기 모달의 권한 분기 기능을 테스트합니다.
+ * - 비로그인 유저: 로그인 요청 모달 노출
+ * - 로그인 유저: 일기쓰기 모달 노출
+ */
+
 import { test, expect } from "@playwright/test";
 
-test.describe("일기 목록 페이지 - 일기쓰기 모달", () => {
-  test.beforeEach(async ({ page }) => {
-    // /diaries 페이지로 이동
-    await page.goto("/diaries");
+test.describe("일기 목록 페이지 - 일기쓰기 모달 (권한 분기)", () => {
+  test.describe("비로그인 유저 시나리오", () => {
+    test.beforeEach(async ({ page }) => {
+      // 비로그인 상태로 설정
+      await page.addInitScript(() => {
+        // localStorage 초기화 (이전 테스트의 로그인 정보 제거)
+        localStorage.clear();
+        // TEST_BYPASS를 false로 설정
+        window.__TEST_BYPASS__ = false;
+      });
 
-    // 페이지가 완전히 로드될 때까지 대기 (일기쓰기 버튼이 보일 때까지)
-    await page.waitForSelector('[data-testid="diary-new-open-button"]');
+      // /diaries 페이지로 이동
+      await page.goto("/diaries");
+
+      // 페이지가 완전히 로드될 때까지 대기
+      await page.waitForSelector('[data-testid="diaries-page"]');
+    });
+
+    test("일기쓰기 버튼 클릭 시 로그인 요청 모달이 노출된다", async ({
+      page,
+    }) => {
+      // 일기쓰기 버튼 클릭
+      await page.click('[data-testid="diary-new-open-button"]');
+
+      // 로그인 요청 모달이 표시되는지 확인
+      const modal = page.locator('text="로그인 하시겠습니까?"');
+      await expect(modal).toBeVisible();
+
+      // 로그인 요청 모달의 설명 확인
+      const description = page.locator(
+        'text="이 기능을 사용하려면 로그인이 필요합니다."'
+      );
+      await expect(description).toBeVisible();
+
+      // 확인 버튼 텍스트 확인
+      const confirmButton = page.locator(
+        '[data-testid="modal-confirm-button"]'
+      );
+      await expect(confirmButton).toHaveText("로그인하기");
+
+      // 일기쓰기 모달은 노출되지 않아야 함
+      const diaryNewModal = page.locator('[data-testid="diary-new-modal"]');
+      await expect(diaryNewModal).not.toBeVisible();
+    });
+
+    test("로그인 요청 모달에서 '로그인하기' 클릭 시 로그인 페이지로 이동한다", async ({
+      page,
+    }) => {
+      // 일기쓰기 버튼 클릭
+      await page.click('[data-testid="diary-new-open-button"]');
+
+      // 로그인 요청 모달이 표시될 때까지 대기
+      await page.waitForSelector('text="로그인 하시겠습니까?"');
+
+      // 확인 버튼 클릭
+      await page.click('[data-testid="modal-confirm-button"]');
+
+      // 로그인 페이지로 이동 확인
+      await expect(page).toHaveURL("/auth/login");
+    });
+
+    test("로그인 요청 모달에서 '취소' 클릭 시 모달이 닫힌다", async ({
+      page,
+    }) => {
+      // 일기쓰기 버튼 클릭
+      await page.click('[data-testid="diary-new-open-button"]');
+
+      // 로그인 요청 모달이 표시될 때까지 대기
+      await page.waitForSelector('text="로그인 하시겠습니까?"');
+
+      // 취소 버튼 클릭
+      await page.click('[data-testid="modal-cancel-button"]');
+
+      // 모달이 닫혔는지 확인
+      const modal = page.locator('text="로그인 하시겠습니까?"');
+      await expect(modal).not.toBeVisible();
+    });
   });
 
-  test("일기쓰기 버튼 클릭 시 모달이 열린다", async ({ page }) => {
-    // 일기쓰기 버튼 클릭
-    await page.click('[data-testid="diary-new-open-button"]');
+  test.describe("로그인 유저 시나리오", () => {
+    test.beforeEach(async ({ page }) => {
+      // 로그인 상태로 설정 (localStorage에 accessToken 추가)
+      await page.addInitScript(() => {
+        window.__TEST_BYPASS__ = true;
+        localStorage.setItem("accessToken", "test-token");
+        localStorage.setItem(
+          "user",
+          JSON.stringify({
+            id: "test-user",
+            email: "test@example.com",
+            name: "Test User",
+          })
+        );
+      });
 
-    // 모달이 표시되는지 확인
-    const modal = page.locator('[data-testid="diary-new-modal"]');
-    await expect(modal).toBeVisible();
+      // /diaries 페이지로 이동
+      await page.goto("/diaries");
 
-    // 모달 제목 확인
-    const modalTitle = page.locator('[data-testid="diary-new-title"]');
-    await expect(modalTitle).toHaveText("일기 쓰기");
-  });
+      // 페이지가 완전히 로드될 때까지 대기
+      await page.waitForSelector('[data-testid="diaries-page"]');
+    });
 
-  test.skip("모달의 닫기 버튼 클릭 시 모달이 닫힌다", async ({ page }) => {
-    // 일기쓰기 버튼 클릭하여 모달 열기
-    await page.click('[data-testid="diary-new-open-button"]');
+    test("일기쓰기 버튼 클릭 시 일기쓰기 모달이 노출된다", async ({ page }) => {
+      // 일기쓰기 버튼 클릭
+      await page.click('[data-testid="diary-new-open-button"]');
 
-    // 모달이 열렸는지 확인
-    const modal = page.locator('[data-testid="diary-new-modal"]');
-    await expect(modal).toBeVisible();
+      // 일기쓰기 모달이 표시되는지 확인
+      const modal = page.locator('[data-testid="diary-new-modal"]');
+      await expect(modal).toBeVisible();
 
-    // 닫기 버튼 클릭
-    await page.click('[data-testid="diary-new-close-button"]');
+      // 모달 제목 확인
+      const modalTitle = page.locator('[data-testid="diary-new-title"]');
+      await expect(modalTitle).toHaveText("일기 쓰기");
 
-    // 모달이 사라졌는지 확인
-    await expect(modal).not.toBeVisible();
-  });
-
-  test.skip("모달이 페이지 중앙에 오버레이되어 표시된다", async ({ page }) => {
-    // 일기쓰기 버튼 클릭하여 모달 열기
-    await page.click('[data-testid="diary-new-open-button"]');
-
-    // 모달 컨테이너 확인
-    const modalContainer = page.locator(
-      ".fixed.inset-0.z-50.flex.items-center.justify-center"
-    );
-    await expect(modalContainer).toBeVisible();
-
-    // 모달 컨텐츠 확인
-    const modal = page.locator('[data-testid="diary-new-modal"]');
-    await expect(modal).toBeVisible();
+      // 로그인 요청 모달은 노출되지 않아야 함
+      const loginModal = page.locator('text="로그인 하시겠습니까?"');
+      await expect(loginModal).not.toBeVisible();
+    });
   });
 });

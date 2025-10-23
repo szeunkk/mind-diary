@@ -41,11 +41,19 @@ export default function AuthGuard({ children }: AuthGuardProps) {
     const checkAuthorization = () => {
       const isTestEnv = process.env.NEXT_PUBLIC_TEST_ENV === "test";
 
-      // 테스트 환경에서는 모든 페이지 접근 허용
+      // 테스트 환경에서는 window.__TEST_BYPASS__ 체크
+      // window.__TEST_BYPASS__가 false이면 실제 검사를 수행
       if (isTestEnv) {
-        setIsAuthorized(true);
-        setIsChecking(false);
-        return;
+        const shouldBypass =
+          typeof window !== "undefined" && window.__TEST_BYPASS__ !== false;
+
+        if (shouldBypass) {
+          // 테스트 환경에서 권한 검사를 패스
+          setIsAuthorized(true);
+          setIsChecking(false);
+          return;
+        }
+        // shouldBypass가 false면 아래 실제 권한 검사 로직을 수행
       }
 
       // 현재 경로의 UrlKey 찾기
@@ -69,7 +77,11 @@ export default function AuthGuard({ children }: AuthGuardProps) {
       }
 
       // 회원 전용 페이지인데 로그인하지 않은 경우
-      if (!isLoggedIn) {
+      // localStorage도 직접 체크하여 상태 업데이트 지연 문제 해결
+      const hasAccessToken =
+        typeof window !== "undefined" && !!localStorage.getItem("accessToken");
+
+      if (!isLoggedIn && !hasAccessToken) {
         setIsAuthorized(false);
         setIsChecking(false);
 

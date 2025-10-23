@@ -95,6 +95,19 @@ test.describe("Layout Area 노출 여부 테스트", () => {
   test("/diaries/1 페이지에서 header와 footer만 노출되어야 함", async ({
     page,
   }) => {
+    // 로그인 상태 설정 (회원 전용 페이지 접근을 위해)
+    await page.addInitScript(() => {
+      localStorage.setItem("accessToken", "test-token");
+      localStorage.setItem(
+        "user",
+        JSON.stringify({
+          id: "test-user",
+          email: "test@example.com",
+          name: "Test User",
+        })
+      );
+    });
+
     await page.goto("/diaries/1");
 
     await page.waitForSelector('[data-testid="layout-header"]');

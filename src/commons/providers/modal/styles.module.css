@@ -26,8 +26,13 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  pointer-events: auto;
+  pointer-events: none; /* wrapper 자체는 클릭 통과 */
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+/* Modal Wrapper의 직계 자식만 클릭 가능 */
+.modalWrapper > * {
+  pointer-events: auto;
 }

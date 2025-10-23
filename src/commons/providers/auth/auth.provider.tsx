@@ -32,6 +32,8 @@ export interface AuthContextType {
   login: () => void;
   /** 로그아웃 (accessToken, user 제거 후 로그인 페이지로 이동) */
   logout: () => void;
+  /** 로그인 성공 시 상태 업데이트 (토큰, 유저 정보 저장) */
+  signIn: (token: string, userData: User) => void;
   /** 로그인 여부 (accessToken 유무로 판단) */
   isLoggedIn: boolean;
   /** 로그인한 유저 정보 (localStorage의 user) */
@@ -129,9 +131,21 @@ export default function AuthProvider({ children }: AuthProviderProps) {
     router.push(AUTH_LOGIN);
   }, [router]);
 
+  // 새로운 로그인 상태 세터 (로그인 성공 시 호출)
+  const signIn = useCallback((token: string, userData: User) => {
+    if (typeof window === "undefined") return;
+
+    localStorage.setItem("accessToken", token);
+    localStorage.setItem("user", JSON.stringify(userData));
+
+    setIsLoggedIn(true);
+    setUser(userData);
+  }, []);
+
   const value: AuthContextType = {
     login,
     logout,
+    signIn,
     isLoggedIn,
     user,
   };
