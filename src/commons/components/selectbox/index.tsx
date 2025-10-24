@@ -112,7 +112,11 @@ export default function Selectbox({
 
   return (
     <div className={styles.container} ref={selectRef}>
-      <div className={selectClasses} onClick={handleToggle}>
+      <div
+        className={selectClasses}
+        onClick={handleToggle}
+        data-testid="selectbox-trigger"
+      >
         <div className={styles.content}>
           <span className={styles.text}>{displayText}</span>
           <div className={styles.icon}>

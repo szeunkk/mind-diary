@@ -50,12 +50,30 @@
   align-items: center;
 }
 
-/* Picture Image Styles - 640x640px with 24px border-radius */
+/* Picture Image Styles - 동적 사이즈 with 24px border-radius */
 .pictureImage {
-  width: 640px;
-  height: 640px;
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 100%;
   object-fit: cover;
   border-radius: 24px;
+}
+
+/* 필터별 이미지 사이즈 - data-filter 속성 기반 */
+.pictureItem[data-filter="default"] .pictureImage {
+  width: 640px;
+  height: 640px;
+}
+
+.pictureItem[data-filter="horizontal"] .pictureImage {
+  width: 640px;
+  height: 480px;
+}
+
+.pictureItem[data-filter="vertical"] .pictureImage {
+  width: 480px;
+  height: 640px;
 }
 
 /* Splash Screen Styles - 스플래시 스크린 애니메이션 */

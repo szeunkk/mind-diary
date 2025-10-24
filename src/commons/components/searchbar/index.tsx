@@ -27,6 +27,8 @@ export default function SearchBar({
   onSearch,
   ...props
 }: SearchBarProps) {
+  const [inputValue, setInputValue] = React.useState("");
+
   const containerClasses = [
     styles.container,
     styles[`variant-${variant}`],
@@ -45,9 +47,20 @@ export default function SearchBar({
     props.onKeyPress?.(e);
   };
 
+  const handleIconClick = () => {
+    if (onSearch && !disabled) {
+      onSearch(inputValue);
+    }
+  };
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setInputValue(e.target.value);
+    props.onChange?.(e);
+  };
+
   return (
     <div className={containerClasses}>
-      <div className={styles.iconWrapper}>
+      <div className={styles.iconWrapper} onClick={handleIconClick}>
         <Image
           src="/icons/search_outline_light_m.svg"
           alt="search icon"
@@ -60,6 +73,8 @@ export default function SearchBar({
         className={styles.input}
         disabled={disabled}
         placeholder={placeholder}
+        value={inputValue}
+        onChange={handleInputChange}
         onKeyPress={handleKeyPress}
         {...props}
       />

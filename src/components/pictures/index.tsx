@@ -1,19 +1,16 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import Image from "next/image";
 import SelectBox from "@/commons/components/selectbox";
 import { useDogPictures, useSplashScreens } from "./hooks/index.binding.hook";
+import { usePictureFilter } from "./hooks/index.filter.hook";
 import styles from "./styles.module.css";
 
-const filterOptions = [
-  { value: "default", label: "기본" },
-  { value: "newest", label: "최신순" },
-  { value: "oldest", label: "오래된순" },
-];
-
 const PicturesComponent: React.FC = () => {
-  const [selectedFilter, setSelectedFilter] = useState("default");
+  // 필터 Hook 사용
+  const { selectedFilter, filterOptions, handleFilterChange } =
+    usePictureFilter();
 
   // API Hook 사용
   const {
@@ -29,10 +26,6 @@ const PicturesComponent: React.FC = () => {
   // 스플래시 스크린 Hook 사용
   const { splashScreens, showSplashScreens } =
     useSplashScreens(isInitialLoading);
-
-  const handleFilterChange = (value: string) => {
-    setSelectedFilter(value);
-  };
 
   return (
     <div className={styles.container} data-testid="pictures-container">
@@ -91,13 +84,15 @@ const PicturesComponent: React.FC = () => {
                   key={picture.id}
                   className={styles.pictureItem}
                   data-testid="picture-item"
+                  data-filter={selectedFilter}
                   ref={triggerRef || undefined}
                 >
                   <Image
                     src={picture.src}
                     alt={picture.alt}
-                    width={640}
-                    height={640}
+                    width={0}
+                    height={0}
+                    sizes="100vw"
                     className={styles.pictureImage}
                     data-testid="picture-image"
                   />

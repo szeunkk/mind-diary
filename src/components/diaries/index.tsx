@@ -8,7 +8,7 @@ import Button from "@/commons/components/button";
 import Pagination from "@/commons/components/pagination";
 import { getEmotionLabel, getEmotionImage } from "@/commons/constants/enum";
 import { useDiaryWriteModal } from "./hooks/index.link.modal.hook";
-import { useDiaryBinding } from "./hooks/index.binding.hook";
+import { useDiarySearch } from "./hooks/index.search.hook";
 import { useDiaryRouting } from "./hooks/index.link.routing.hook";
 import styles from "./styles.module.css";
 
@@ -17,7 +17,7 @@ const DiariesComponent: React.FC = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const totalPages = 5; // 총 페이지 수
   const { openDiaryWriteModal } = useDiaryWriteModal();
-  const diaries = useDiaryBinding();
+  const { filteredDiaries: diaries, handleSearch } = useDiarySearch();
   const { navigateToDiaryDetail } = useDiaryRouting();
 
   const filterOptions = [
@@ -33,10 +33,6 @@ const DiariesComponent: React.FC = () => {
     setSelectedFilter(value);
   };
 
-  const handleSearch = (value: string) => {
-    // 검색 로직 구현
-    console.log("검색어:", value);
-  };
 
   const handleWriteDiary = () => {
     // 일기쓰기 모달 열기
