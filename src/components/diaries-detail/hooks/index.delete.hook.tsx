@@ -4,24 +4,14 @@ import { useParams, useRouter } from "next/navigation";
 import { useModal } from "@/commons/providers/modal/modal.provider";
 import Button from "@/commons/components/button";
 import { DIARIES } from "@/commons/constants/url";
+import { DiaryDetailData } from "./index.binding.hook";
 import styles from "../styles.module.css";
-
-/**
- * 일기 데이터 타입
- */
-interface DiaryData {
-  id: number;
-  title: string;
-  content: string;
-  emotion: string;
-  createdAt: string;
-}
 
 /**
  * localStorage에서 일기 목록 가져오기
  * @returns 일기 데이터 배열
  */
-const getDiaries = (): DiaryData[] => {
+const getDiaries = (): DiaryDetailData[] => {
   if (typeof window === "undefined") {
     return [];
   }
@@ -39,7 +29,7 @@ const getDiaries = (): DiaryData[] => {
  * localStorage에 일기 목록 저장하기
  * @param diaries - 저장할 일기 데이터 배열
  */
-const saveDiaries = (diaries: DiaryData[]): void => {
+const saveDiaries = (diaries: DiaryDetailData[]): void => {
   if (typeof window === "undefined") {
     return;
   }

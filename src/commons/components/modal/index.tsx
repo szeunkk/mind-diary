@@ -41,11 +41,17 @@ export default function Modal({
     .join(" ");
 
   return (
-    <div className={modalClassName}>
+    <div className={modalClassName} data-testid="modal">
       <div className={styles.content}>
         <div className={styles.textArea}>
-          <h2 className={styles.title}>{title}</h2>
-          {description && <p className={styles.description}>{description}</p>}
+          <h2 className={styles.title} data-testid="modal-title">
+            {title}
+          </h2>
+          {description && (
+            <p className={styles.description} data-testid="modal-description">
+              {description}
+            </p>
+          )}
         </div>
 
         <div

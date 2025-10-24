@@ -33,14 +33,19 @@ test.describe("일기 목록 페이지 - 일기쓰기 모달 (권한 분기)", (
       await page.click('[data-testid="diary-new-open-button"]');
 
       // 로그인 요청 모달이 표시되는지 확인
-      const modal = page.locator('text="로그인 하시겠습니까?"');
+      const modal = page.locator('[data-testid="modal"]');
       await expect(modal).toBeVisible();
 
+      // 모달 제목 확인
+      const modalTitle = page.locator('[data-testid="modal-title"]');
+      await expect(modalTitle).toHaveText("로그인 하시겠습니까?");
+
       // 로그인 요청 모달의 설명 확인
-      const description = page.locator(
-        'text="이 기능을 사용하려면 로그인이 필요합니다."'
-      );
+      const description = page.locator('[data-testid="modal-description"]');
       await expect(description).toBeVisible();
+      await expect(description).toHaveText(
+        "이 기능을 사용하려면 로그인이 필요합니다."
+      );
 
       // 확인 버튼 텍스트 확인
       const confirmButton = page.locator(
@@ -60,7 +65,7 @@ test.describe("일기 목록 페이지 - 일기쓰기 모달 (권한 분기)", (
       await page.click('[data-testid="diary-new-open-button"]');
 
       // 로그인 요청 모달이 표시될 때까지 대기
-      await page.waitForSelector('text="로그인 하시겠습니까?"');
+      await page.waitForSelector('[data-testid="modal"]');
 
       // 확인 버튼 클릭
       await page.click('[data-testid="modal-confirm-button"]');
@@ -76,13 +81,13 @@ test.describe("일기 목록 페이지 - 일기쓰기 모달 (권한 분기)", (
       await page.click('[data-testid="diary-new-open-button"]');
 
       // 로그인 요청 모달이 표시될 때까지 대기
-      await page.waitForSelector('text="로그인 하시겠습니까?"');
+      await page.waitForSelector('[data-testid="modal"]');
 
       // 취소 버튼 클릭
       await page.click('[data-testid="modal-cancel-button"]');
 
       // 모달이 닫혔는지 확인
-      const modal = page.locator('text="로그인 하시겠습니까?"');
+      const modal = page.locator('[data-testid="modal"]');
       await expect(modal).not.toBeVisible();
     });
   });
@@ -119,12 +124,13 @@ test.describe("일기 목록 페이지 - 일기쓰기 모달 (권한 분기)", (
       await expect(modal).toBeVisible();
 
       // 모달 제목 확인
-      const modalTitle = page.locator('[data-testid="diary-new-title"]');
-      await expect(modalTitle).toHaveText("일기 쓰기");
+      const diaryNewTitle = page.locator('[data-testid="diary-new-title"]');
+      await expect(diaryNewTitle).toHaveText("일기 쓰기");
 
       // 로그인 요청 모달은 노출되지 않아야 함
-      const loginModal = page.locator('text="로그인 하시겠습니까?"');
-      await expect(loginModal).not.toBeVisible();
+      // (모달이 열렸다면 제목으로 확인)
+      const loginModalTitle = page.locator('[data-testid="modal-title"]');
+      await expect(loginModalTitle).not.toBeVisible();
     });
   });
 });

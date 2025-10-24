@@ -137,12 +137,18 @@ test.describe("일기 목록 페이지 - 일기 삭제 (권한 분기)", () => {
       await firstDeleteButton.click();
 
       // 삭제 모달이 표시되는지 확인
-      const modal = page.locator('text="일기 삭제"');
+      const modal = page.locator('[data-testid="modal"]');
       await expect(modal).toBeVisible();
 
+      // 삭제 모달 제목 확인
+      const modalTitle = page.locator('[data-testid="modal-title"]');
+      await expect(modalTitle).toBeVisible();
+      await expect(modalTitle).toHaveText("일기 삭제");
+
       // 삭제 모달 설명 확인
-      const description = page.locator('text="일기를 삭제 하시겠어요?"');
+      const description = page.locator('[data-testid="modal-description"]');
       await expect(description).toBeVisible();
+      await expect(description).toHaveText("일기를 삭제 하시겠어요?");
 
       // 취소 버튼 확인
       const cancelButton = page.locator('[data-testid="modal-cancel-button"]');
@@ -165,13 +171,13 @@ test.describe("일기 목록 페이지 - 일기 삭제 (권한 분기)", () => {
       await firstDeleteButton.click();
 
       // 삭제 모달이 표시될 때까지 대기
-      await page.waitForSelector('text="일기 삭제"');
+      await page.waitForSelector('[data-testid="modal"]');
 
       // 취소 버튼 클릭
       await page.click('[data-testid="modal-cancel-button"]');
 
       // 모달이 닫혔는지 확인
-      const modal = page.locator('text="일기 삭제"');
+      const modal = page.locator('[data-testid="modal"]');
       await expect(modal).not.toBeVisible();
     });
 
@@ -196,7 +202,7 @@ test.describe("일기 목록 페이지 - 일기 삭제 (권한 분기)", () => {
       await firstDeleteButton.click();
 
       // 삭제 모달이 표시될 때까지 대기
-      await page.waitForSelector('text="일기 삭제"');
+      await page.waitForSelector('[data-testid="modal"]');
 
       // 페이지 새로고침을 대기하기 위한 Promise 설정
       const navigationPromise = page.waitForNavigation({ waitUntil: "load" });
