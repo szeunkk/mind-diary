@@ -71,6 +71,7 @@
   width: 100%;
   max-width: 1168px;
   min-width: 320px;
+  align-content: flex-start;
 }
 
 .cardRow {

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React from "react";
 import Image from "next/image";
 import { useParams } from "next/navigation";
 import Button from "@/commons/components/button";
@@ -12,32 +12,9 @@ import {
   getEmotionColor,
 } from "@/commons/constants/enum";
 import { useDiaryBinding } from "./hooks/index.binding.hook";
-import {
-  useRetrospectForm,
-  RetrospectData,
-} from "./hooks/index.retrospect.form.hook";
+import { useRetrospectForm } from "./hooks/index.retrospect.form.hook";
+import { useRetrospectBinding } from "./hooks/index.retrospect.binding.hook";
 import styles from "./styles.module.css";
-
-// 표시용 회고 데이터 타입
-interface DisplayRetrospectData {
-  id: number;
-  content: string;
-  createdAt: string;
-}
-
-/**
- * ISO 날짜 문자열을 YYYY. MM. DD 형식으로 변환하는 함수
- */
-const formatRetrospectDate = (dateString: string): string => {
-  const date = new Date(dateString);
-  if (isNaN(date.getTime())) {
-    return dateString;
-  }
-  const year = date.getFullYear();
-  const month = String(date.getMonth() + 1).padStart(2, "0");
-  const day = String(date.getDate()).padStart(2, "0");
-  return `${year}. ${month}. ${day}`;
-};
 
 const DiariesDetailComponent: React.FC = () => {
   const params = useParams();
@@ -49,37 +26,8 @@ const DiariesDetailComponent: React.FC = () => {
   // 회고 폼 Hook
   const { register, handleSubmit, isSubmitEnabled } = useRetrospectForm();
 
-  // 회고 목록 상태
-  const [retrospectList, setRetrospectList] = useState<DisplayRetrospectData[]>(
-    []
-  );
-
-  // 회고 목록 로드 (현재 일기에 해당하는 회고만)
-  useEffect(() => {
-    if (typeof window === "undefined" || !currentDiaryId) {
-      return;
-    }
-
-    try {
-      const retrospects: RetrospectData[] = JSON.parse(
-        localStorage.getItem("retrospects") || "[]"
-      );
-
-      // 현재 일기에 해당하는 회고만 필터링
-      const filteredRetrospects = retrospects
-        .filter((r) => r.diaryId === currentDiaryId)
-        .map((r) => ({
-          id: r.id,
-          content: r.content,
-          createdAt: formatRetrospectDate(r.createdAt),
-        }))
-        .sort((a, b) => b.id - a.id); // 최신순 정렬
-
-      setRetrospectList(filteredRetrospects);
-    } catch (error) {
-      console.error("회고 목록 로드 중 오류:", error);
-    }
-  }, [currentDiaryId]);
+  // 회고 목록 바인딩 Hook
+  const retrospectList = useRetrospectBinding(currentDiaryId);
 
   const handleCopyContent = () => {
     if (diaryData) {
@@ -252,7 +200,10 @@ const DiariesDetailComponent: React.FC = () => {
               >
                 {retrospect.content}
               </span>
-              <span className={styles.retrospectDate}>
+              <span
+                className={styles.retrospectDate}
+                data-testid="retrospect-date"
+              >
                 [{retrospect.createdAt}]
               </span>
             </div>

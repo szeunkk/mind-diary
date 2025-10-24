@@ -8,31 +8,22 @@ import Button from "@/commons/components/button";
 import Pagination from "@/commons/components/pagination";
 import { getEmotionLabel, getEmotionImage } from "@/commons/constants/enum";
 import { useDiaryWriteModal } from "./hooks/index.link.modal.hook";
-import { useDiarySearch } from "./hooks/index.search.hook";
+import { useDiaryFilter } from "./hooks/index.filter.hook";
 import { useDiaryRouting } from "./hooks/index.link.routing.hook";
 import styles from "./styles.module.css";
 
 const DiariesComponent: React.FC = () => {
-  const [selectedFilter, setSelectedFilter] = useState("all");
   const [currentPage, setCurrentPage] = useState(1);
   const totalPages = 5; // 총 페이지 수
   const { openDiaryWriteModal } = useDiaryWriteModal();
-  const { filteredDiaries: diaries, handleSearch } = useDiarySearch();
+  const {
+    filteredDiaries: diaries,
+    filterOptions,
+    selectedFilter,
+    handleFilterChange,
+    handleSearch,
+  } = useDiaryFilter();
   const { navigateToDiaryDetail } = useDiaryRouting();
-
-  const filterOptions = [
-    { value: "all", label: "전체" },
-    { value: "happy", label: "기쁨" },
-    { value: "sad", label: "슬픔" },
-    { value: "angry", label: "화남" },
-    { value: "surprise", label: "놀람" },
-    { value: "etc", label: "기타" },
-  ];
-
-  const handleFilterChange = (value: string) => {
-    setSelectedFilter(value);
-  };
-
 
   const handleWriteDiary = () => {
     // 일기쓰기 모달 열기
@@ -71,6 +62,7 @@ const DiariesComponent: React.FC = () => {
               onChange={handleFilterChange}
               placeholder="전체"
               className={styles.filterSelect}
+              data-testid="filter-selectbox"
             />
           </div>
           <SearchBar
@@ -80,6 +72,7 @@ const DiariesComponent: React.FC = () => {
             placeholder="검색어를 입력해 주세요."
             onSearch={handleSearch}
             className={styles.searchInput}
+            data-testid="search-input"
           />
         </div>
         <div className={styles.searchRight}>

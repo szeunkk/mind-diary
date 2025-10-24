@@ -38,6 +38,7 @@ const PicturesComponent: React.FC = () => {
           options={filterOptions}
           value={selectedFilter}
           onChange={handleFilterChange}
+          data-testid="selectbox-trigger"
           className={styles.filterSelectBox}
         />
       </div>

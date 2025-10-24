@@ -26,6 +26,7 @@ export interface SelectboxProps {
   placeholder?: string;
   disabled?: boolean;
   className?: string;
+  "data-testid"?: string;
 }
 
 export default function Selectbox({
@@ -38,6 +39,7 @@ export default function Selectbox({
   placeholder = "선택하세요",
   disabled = false,
   className,
+  "data-testid": testId,
 }: SelectboxProps) {
   const [isOpen, setIsOpen] = useState(false);
   const selectRef = useRef<HTMLDivElement>(null);
@@ -115,7 +117,7 @@ export default function Selectbox({
       <div
         className={selectClasses}
         onClick={handleToggle}
-        data-testid="selectbox-trigger"
+        data-testid={testId}
       >
         <div className={styles.content}>
           <span className={styles.text}>{displayText}</span>
@@ -132,12 +134,13 @@ export default function Selectbox({
       </div>
 
       {isOpen && !disabled && (
-        <div className={dropdownClasses}>
+        <div className={dropdownClasses} data-testid="filter-dropdown">
           {options.map((option) => (
             <div
               key={option.value}
               className={optionClasses(option.value)}
               onClick={() => handleSelect(option.value)}
+              data-testid="filter-option"
             >
               <span className={styles.optionText}>{option.label}</span>
               {option.value === value && (

@@ -15,6 +15,7 @@ export interface SearchBarProps
   size?: "small" | "medium" | "large";
   theme?: "light" | "dark";
   onSearch?: (value: string) => void;
+  "data-testid"?: string;
 }
 
 export default function SearchBar({
@@ -58,9 +59,15 @@ export default function SearchBar({
     props.onChange?.(e);
   };
 
+  const testId = props["data-testid"];
+
   return (
     <div className={containerClasses}>
-      <div className={styles.iconWrapper} onClick={handleIconClick}>
+      <div
+        className={styles.iconWrapper}
+        onClick={handleIconClick}
+        data-testid="search-button"
+      >
         <Image
           src="/icons/search_outline_light_m.svg"
           alt="search icon"
@@ -77,6 +84,7 @@ export default function SearchBar({
         onChange={handleInputChange}
         onKeyPress={handleKeyPress}
         {...props}
+        data-testid={testId}
       />
     </div>
   );
