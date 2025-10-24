@@ -11,6 +11,7 @@ import { useDiaryWriteModal } from "./hooks/index.link.modal.hook";
 import { useDiaryFilter } from "./hooks/index.filter.hook";
 import { useDiaryRouting } from "./hooks/index.link.routing.hook";
 import { useDiaryPagination } from "./hooks/index.pagination.hook";
+import { useDiaryDelete } from "./hooks/index.delete.hook";
 import styles from "./styles.module.css";
 
 const DiariesComponent: React.FC = () => {
@@ -25,6 +26,7 @@ const DiariesComponent: React.FC = () => {
   const { navigateToDiaryDetail } = useDiaryRouting();
   const { paginatedDiaries, currentPage, totalPages, handlePageChange } =
     useDiaryPagination(filteredDiaries);
+  const { openDeleteModal, isDeleteVisible } = useDiaryDelete();
 
   const handleWriteDiary = () => {
     // 일기쓰기 모달 열기
@@ -34,8 +36,8 @@ const DiariesComponent: React.FC = () => {
   const handleDeleteDiary = (event: React.MouseEvent, diaryId: number) => {
     // 이벤트 전파 중지 (카드 클릭 이벤트가 발생하지 않도록)
     event.stopPropagation();
-    // 일기 삭제 로직
-    console.log("일기 삭제:", diaryId);
+    // 일기 삭제 모달 열기
+    openDeleteModal(diaryId);
   };
 
   const handleCardClick = (diaryId: number) => {
@@ -111,18 +113,20 @@ const DiariesComponent: React.FC = () => {
                   sizes="100vw"
                   className={styles.emotionImage}
                 />
-                <button
-                  className={styles.deleteButton}
-                  onClick={(e) => handleDeleteDiary(e, diary.id)}
-                  data-testid="delete-button"
-                >
-                  <Image
-                    src="/icons/close_outline_light_s.svg"
-                    alt="삭제"
-                    width={24}
-                    height={24}
-                  />
-                </button>
+                {isDeleteVisible && (
+                  <button
+                    className={styles.deleteButton}
+                    onClick={(e) => handleDeleteDiary(e, diary.id)}
+                    data-testid="delete-button"
+                  >
+                    <Image
+                      src="/icons/close_outline_light_s.svg"
+                      alt="삭제"
+                      width={24}
+                      height={24}
+                    />
+                  </button>
+                )}
               </div>
               <div className={styles.cardContent}>
                 <div className={styles.cardHeader}>

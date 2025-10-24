@@ -16,6 +16,7 @@ import { useDiaryBinding } from "./hooks/index.binding.hook";
 import { useRetrospectForm } from "./hooks/index.retrospect.form.hook";
 import { useRetrospectBinding } from "./hooks/index.retrospect.binding.hook";
 import { useUpdateDiary } from "./hooks/index.update.hook";
+import { useDeleteDiary } from "./hooks/index.delete.hook";
 import styles from "./styles.module.css";
 
 const DiariesDetailComponent: React.FC = () => {
@@ -46,15 +47,14 @@ const DiariesDetailComponent: React.FC = () => {
     emotion: selectedEmotion,
   } = useUpdateDiary();
 
+  // 일기 삭제 Hook
+  const { handleOpenDeleteModal } = useDeleteDiary();
+
   const handleCopyContent = () => {
     if (diaryData) {
       navigator.clipboard.writeText(diaryData.content);
       alert("내용이 복사되었습니다.");
     }
-  };
-
-  const handleDelete = () => {
-    console.log("삭제 버튼 클릭");
   };
 
   return (
@@ -253,7 +253,7 @@ const DiariesDetailComponent: React.FC = () => {
                 variant="tertiary"
                 size="small"
                 theme="light"
-                onClick={handleDelete}
+                onClick={handleOpenDeleteModal}
               >
                 삭제
               </Button>
