@@ -40,7 +40,7 @@
 
 /* Theme: Light */
 .theme-light.variant-primary {
-  background-color: var(--color-gray-white);
+  /* background-color: var(--color-gray-white); */
   border-color: var(--color-gray-20);
   color: var(--color-gray-black);
 }

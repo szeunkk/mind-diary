@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import Image from "next/image";
 import SelectBox from "@/commons/components/selectbox";
 import SearchBar from "@/commons/components/searchbar";
@@ -10,20 +10,21 @@ import { getEmotionLabel, getEmotionImage } from "@/commons/constants/enum";
 import { useDiaryWriteModal } from "./hooks/index.link.modal.hook";
 import { useDiaryFilter } from "./hooks/index.filter.hook";
 import { useDiaryRouting } from "./hooks/index.link.routing.hook";
+import { useDiaryPagination } from "./hooks/index.pagination.hook";
 import styles from "./styles.module.css";
 
 const DiariesComponent: React.FC = () => {
-  const [currentPage, setCurrentPage] = useState(1);
-  const totalPages = 5; // 총 페이지 수
   const { openDiaryWriteModal } = useDiaryWriteModal();
   const {
-    filteredDiaries: diaries,
+    filteredDiaries,
     filterOptions,
     selectedFilter,
     handleFilterChange,
     handleSearch,
   } = useDiaryFilter();
   const { navigateToDiaryDetail } = useDiaryRouting();
+  const { paginatedDiaries, currentPage, totalPages, handlePageChange } =
+    useDiaryPagination(filteredDiaries);
 
   const handleWriteDiary = () => {
     // 일기쓰기 모달 열기
@@ -40,11 +41,6 @@ const DiariesComponent: React.FC = () => {
   const handleCardClick = (diaryId: number) => {
     // 일기 상세 페이지로 이동
     navigateToDiaryDetail(diaryId);
-  };
-
-  const handlePageChange = (page: number) => {
-    setCurrentPage(page);
-    console.log("페이지 변경:", page);
   };
 
   return (
@@ -99,7 +95,7 @@ const DiariesComponent: React.FC = () => {
       <div className={styles.gap42}></div>
       <div className={styles.main}>
         <div className={styles.cardGrid}>
-          {diaries.map((diary) => (
+          {paginatedDiaries.map((diary) => (
             <div
               key={diary.id}
               className={styles.card}
