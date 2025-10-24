@@ -1,12 +1,3 @@
-/**
- * 일기 삭제 Hook
- *
- * 일기 삭제 기능을 제공합니다.
- * - 로그인된 사용자: 삭제 버튼 노출, 삭제 모달 열기, 삭제 처리
- * - 비로그인 사용자: 삭제 버튼 미노출
- * useModal, useAuthGuard를 사용하여 권한을 검증합니다.
- */
-
 "use client";
 
 import { useModal } from "@/commons/providers/modal/modal.provider";
