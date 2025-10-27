@@ -18,7 +18,8 @@
   height: 40px;
 }
 
-.search {
+/* 데스크탑 버전 (768px 이상) */
+.searchDesktop {
   display: flex;
   width: 100%;
   max-width: 1168px;
@@ -55,6 +56,38 @@
 
 .writeButton {
   width: auto;
+}
+
+/* 모바일 버전 (767px 이하) */
+.searchMobile {
+  display: none;
+  width: 100%;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.searchMobileTop {
+  display: flex;
+  width: 100%;
+}
+
+.searchMobileBottom {
+  display: flex;
+  width: 100%;
+  gap: 16px;
+  justify-content: space-between;
+}
+
+.searchInputMobile {
+  width: 100%;
+}
+
+.filterSelectMobile {
+  width: 102px;
+}
+
+.writeButtonMobile {
+  width: 103px;
 }
 
 .main {
@@ -207,8 +240,36 @@
 
 /* Responsive Styles */
 @media (max-width: 1208px) {
-  .search {
+  .searchDesktop {
     padding-left: 20px;
     padding-right: 20px;
+  }
+}
+
+/* 767px 이하: 모바일 버전 표시 */
+@media (max-width: 767px) {
+  .searchDesktop {
+    display: none;
+  }
+
+  .searchMobile {
+    display: flex;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  /* cardGrid 반응형 */
+  .cardGrid {
+    gap: 16px 16px;
+    row-gap: 24px;
+  }
+
+  .card {
+    width: 152px;
+    min-width: 152px;
+  }
+
+  .cardImage {
+    height: 116px;
   }
 }

@@ -190,3 +190,88 @@
   margin-top: 4px;
   padding-left: 4px;
 }
+
+/* Responsive - 767px 이하 */
+@media (max-width: 767px) {
+  /* Wrapper - 320 * 620 */
+  .wrapper {
+    width: 320px;
+    padding: 24px;
+    gap: 24px;
+  }
+
+  /* Header */
+  .header {
+    height: auto;
+  }
+
+  .headerContent {
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 24px;
+  }
+
+  /* Main Content */
+  .mainContent {
+    gap: 24px;
+  }
+
+  /* Emotion Box */
+  .emotionBox {
+    gap: 16px;
+  }
+
+  .emotionTitle {
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 20px;
+  }
+
+  /* Emotion Radio Group - 세로 배치 */
+  .emotionRadioGroup {
+    flex-direction: column;
+    gap: 12px;
+    align-items: flex-start;
+  }
+
+  .emotionRadioLabel {
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 20px;
+  }
+
+  /* Text Input Area */
+  .textInputArea {
+    gap: 16px;
+  }
+
+  /* Input Title */
+  .inputTitle {
+    gap: 8px;
+  }
+
+  .inputLabel {
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 16px;
+  }
+
+  /* Input Content */
+  .inputContent {
+    gap: 8px;
+  }
+
+  /* Footer */
+  .footer {
+    justify-content: center;
+  }
+
+  .footerContent {
+    gap: 16px;
+  }
+
+  /* Button Width - 104px -> 80px */
+  .buttonWidth {
+    width: 80px;
+  }
+}

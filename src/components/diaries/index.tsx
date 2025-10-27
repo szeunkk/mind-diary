@@ -48,7 +48,8 @@ const DiariesComponent: React.FC = () => {
   return (
     <div className={styles.container} data-testid="diaries-page">
       <div className={styles.gap32}></div>
-      <div className={styles.search}>
+      {/* 데스크탑 버전 (768px 이상) */}
+      <div className={styles.searchDesktop}>
         <div className={styles.searchLeft}>
           <div className={styles.dropdown}>
             <SelectBox
@@ -80,6 +81,53 @@ const DiariesComponent: React.FC = () => {
             theme="light"
             onClick={handleWriteDiary}
             className={styles.writeButton}
+            data-testid="diary-new-open-button"
+            icon={
+              <Image
+                src="/icons/plus_outline_light_m.svg"
+                alt="plus"
+                width={24}
+                height={24}
+              />
+            }
+          >
+            일기쓰기
+          </Button>
+        </div>
+      </div>
+      {/* 모바일 버전 (767px 이하) */}
+      <div className={styles.searchMobile}>
+        <div className={styles.searchMobileTop}>
+          <SearchBar
+            variant="primary"
+            size="medium"
+            theme="light"
+            placeholder="검색어를 입력해 주세요."
+            onSearch={handleSearch}
+            className={styles.searchInputMobile}
+            data-testid="search-input"
+          />
+        </div>
+        <div className={styles.searchMobileBottom}>
+          <div className={styles.dropdown}>
+            <SelectBox
+              variant="primary"
+              size="medium"
+              theme="light"
+              options={filterOptions}
+              value={selectedFilter}
+              onChange={handleFilterChange}
+              placeholder="전체"
+              className={styles.filterSelectMobile}
+              data-testid="filter-selectbox"
+            />
+          </div>
+          <Button
+            variant="primary"
+            size="medium"
+            theme="light"
+            onClick={handleWriteDiary}
+            className={styles.writeButtonMobile}
             data-testid="diary-new-open-button"
             icon={
               <Image
