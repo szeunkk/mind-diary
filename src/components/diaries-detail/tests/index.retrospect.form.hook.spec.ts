@@ -82,7 +82,7 @@ test.describe("회고 폼 등록 기능", () => {
           titleEl && titleEl.textContent && titleEl.textContent.trim() !== ""
         );
       },
-      { timeout: 5000 }
+      { timeout: 500 }
     );
   });
 
@@ -140,7 +140,7 @@ test.describe("회고 폼 등록 기능", () => {
           titleEl && titleEl.textContent && titleEl.textContent.trim() !== ""
         );
       },
-      { timeout: 5000 }
+      { timeout: 500 }
     );
 
     // localStorage 확인
@@ -193,7 +193,7 @@ test.describe("회고 폼 등록 기능", () => {
           titleEl && titleEl.textContent && titleEl.textContent.trim() !== ""
         );
       },
-      { timeout: 5000 }
+      { timeout: 500 }
     );
 
     // 새로운 회고 입력 및 제출
@@ -221,7 +221,7 @@ test.describe("회고 폼 등록 기능", () => {
           titleEl && titleEl.textContent && titleEl.textContent.trim() !== ""
         );
       },
-      { timeout: 5000 }
+      { timeout: 500 }
     );
 
     // localStorage 확인
@@ -269,7 +269,7 @@ test.describe("회고 폼 등록 기능", () => {
           titleEl && titleEl.textContent && titleEl.textContent.trim() !== ""
         );
       },
-      { timeout: 5000 }
+      { timeout: 500 }
     );
 
     // 입력 필드 초기화 확인
@@ -317,7 +317,7 @@ test.describe("회고 폼 등록 기능", () => {
           titleEl && titleEl.textContent && titleEl.textContent.trim() !== ""
         );
       },
-      { timeout: 10000 }
+      { timeout: 500 }
     );
 
     const retrospectInput2 = page.locator('[data-testid="retrospect-input"]');

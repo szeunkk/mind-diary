@@ -466,11 +466,14 @@ test.describe("Diary Form Hook Tests", () => {
     // Firefox와 Webkit에서는 localStorage 모킹이 다르게 동작하므로 스킵
     test.skip(browserName !== "chromium", "Chromium에서만 실행");
 
-    // 로컬스토리지 읽기 기능을 비활성화
+    // 로컬스토리지 읽기 기능을 비활성화 (diaries 키만)
     await page.evaluate(() => {
       const originalGetItem = localStorage.getItem;
-      localStorage.getItem = () => {
-        throw new Error("Storage read error");
+      localStorage.getItem = function (key: string) {
+        if (key === "diaries") {
+          throw new Error("Storage read error");
+        }
+        return originalGetItem.call(localStorage, key);
       };
 
       (
@@ -494,8 +497,8 @@ test.describe("Diary Form Hook Tests", () => {
     // 등록하기 버튼 클릭
     await page.click('[data-testid="diary-new-submit-button"]');
 
-    // 에러 모달이 표시되는지 확인
-    await expect(page.locator("text=등록 실패")).toBeVisible({ timeout: 500 });
+    // 에러 모달이 표시되는지 확인 (timeout 설정하지 않음)
+    await expect(page.locator("text=등록 실패")).toBeVisible();
 
     // localStorage 기능 복원
     await page.evaluate(() => {

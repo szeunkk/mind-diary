@@ -7,25 +7,75 @@ import { test, expect } from "@playwright/test";
  * 엣지 케이스와 에러 처리를 테스트합니다.
  */
 test.describe("회고 바인딩 Hook 강화 테스트 (엣지 케이스 & 에러 처리)", () => {
+  // 공통 일기 데이터
+  const testDiary = {
+    id: 1,
+    title: "테스트 일기",
+    content: "테스트 내용",
+    emotion: "HAPPY",
+    createdAt: "2024-01-01T00:00:00.000Z",
+  };
+
+  const testDiaryZero = {
+    id: 0,
+    title: "ID가 0인 일기",
+    content: "경계값 테스트",
+    emotion: "HAPPY",
+    createdAt: "2024-01-02T00:00:00.000Z",
+  };
+
+  const testDiaryNegative = {
+    id: -1,
+    title: "음수 ID 일기",
+    content: "음수 테스트",
+    emotion: "SAD",
+    createdAt: "2024-01-03T00:00:00.000Z",
+  };
+
   test.beforeEach(async ({ page, context }) => {
-    // 로컬스토리지 초기화
+    // 쿠키 초기화
     await context.clearCookies();
+
+    // 로그인 상태 설정 (Auth Guard 우회)
     await page.goto("/diaries/1");
     await page.evaluate(() => {
-      localStorage.clear();
+      window.__TEST_BYPASS__ = true;
+      localStorage.setItem("accessToken", "test-token");
+      localStorage.setItem(
+        "user",
+        JSON.stringify({
+          id: "test-user",
+          email: "test@example.com",
+          name: "Test User",
+        })
+      );
     });
   });
 
   test("잘못된 JSON 형식일 때 에러 처리 후 빈 목록을 표시해야 함", async ({
     page,
   }) => {
-    // Given: 로컬스토리지에 잘못된 JSON 저장
-    await page.evaluate(() => {
-      localStorage.setItem("retrospects", "{ invalid json }");
-    });
-
-    // When: 페이지 로드
+    // Given: 로컬스토리지에 일기와 잘못된 JSON 저장
     await page.goto("/diaries/1");
+    await page.evaluate((diary) => {
+      localStorage.clear();
+      // 로그인 상태 재설정
+      window.__TEST_BYPASS__ = true;
+      localStorage.setItem("accessToken", "test-token");
+      localStorage.setItem(
+        "user",
+        JSON.stringify({
+          id: "test-user",
+          email: "test@example.com",
+          name: "Test User",
+        })
+      );
+      localStorage.setItem("diaries", JSON.stringify([diary]));
+      localStorage.setItem("retrospects", "{ invalid json }");
+    }, testDiary);
+
+    // When: 페이지 리로드
+    await page.reload();
     await page.waitForSelector('[data-testid="diary-detail-container"]');
 
     // Then: 에러가 발생해도 앱이 크래시하지 않고 빈 목록 표시
@@ -39,8 +89,22 @@ test.describe("회고 바인딩 Hook 강화 테스트 (엣지 케이스 & 에러
   test("createdAt이 잘못된 형식일 때 원본 문자열을 그대로 표시해야 함", async ({
     page,
   }) => {
-    // Given: createdAt이 잘못된 형식인 회고
-    await page.evaluate(() => {
+    // Given: 일기와 createdAt이 잘못된 형식인 회고
+    await page.goto("/diaries/1");
+    await page.evaluate((diary) => {
+      localStorage.clear();
+      // 로그인 상태 재설정
+      window.__TEST_BYPASS__ = true;
+      localStorage.setItem("accessToken", "test-token");
+      localStorage.setItem(
+        "user",
+        JSON.stringify({
+          id: "test-user",
+          email: "test@example.com",
+          name: "Test User",
+        })
+      );
+      localStorage.setItem("diaries", JSON.stringify([diary]));
       const retrospects = [
         {
           id: 1,
@@ -50,10 +114,10 @@ test.describe("회고 바인딩 Hook 강화 테스트 (엣지 케이스 & 에러
         },
       ];
       localStorage.setItem("retrospects", JSON.stringify(retrospects));
-    });
+    }, testDiary);
 
-    // When: 페이지 로드
-    await page.goto("/diaries/1");
+    // When: 페이지 리로드
+    await page.reload();
     await page.waitForSelector('[data-testid="diary-detail-container"]');
 
     // 데이터 렌더링 대기
@@ -79,8 +143,22 @@ test.describe("회고 바인딩 Hook 강화 테스트 (엣지 케이스 & 에러
   test("회고가 1개만 있을 때 (경계값) 올바르게 표시되어야 함", async ({
     page,
   }) => {
-    // Given: 회고 1개만 존재
-    await page.evaluate(() => {
+    // Given: 일기와 회고 1개만 존재
+    await page.goto("/diaries/1");
+    await page.evaluate((diary) => {
+      localStorage.clear();
+      // 로그인 상태 재설정
+      window.__TEST_BYPASS__ = true;
+      localStorage.setItem("accessToken", "test-token");
+      localStorage.setItem(
+        "user",
+        JSON.stringify({
+          id: "test-user",
+          email: "test@example.com",
+          name: "Test User",
+        })
+      );
+      localStorage.setItem("diaries", JSON.stringify([diary]));
       const retrospects = [
         {
           id: 1,
@@ -90,10 +168,10 @@ test.describe("회고 바인딩 Hook 강화 테스트 (엣지 케이스 & 에러
         },
       ];
       localStorage.setItem("retrospects", JSON.stringify(retrospects));
-    });
+    }, testDiary);
 
-    // When: 페이지 로드
-    await page.goto("/diaries/1");
+    // When: 페이지 리로드
+    await page.reload();
     await page.waitForSelector('[data-testid="diary-detail-container"]');
 
     // 데이터 렌더링 대기
@@ -119,8 +197,22 @@ test.describe("회고 바인딩 Hook 강화 테스트 (엣지 케이스 & 에러
   test("같은 diaryId를 가진 회고가 많을 때 (100개) 모두 표시되어야 함", async ({
     page,
   }) => {
-    // Given: 100개의 회고 생성
-    await page.evaluate(() => {
+    // Given: 일기와 100개의 회고 생성
+    await page.goto("/diaries/1");
+    await page.evaluate((diary) => {
+      localStorage.clear();
+      // 로그인 상태 재설정
+      window.__TEST_BYPASS__ = true;
+      localStorage.setItem("accessToken", "test-token");
+      localStorage.setItem(
+        "user",
+        JSON.stringify({
+          id: "test-user",
+          email: "test@example.com",
+          name: "Test User",
+        })
+      );
+      localStorage.setItem("diaries", JSON.stringify([diary]));
       const retrospects = Array.from({ length: 100 }, (_, i) => ({
         id: i + 1,
         content: `회고 ${i + 1}`,
@@ -131,10 +223,10 @@ test.describe("회고 바인딩 Hook 강화 테스트 (엣지 케이스 & 에러
         )}T10:00:00.000Z`,
       }));
       localStorage.setItem("retrospects", JSON.stringify(retrospects));
-    });
+    }, testDiary);
 
-    // When: 페이지 로드
-    await page.goto("/diaries/1");
+    // When: 페이지 리로드
+    await page.reload();
     await page.waitForSelector('[data-testid="diary-detail-container"]');
 
     // 데이터 렌더링 대기 (많은 데이터이므로 조금 더 대기)
@@ -145,7 +237,7 @@ test.describe("회고 바인딩 Hook 강화 테스트 (엣지 케이스 & 에러
         );
         return elements.length > 0;
       },
-      { timeout: 1000 }
+      { timeout: 500 }
     );
 
     // Then: 100개 모두 표시
@@ -161,8 +253,22 @@ test.describe("회고 바인딩 Hook 강화 테스트 (엣지 케이스 & 에러
   test("diaryId가 0일 때 (특수 경계값) 올바르게 필터링되어야 함", async ({
     page,
   }) => {
-    // Given: diaryId가 0인 회고
-    await page.evaluate(() => {
+    // Given: diaryId 0인 일기와 회고
+    await page.goto("/diaries/0");
+    await page.evaluate((diary) => {
+      localStorage.clear();
+      // 로그인 상태 재설정
+      window.__TEST_BYPASS__ = true;
+      localStorage.setItem("accessToken", "test-token");
+      localStorage.setItem(
+        "user",
+        JSON.stringify({
+          id: "test-user",
+          email: "test@example.com",
+          name: "Test User",
+        })
+      );
+      localStorage.setItem("diaries", JSON.stringify([diary]));
       const retrospects = [
         {
           id: 1,
@@ -178,10 +284,10 @@ test.describe("회고 바인딩 Hook 강화 테스트 (엣지 케이스 & 에러
         },
       ];
       localStorage.setItem("retrospects", JSON.stringify(retrospects));
-    });
+    }, testDiaryZero);
 
-    // When: diaryId 0 페이지로 이동
-    await page.goto("/diaries/0");
+    // When: diaryId 0 페이지 리로드
+    await page.reload();
     await page.waitForSelector('[data-testid="diary-detail-container"]');
 
     // Then: diaryId 0의 회고만 표시되어야 함 (현재 Hook은 0을 falsy로 처리할 수 있음)
@@ -195,8 +301,22 @@ test.describe("회고 바인딩 Hook 강화 테스트 (엣지 케이스 & 에러
   });
 
   test("음수 diaryId일 때 올바르게 필터링되어야 함", async ({ page }) => {
-    // Given: 음수 diaryId를 가진 회고
-    await page.evaluate(() => {
+    // Given: 음수 diaryId인 일기와 회고
+    await page.goto("/diaries/-1");
+    await page.evaluate((diary) => {
+      localStorage.clear();
+      // 로그인 상태 재설정
+      window.__TEST_BYPASS__ = true;
+      localStorage.setItem("accessToken", "test-token");
+      localStorage.setItem(
+        "user",
+        JSON.stringify({
+          id: "test-user",
+          email: "test@example.com",
+          name: "Test User",
+        })
+      );
+      localStorage.setItem("diaries", JSON.stringify([diary]));
       const retrospects = [
         {
           id: 1,
@@ -212,10 +332,10 @@ test.describe("회고 바인딩 Hook 강화 테스트 (엣지 케이스 & 에러
         },
       ];
       localStorage.setItem("retrospects", JSON.stringify(retrospects));
-    });
+    }, testDiaryNegative);
 
-    // When: 음수 diaryId 페이지로 이동
-    await page.goto("/diaries/-1");
+    // When: 음수 diaryId 페이지 리로드
+    await page.reload();
     await page.waitForSelector('[data-testid="diary-detail-container"]');
 
     // 데이터 렌더링 대기
@@ -241,8 +361,22 @@ test.describe("회고 바인딩 Hook 강화 테스트 (엣지 케이스 & 에러
   test("특수문자가 포함된 회고 내용도 올바르게 표시되어야 함", async ({
     page,
   }) => {
-    // Given: 특수문자가 포함된 회고
-    await page.evaluate(() => {
+    // Given: 일기와 특수문자가 포함된 회고
+    await page.goto("/diaries/1");
+    await page.evaluate((diary) => {
+      localStorage.clear();
+      // 로그인 상태 재설정
+      window.__TEST_BYPASS__ = true;
+      localStorage.setItem("accessToken", "test-token");
+      localStorage.setItem(
+        "user",
+        JSON.stringify({
+          id: "test-user",
+          email: "test@example.com",
+          name: "Test User",
+        })
+      );
+      localStorage.setItem("diaries", JSON.stringify([diary]));
       const retrospects = [
         {
           id: 1,
@@ -252,10 +386,10 @@ test.describe("회고 바인딩 Hook 강화 테스트 (엣지 케이스 & 에러
         },
       ];
       localStorage.setItem("retrospects", JSON.stringify(retrospects));
-    });
+    }, testDiary);
 
-    // When: 페이지 로드
-    await page.goto("/diaries/1");
+    // When: 페이지 리로드
+    await page.reload();
     await page.waitForSelector('[data-testid="diary-detail-container"]');
 
     // 데이터 렌더링 대기
@@ -281,22 +415,39 @@ test.describe("회고 바인딩 Hook 강화 테스트 (엣지 케이스 & 에러
   });
 
   test("매우 긴 회고 내용도 올바르게 표시되어야 함", async ({ page }) => {
-    // Given: 매우 긴 회고 (5000자)
+    // Given: 일기와 매우 긴 회고 (5000자)
     const longContent = "가".repeat(5000);
-    await page.evaluate((content) => {
-      const retrospects = [
-        {
-          id: 1,
-          content: content,
-          diaryId: 1,
-          createdAt: "2024-01-15T10:00:00.000Z",
-        },
-      ];
-      localStorage.setItem("retrospects", JSON.stringify(retrospects));
-    }, longContent);
-
-    // When: 페이지 로드
     await page.goto("/diaries/1");
+    await page.evaluate(
+      (data) => {
+        localStorage.clear();
+        // 로그인 상태 재설정
+        window.__TEST_BYPASS__ = true;
+        localStorage.setItem("accessToken", "test-token");
+        localStorage.setItem(
+          "user",
+          JSON.stringify({
+            id: "test-user",
+            email: "test@example.com",
+            name: "Test User",
+          })
+        );
+        localStorage.setItem("diaries", JSON.stringify([data.diary]));
+        const retrospects = [
+          {
+            id: 1,
+            content: data.content,
+            diaryId: 1,
+            createdAt: "2024-01-15T10:00:00.000Z",
+          },
+        ];
+        localStorage.setItem("retrospects", JSON.stringify(retrospects));
+      },
+      { diary: testDiary, content: longContent }
+    );
+
+    // When: 페이지 리로드
+    await page.reload();
     await page.waitForSelector('[data-testid="diary-detail-container"]');
 
     // 데이터 렌더링 대기

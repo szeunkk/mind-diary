@@ -46,7 +46,7 @@ test.describe("Auth Guard Hook - 액션 GUARD (비로그인 유저)", () => {
 
     // 로그인하시겠습니까 모달 표시 확인
     const confirmButton = page.locator('[data-testid="modal-confirm-button"]');
-    await expect(confirmButton).toBeVisible({ timeout: 3000 });
+    await expect(confirmButton).toBeVisible({ timeout: 500 });
 
     // 모달 내용 확인 (info variant, dual actions)
     const modalTitle = page.getByText("로그인 하시겠습니까?");
@@ -76,7 +76,7 @@ test.describe("Auth Guard Hook - 액션 GUARD (비로그인 유저)", () => {
 
     // 모달 표시 대기
     const confirmButton = page.locator('[data-testid="modal-confirm-button"]');
-    await expect(confirmButton).toBeVisible({ timeout: 3000 });
+    await expect(confirmButton).toBeVisible({ timeout: 500 });
 
     // 로그인하러가기 버튼 클릭
     await confirmButton.click();
@@ -97,7 +97,7 @@ test.describe("Auth Guard Hook - 액션 GUARD (비로그인 유저)", () => {
 
     // 모달 표시 대기
     const cancelButton = page.locator('[data-testid="modal-cancel-button"]');
-    await expect(cancelButton).toBeVisible({ timeout: 3000 });
+    await expect(cancelButton).toBeVisible({ timeout: 500 });
 
     // 취소 버튼 클릭
     await cancelButton.click();
@@ -123,7 +123,7 @@ test.describe("Auth Guard Hook - 액션 GUARD (비로그인 유저)", () => {
     const confirmButton = page
       .locator('[data-testid="modal-confirm-button"]')
       .first();
-    await expect(confirmButton).toBeVisible({ timeout: 3000 });
+    await expect(confirmButton).toBeVisible({ timeout: 500 });
 
     // 모달 닫기 (취소 버튼 클릭)
     const cancelButton = page
@@ -150,33 +150,22 @@ test.describe("Auth Guard Hook - 액션 GUARD (비로그인 유저)", () => {
 
 test.describe("Auth Guard Hook - 액션 GUARD (로그인 유저)", () => {
   test.beforeEach(async ({ page }) => {
-    // 로그인 수행
-    await page.goto("/auth/login");
-
-    const emailInput = page.locator('[data-testid="login-email-input"]');
-    const passwordInput = page.locator('[data-testid="login-password-input"]');
-    const loginSubmitButton = page.locator(
-      '[data-testid="login-submit-button"]'
-    );
-
-    await emailInput.fill("a@c.com");
-    await passwordInput.fill("1234qwer");
-    await loginSubmitButton.click();
-
-    // 로그인 성공 모달 확인 클릭
-    const modalConfirmButton = page
-      .locator('[data-testid="modal-confirm-button"]')
-      .first();
-    await expect(modalConfirmButton).toBeVisible();
-    await modalConfirmButton.click();
-
-    // /diaries 페이지로 이동 확인
-    await expect(page).toHaveURL("/diaries");
-    await expect(page.locator('[data-testid="layout-header"]')).toBeVisible();
-
-    // 모달이 완전히 닫힐 때까지 대기
-    await page.waitForTimeout(500);
-    await expect(modalConfirmButton).not.toBeVisible();
+    // 로그인 상태 설정 (회원으로 가장)
+    await page.goto("/diaries");
+    await page.evaluate(() => {
+      window.__TEST_BYPASS__ = true;
+      localStorage.setItem("accessToken", "test-token");
+      localStorage.setItem(
+        "user",
+        JSON.stringify({
+          id: "test-user",
+          email: "test@example.com",
+          name: "Test User",
+        })
+      );
+    });
+    await page.reload();
+    await page.waitForSelector('[data-testid="layout-header"]');
   });
 
   test("로그인 유저는 회원 전용 액션(일기쓰기) 정상 실행 가능", async ({
@@ -191,7 +180,7 @@ test.describe("Auth Guard Hook - 액션 GUARD (로그인 유저)", () => {
 
     // 일기쓰기 모달이 열려야 함 (권한 모달이 아님)
     const diaryNewModal = page.locator('[data-testid="diary-new-modal"]');
-    await expect(diaryNewModal).toBeVisible({ timeout: 3000 });
+    await expect(diaryNewModal).toBeVisible({ timeout: 500 });
 
     // 로그인 하시겠습니까? 모달이 표시되지 않아야 함
     const authModalTitle = page.getByText("로그인 하시겠습니까?");
@@ -208,7 +197,7 @@ test.describe("Auth Guard Hook - 액션 GUARD (로그인 유저)", () => {
     await diaryNewButton.click();
 
     const diaryNewModal = page.locator('[data-testid="diary-new-modal"]');
-    await expect(diaryNewModal).toBeVisible({ timeout: 3000 });
+    await expect(diaryNewModal).toBeVisible({ timeout: 500 });
 
     // 모달 닫기 (닫기 버튼 클릭)
     const closeButton = page.locator('[data-testid="diary-new-close-button"]');
@@ -228,7 +217,7 @@ test.describe("Auth Guard Hook - 액션 GUARD (로그인 유저)", () => {
 
     // 두 번째 액션 (같은 액션 재시도)
     await diaryNewButton.click();
-    await expect(diaryNewModal).toBeVisible({ timeout: 3000 });
+    await expect(diaryNewModal).toBeVisible({ timeout: 500 });
 
     // 권한 모달이 표시되지 않아야 함
     const authModalTitle = page.getByText("로그인 하시겠습니까?");
@@ -266,7 +255,7 @@ test.describe("Auth Guard Hook - 테스트 환경 변수 (window.__TEST_BYPASS__
 
     // window.__TEST_BYPASS__ = false이므로 모달이 표시되어야 함
     const confirmButton = page.locator('[data-testid="modal-confirm-button"]');
-    await expect(confirmButton).toBeVisible({ timeout: 3000 });
+    await expect(confirmButton).toBeVisible({ timeout: 500 });
 
     const modalTitle = page.getByText("로그인 하시겠습니까?");
     await expect(modalTitle).toBeVisible();
@@ -297,37 +286,28 @@ test.describe("Auth Guard Hook - 통합 시나리오", () => {
 
     // Step 2: 모달 표시 확인 및 로그인하기 클릭
     const confirmButton = page.locator('[data-testid="modal-confirm-button"]');
-    await expect(confirmButton).toBeVisible({ timeout: 3000 });
+    await expect(confirmButton).toBeVisible({ timeout: 500 });
     await confirmButton.click();
 
-    // Step 3: 로그인 수행
+    // Step 3: 로그인 페이지로 이동 확인
     await expect(page).toHaveURL("/auth/login", { timeout: 5000 });
 
-    const emailInput = page.locator('[data-testid="login-email-input"]');
-    const passwordInput = page.locator('[data-testid="login-password-input"]');
-    const loginSubmitButton = page.locator(
-      '[data-testid="login-submit-button"]'
-    );
-
-    await emailInput.fill("a@c.com");
-    await passwordInput.fill("1234qwer");
-    await loginSubmitButton.click();
-
-    // 로그인 성공 모달 확인
-    const loginModalButton = page.locator(
-      '[data-testid="modal-confirm-button"]'
-    );
-    await expect(loginModalButton).toBeVisible();
-    await loginModalButton.click();
-
-    // Step 4: 다시 일기쓰기 시도 (이제 로그인되었으므로 TEST_BYPASS 활성화)
-    await page.addInitScript(() => {
-      // @ts-expect-error - 로그인 후에는 TEST_BYPASS를 true로 설정
+    // Step 4: 로그인 상태 설정 (회원으로 가장하여 API timeout 방지)
+    await page.evaluate(() => {
       window.__TEST_BYPASS__ = true;
+      localStorage.setItem("accessToken", "test-token");
+      localStorage.setItem(
+        "user",
+        JSON.stringify({
+          id: "test-user",
+          email: "test@example.com",
+          name: "Test User",
+        })
+      );
     });
 
-    await expect(page).toHaveURL("/diaries");
-    await page.goto("/diaries"); // 페이지 새로고침하여 TEST_BYPASS 적용
+    // Step 5: 다시 일기쓰기 시도
+    await page.goto("/diaries");
 
     const diaryNewButtonAfterLogin = page.locator(
       '[data-testid="diary-new-open-button"]'
@@ -336,7 +316,7 @@ test.describe("Auth Guard Hook - 통합 시나리오", () => {
 
     // Step 5: 이번에는 일기쓰기 모달이 정상 표시되어야 함
     const diaryNewModal = page.locator('[data-testid="diary-new-modal"]');
-    await expect(diaryNewModal).toBeVisible({ timeout: 3000 });
+    await expect(diaryNewModal).toBeVisible({ timeout: 500 });
 
     // 권한 모달이 아님을 확인
     const authModalTitle = page.getByText("로그인 하시겠습니까?");

@@ -3,6 +3,20 @@ import { Emotion } from "@/commons/constants/enum";
 
 test.describe("일기 목록 페이지 - 라우팅", () => {
   test.beforeEach(async ({ page }) => {
+    // 로그인 상태 및 TEST_BYPASS 설정
+    await page.addInitScript(() => {
+      window.__TEST_BYPASS__ = true;
+      localStorage.setItem("accessToken", "test-token");
+      localStorage.setItem(
+        "user",
+        JSON.stringify({
+          id: "test-user",
+          email: "test@example.com",
+          name: "Test User",
+        })
+      );
+    });
+
     // 로컬스토리지에 실제 테스트 데이터 설정
     await page.goto("/diaries");
 

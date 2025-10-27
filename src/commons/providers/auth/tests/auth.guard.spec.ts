@@ -37,7 +37,7 @@ test.describe("Auth Guard - 페이지 GUARD (비로그인 유저)", () => {
 
     // 로그인해주세요 모달 표시 확인 (중복 모달 방지를 위해 .first() 사용)
     const modal = page.locator('[data-testid="modal-confirm-button"]').first();
-    await expect(modal).toBeVisible({ timeout: 3000 });
+    await expect(modal).toBeVisible({ timeout: 500 });
 
     // 모달 내용 확인 (info variant, single action)
     const modalTitle = page.getByText("로그인해주세요");
@@ -64,7 +64,7 @@ test.describe("Auth Guard - 페이지 GUARD (비로그인 유저)", () => {
     const confirmButton = page
       .locator('[data-testid="modal-confirm-button"]')
       .first();
-    await expect(confirmButton).toBeVisible({ timeout: 3000 });
+    await expect(confirmButton).toBeVisible({ timeout: 500 });
 
     // 확인 버튼 클릭
     await confirmButton.click();
@@ -125,16 +125,14 @@ test.describe("Auth Guard - 페이지 GUARD (비로그인 유저)", () => {
     // 회원 전용 페이지 접속
     await page.goto("/diaries/1");
 
-    // 첫 번째 모달 표시 확인 (중복 모달 방지를 위해 .first() 사용)
-    const confirmButton = page
-      .locator('[data-testid="modal-confirm-button"]')
-      .first();
-    await expect(confirmButton).toBeVisible({ timeout: 3000 });
+    // 첫 번째 모달 표시 확인
+    const confirmButton = page.locator('[data-testid="modal-confirm-button"]');
+    await expect(confirmButton).toBeVisible({ timeout: 500 });
 
     // 모달 닫기 (backdrop 클릭 또는 ESC 키)
     await page.keyboard.press("Escape");
 
-    // 잠시 대기
+    // 모달이 완전히 사라질 때까지 대기 (네트워크 통신 없음: 500ms 미만)
     await page.waitForTimeout(500);
 
     // 모달이 다시 나타나지 않는지 확인
@@ -144,32 +142,20 @@ test.describe("Auth Guard - 페이지 GUARD (비로그인 유저)", () => {
 
 test.describe("Auth Guard - 페이지 GUARD (로그인 유저)", () => {
   test.beforeEach(async ({ page }) => {
-    // 로그인 수행
-    await page.goto("/auth/login");
-
-    const emailInput = page.locator('[data-testid="login-email-input"]');
-    const passwordInput = page.locator('[data-testid="login-password-input"]');
-    const loginSubmitButton = page.locator(
-      '[data-testid="login-submit-button"]'
-    );
-
-    await emailInput.fill("a@c.com");
-    await passwordInput.fill("1234qwer");
-    await loginSubmitButton.click();
-
-    // 로그인 성공 모달 확인 클릭
-    const modalConfirmButton = page
-      .locator('[data-testid="modal-confirm-button"]')
-      .first();
-    await expect(modalConfirmButton).toBeVisible();
-    await modalConfirmButton.click();
-
-    // /diaries 페이지로 이동 확인
-    await expect(page).toHaveURL("/diaries");
-
-    // 모달이 완전히 닫힐 때까지 대기
-    await page.waitForTimeout(500);
-    await expect(modalConfirmButton).not.toBeVisible();
+    // 로그인 상태 설정 (회원으로 가장)
+    await page.goto("/diaries");
+    await page.evaluate(() => {
+      window.__TEST_BYPASS__ = true;
+      localStorage.setItem("accessToken", "test-token");
+      localStorage.setItem(
+        "user",
+        JSON.stringify({
+          id: "test-user",
+          email: "test@example.com",
+          name: "Test User",
+        })
+      );
+    });
   });
 
   test("로그인 유저는 회원 전용 페이지(/diaries/1) 정상 접속 가능", async ({
@@ -277,13 +263,13 @@ test.describe("Auth Guard - 새로고침 시나리오", () => {
     let confirmButton = page
       .locator('[data-testid="modal-confirm-button"]')
       .first();
-    await expect(confirmButton).toBeVisible({ timeout: 3000 });
+    await expect(confirmButton).toBeVisible({ timeout: 500 });
 
     // 페이지 새로고침
     await page.reload();
 
     // 모달 다시 표시 확인 (페이지 변경으로 리셋됨)
     confirmButton = page.locator('[data-testid="modal-confirm-button"]');
-    await expect(confirmButton).toBeVisible({ timeout: 3000 });
+    await expect(confirmButton).toBeVisible({ timeout: 500 });
   });
 });

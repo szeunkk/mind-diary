@@ -2,17 +2,55 @@ import { test, expect } from "@playwright/test";
 
 test.describe("회고 바인딩 Hook 테스트", () => {
   test.beforeEach(async ({ page, context }) => {
-    // 로컬스토리지 초기화
+    // 쿠키 초기화
     await context.clearCookies();
+
+    // 로그인 상태 설정 (Auth Guard 우회)
     await page.goto("/diaries/1");
     await page.evaluate(() => {
-      localStorage.clear();
+      window.__TEST_BYPASS__ = true;
+      localStorage.setItem("accessToken", "test-token");
+      localStorage.setItem(
+        "user",
+        JSON.stringify({
+          id: "test-user",
+          email: "test@example.com",
+          name: "Test User",
+        })
+      );
     });
   });
 
   test("해당 diaryId의 회고만 필터링하여 표시되어야 함", async ({ page }) => {
-    // Given: 로컬스토리지에 여러 일기의 회고 데이터 저장
+    // Given: 로컬스토리지에 일기와 회고 데이터 저장
+    await page.goto("/diaries/1");
     await page.evaluate(() => {
+      localStorage.clear();
+      // 로그인 상태 재설정
+      window.__TEST_BYPASS__ = true;
+      localStorage.setItem("accessToken", "test-token");
+      localStorage.setItem(
+        "user",
+        JSON.stringify({
+          id: "test-user",
+          email: "test@example.com",
+          name: "Test User",
+        })
+      );
+      // 일기 데이터 설정
+      localStorage.setItem(
+        "diaries",
+        JSON.stringify([
+          {
+            id: 1,
+            title: "테스트 일기",
+            content: "테스트 내용",
+            emotion: "HAPPY",
+            createdAt: "2024-01-01T00:00:00.000Z",
+          },
+        ])
+      );
+      // 회고 데이터
       const retrospects = [
         {
           id: 1,
@@ -36,8 +74,8 @@ test.describe("회고 바인딩 Hook 테스트", () => {
       localStorage.setItem("retrospects", JSON.stringify(retrospects));
     });
 
-    // When: 페이지 로드 (diaryId = 1)
-    await page.goto("/diaries/1");
+    // When: 페이지 리로드 (diaryId = 1)
+    await page.reload();
     await page.waitForSelector('[data-testid="diary-detail-container"]');
 
     // Then: diaryId가 1인 회고만 표시되어야 함
@@ -54,8 +92,35 @@ test.describe("회고 바인딩 Hook 테스트", () => {
   test("해당 diaryId의 회고가 없으면 빈 목록이 표시되어야 함", async ({
     page,
   }) => {
-    // Given: 로컬스토리지에 다른 일기의 회고만 존재
+    // Given: 로컬스토리지에 일기와 다른 일기의 회고만 존재
+    await page.goto("/diaries/1");
     await page.evaluate(() => {
+      localStorage.clear();
+      // 로그인 상태 재설정
+      window.__TEST_BYPASS__ = true;
+      localStorage.setItem("accessToken", "test-token");
+      localStorage.setItem(
+        "user",
+        JSON.stringify({
+          id: "test-user",
+          email: "test@example.com",
+          name: "Test User",
+        })
+      );
+      // 일기 데이터 (필수)
+      localStorage.setItem(
+        "diaries",
+        JSON.stringify([
+          {
+            id: 1,
+            title: "테스트 일기",
+            content: "테스트 내용",
+            emotion: "HAPPY",
+            createdAt: "2024-01-01T00:00:00.000Z",
+          },
+        ])
+      );
+      // 다른 일기의 회고 데이터
       const retrospects = [
         {
           id: 1,
@@ -73,8 +138,8 @@ test.describe("회고 바인딩 Hook 테스트", () => {
       localStorage.setItem("retrospects", JSON.stringify(retrospects));
     });
 
-    // When: 페이지 로드 (diaryId = 1)
-    await page.goto("/diaries/1");
+    // When: 페이지 리로드 (diaryId = 1)
+    await page.reload();
     await page.waitForSelector('[data-testid="diary-detail-container"]');
 
     // Then: 회고가 표시되지 않아야 함
@@ -88,10 +153,39 @@ test.describe("회고 바인딩 Hook 테스트", () => {
   test("로컬스토리지가 비어있으면 빈 목록이 표시되어야 함", async ({
     page,
   }) => {
-    // Given: 로컬스토리지가 비어있음 (beforeEach에서 clear됨)
-
-    // When: 페이지 로드
+    // Given: 로컬스토리지에 일기만 있고 회고는 없음
     await page.goto("/diaries/1");
+    await page.evaluate(() => {
+      localStorage.clear();
+      // 로그인 상태 재설정
+      window.__TEST_BYPASS__ = true;
+      localStorage.setItem("accessToken", "test-token");
+      localStorage.setItem(
+        "user",
+        JSON.stringify({
+          id: "test-user",
+          email: "test@example.com",
+          name: "Test User",
+        })
+      );
+      // 일기 데이터 (필수)
+      localStorage.setItem(
+        "diaries",
+        JSON.stringify([
+          {
+            id: 1,
+            title: "테스트 일기",
+            content: "테스트 내용",
+            emotion: "HAPPY",
+            createdAt: "2024-01-01T00:00:00.000Z",
+          },
+        ])
+      );
+      // 회고 데이터 없음
+    });
+
+    // When: 페이지 리로드
+    await page.reload();
     await page.waitForSelector('[data-testid="diary-detail-container"]');
 
     // Then: 회고가 표시되지 않아야 함
@@ -103,8 +197,35 @@ test.describe("회고 바인딩 Hook 테스트", () => {
   });
 
   test("회고 날짜가 YYYY. MM. DD 형식으로 표시되어야 함", async ({ page }) => {
-    // Given: 로컬스토리지에 회고 데이터 저장
+    // Given: 로컬스토리지에 일기와 회고 데이터 저장
+    await page.goto("/diaries/1");
     await page.evaluate(() => {
+      localStorage.clear();
+      // 로그인 상태 재설정
+      window.__TEST_BYPASS__ = true;
+      localStorage.setItem("accessToken", "test-token");
+      localStorage.setItem(
+        "user",
+        JSON.stringify({
+          id: "test-user",
+          email: "test@example.com",
+          name: "Test User",
+        })
+      );
+      // 일기 데이터 (필수)
+      localStorage.setItem(
+        "diaries",
+        JSON.stringify([
+          {
+            id: 1,
+            title: "테스트 일기",
+            content: "테스트 내용",
+            emotion: "HAPPY",
+            createdAt: "2024-01-01T00:00:00.000Z",
+          },
+        ])
+      );
+      // 회고 데이터
       const retrospects = [
         {
           id: 1,
@@ -116,8 +237,8 @@ test.describe("회고 바인딩 Hook 테스트", () => {
       localStorage.setItem("retrospects", JSON.stringify(retrospects));
     });
 
-    // When: 페이지 로드
-    await page.goto("/diaries/1");
+    // When: 페이지 리로드
+    await page.reload();
     await page.waitForSelector('[data-testid="diary-detail-container"]');
 
     // Then: 날짜가 YYYY. MM. DD 형식으로 표시되어야 함
@@ -130,8 +251,35 @@ test.describe("회고 바인딩 Hook 테스트", () => {
   });
 
   test("여러 회고가 최신순으로 정렬되어야 함", async ({ page }) => {
-    // Given: 로컬스토리지에 날짜가 다른 여러 회고 저장
+    // Given: 로컬스토리지에 일기와 날짜가 다른 여러 회고 저장
+    await page.goto("/diaries/1");
     await page.evaluate(() => {
+      localStorage.clear();
+      // 로그인 상태 재설정
+      window.__TEST_BYPASS__ = true;
+      localStorage.setItem("accessToken", "test-token");
+      localStorage.setItem(
+        "user",
+        JSON.stringify({
+          id: "test-user",
+          email: "test@example.com",
+          name: "Test User",
+        })
+      );
+      // 일기 데이터 (필수)
+      localStorage.setItem(
+        "diaries",
+        JSON.stringify([
+          {
+            id: 1,
+            title: "테스트 일기",
+            content: "테스트 내용",
+            emotion: "HAPPY",
+            createdAt: "2024-01-01T00:00:00.000Z",
+          },
+        ])
+      );
+      // 회고 데이터 (순서 섞여있음)
       const retrospects = [
         {
           id: 1,
@@ -155,8 +303,8 @@ test.describe("회고 바인딩 Hook 테스트", () => {
       localStorage.setItem("retrospects", JSON.stringify(retrospects));
     });
 
-    // When: 페이지 로드
-    await page.goto("/diaries/1");
+    // When: 페이지 리로드
+    await page.reload();
     await page.waitForSelector('[data-testid="diary-detail-container"]');
 
     // Then: id 기준 최신순 정렬 (id가 클수록 최신)

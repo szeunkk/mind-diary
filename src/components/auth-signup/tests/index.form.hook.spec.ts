@@ -133,6 +133,7 @@ test.describe("회원가입 폼 테스트", () => {
 
     await submitButton.click();
 
+    // 성공 모달이 나타날 때까지 대기 (네트워크 통신: 2000ms 미만)
     await page.waitForSelector('[data-testid="modal-success"]', {
       timeout: 1999,
     });

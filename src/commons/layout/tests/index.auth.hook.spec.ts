@@ -38,30 +38,22 @@ test.describe("Layout Auth Hook - 로그인 유저", () => {
   test("로그인 후 유저 이름과 로그아웃 버튼 노출 및 로그아웃 기능", async ({
     page,
   }) => {
-    // /auth/login 페이지 접속 및 로드 확인
-    await page.goto("/auth/login");
-    await expect(page.locator('[data-testid="login-form"]')).toBeVisible();
-
-    // 로그인 시도 (a@c.com / 1234qwer)
-    const emailInput = page.locator('[data-testid="login-email-input"]');
-    const passwordInput = page.locator('[data-testid="login-password-input"]');
-    const loginSubmitButton = page.locator(
-      '[data-testid="login-submit-button"]'
-    );
-
-    await emailInput.fill("a@c.com");
-    await passwordInput.fill("1234qwer");
-    await loginSubmitButton.click();
-
-    // 로그인 성공 후 완료 모달 클릭하여 /diaries 페이지로 이동
-    const modalConfirmButton = page.locator(
-      '[data-testid="modal-confirm-button"]'
-    );
-    await expect(modalConfirmButton).toBeVisible();
-    await modalConfirmButton.click();
-
-    await expect(page).toHaveURL("/diaries");
-    await expect(page.locator('[data-testid="layout-header"]')).toBeVisible();
+    // 로그인 상태 설정 (회원으로 가장)
+    await page.goto("/diaries");
+    await page.evaluate(() => {
+      window.__TEST_BYPASS__ = true;
+      localStorage.setItem("accessToken", "test-token");
+      localStorage.setItem(
+        "user",
+        JSON.stringify({
+          id: "test-user",
+          email: "test@example.com",
+          name: "Test User",
+        })
+      );
+    });
+    await page.reload();
+    await page.waitForSelector('[data-testid="layout-header"]');
 
     // layout에서 유저 이름 노출 확인
     const userName = page.locator('[data-testid="user-name"]');

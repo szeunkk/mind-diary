@@ -28,16 +28,16 @@ test.describe("로그인 폼 훅 테스트", () => {
   });
 
   test("로그인 성공 시나리오 - 실제 API 사용", async ({ page }) => {
-    // 실제 데이터 입력
-    await page.getByTestId("login-email-input").fill("a@c.com");
-    await page.getByTestId("login-password-input").fill("1234qwer");
+    // 실제 데이터 입력 (프롬프트 요구사항: audwogus@bnd.com / audwogus1204)
+    await page.getByTestId("login-email-input").fill("audwogus@bnd.com");
+    await page.getByTestId("login-password-input").fill("audwogus1204");
 
     // 로그인 버튼 클릭
     await page.getByTestId("login-submit-button").click();
 
-    // 성공 모달이 나타날 때까지 대기 (2000ms 미만)
+    // 성공 모달이 나타날 때까지 대기 (네트워크 통신: 2000ms 미만)
     await page.waitForSelector('[data-testid="modal-success"]', {
-      timeout: 2000,
+      timeout: 1999,
     });
 
     // 모달 내용 확인
@@ -88,9 +88,9 @@ test.describe("로그인 폼 훅 테스트", () => {
     // 로그인 버튼 클릭
     await page.getByTestId("login-submit-button").click();
 
-    // 실패 모달이 나타날 때까지 대기 (2000ms 미만)
+    // 실패 모달이 나타날 때까지 대기 (API 모킹이므로 네트워크 통신 아님: 500ms 미만)
     await page.waitForSelector('[data-testid="modal-error"]', {
-      timeout: 2000,
+      timeout: 500,
     });
 
     // 모달 내용 확인
