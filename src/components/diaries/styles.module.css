@@ -1,7 +1,8 @@
 .container {
   display: flex;
   flex-direction: column;
-  width: 1168px;
+  align-items: center;
+  width: 100%;
   margin: 0 auto;
 }
 
@@ -20,6 +21,7 @@
 .search {
   display: flex;
   width: 100%;
+  max-width: 1168px;
   height: 48px;
   align-items: flex-start;
   justify-content: space-between;
@@ -48,7 +50,6 @@
 
 .searchInput {
   max-width: 360px;
-  min-width: 320px;
   flex: 1;
 }
 
@@ -66,7 +67,7 @@
 .cardGrid {
   display: flex;
   flex-wrap: wrap;
-  justify-content: flex-start;
+  justify-content: center;
   gap: 24px;
   width: 100%;
   max-width: 1168px;
@@ -202,4 +203,12 @@
   width: 100%;
   justify-content: center;
   align-items: center;
+}
+
+/* Responsive Styles */
+@media (max-width: 1208px) {
+  .search {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
 }

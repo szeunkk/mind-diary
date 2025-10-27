@@ -209,3 +209,21 @@
   width: min-content;
   min-width: 100%;
 }
+
+/* Responsive Styles */
+@media (max-width: 1208px) {
+  .headerContent {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .bannerContent {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .navigationContent {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+}
