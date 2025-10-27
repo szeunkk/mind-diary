@@ -187,12 +187,16 @@
   font-weight: 500;
 }
 
+/* 반응형 디자인 - 브레이크포인트 1208px */
+@media (max-width: 1208px) {
+  .container {
+    padding: 0 20px;
+  }
+}
+
 /* 반응형 디자인 - 브레이크포인트 767px */
 @media (max-width: 767px) {
   /* 모바일 화면에서 container padding 조정 */
-  .container {
-    padding: 0 40px;
-  }
 
   /* 필터별 이미지 사이즈 - 모바일 버전 */
   .pictureItem[data-filter="default"] .pictureImage {
